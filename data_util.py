@@ -64,6 +64,7 @@ def parse_bj_aq_data(fill_method="ffill"):
 
 	return bj_aq_dataset, stations, bj_aq_stations, bj_aq_stations_merged
 
+
 def generate_model_data(merged_data, step, m):
 	'''
 	Input:
@@ -99,6 +100,37 @@ def generate_model_data(merged_data, step, m):
 		Y_batches.append(Y_batch)
 
 	return X_batches, Y_batches
+
+
+def generate_model_data_v1(merged_data, step):
+	'''
+	Input:
+		step : sample step.
+		m : batch size.
+	Return:
+		Training data of shape (m, Tx, feature_length), (m, Ty, feature_length)
+	'''
+
+	X_dataset = []
+	Y_dataset = []
+
+	model_length = 7 * 24
+	data_length = merged_data.shape[0]
+
+	for i in range(0,data_length - model_length, step):
+		X = merged_data.ix[i:i+5*24].values
+		Y = merged_data.ix[i+5*24:i+7*24].values
+		X = np.expand_dims(X, axis=0) # (1, Tx, feature_length)
+		Y = np.expand_dims(Y, axis=0) # (1, Ty, feature_length)
+
+		X_dataset.append(X) 
+		Y_dataset.append(Y)
+
+	X_batches = np.concatenate((X_dataset), axis=0)
+	Y_batches = np.concatenate((Y_dataset), axis=0)
+
+	return X_batches, Y_batches
+
 
 
 def plot_station(bj_aq_stations, station, feature, minimum=datetime.datetime(2017,1,1), maxmimum=datetime.datetime(2018,3,30)):
