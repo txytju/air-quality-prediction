@@ -31,7 +31,6 @@ def parse_bj_aq_data(fill_method="ffill"):
 	print("NaN in O3 is %d, %7.6f %%" %(o3_nan, 100 * o3_nan/num_rows))
 	print("NaN in SO2 is %d, %7.6f %%" %(so2_nan, 100 * so2_nan/num_rows))
 
-
 	# 所有的站的名字
 	stations = set(bj_aq_dataset['stationId'])
 	# type(bj_aq_data['stationId'])
@@ -65,33 +64,43 @@ def parse_bj_aq_data(fill_method="ffill"):
 	return bj_aq_dataset, stations, bj_aq_stations, bj_aq_stations_merged
 
 
-def generate_model_data(merged_data, step, m):
+def generate_model_data(merged_data, m, X_hours, Y_hours = 48, step=1):
 	'''
 	Input:
 		step : sample step.
 		m : batch size.
+		X_hours : use how many hours in a X data.
 	Return:
 		list of m batch size data.
 	'''
-
 	X_dataset = []
 	Y_dataset = []
 
-	model_length = 7 * 24
+	model_length = X_hours + Y_hours
+
 	data_length = merged_data.shape[0]
 
-	for i in range(0,data_length - model_length, step):
-		X = merged_data.ix[i:i+5*24].values
-		Y = merged_data.ix[i+5*24:i+7*24].values
-		X = np.expand_dims(X, axis=0) # (1, Tx, feature_length)
-		Y = np.expand_dims(Y, axis=0) # (1, Ty, feature_length)
+	for i in range(0, data_length - model_length, step):
+		X = merged_data.ix[i : i+X_hours].values
+		Y = merged_data.ix[i+X_hours : i+model_length].values
+
+		if m!=1 :
+			X = np.expand_dims(X, axis=0) # (1, Tx, feature_length)
+			Y = np.expand_dims(Y, axis=0) # (1, Ty, feature_length)
+										  # otherwise not using mini-batch
+										  # (Tx, feature_length), (Ty, feature_length)
 		X_dataset.append(X) 
 		Y_dataset.append(Y)
 
+	# if not using mini_batch, just return X_dataset and Y_dataset
+	if m==1 :
+		return X_dataset, Y_dataset
+
+	# if using mini_batch, create X_batches and Y_batches
 	X_batches = []
 	Y_batches = []
-	num = len(X_dataset) // m
-	for j in range(num):
+	batch_num = len(X_dataset) // m
+	for j in range(batch_num):
 		X_batch = X_dataset[j*m:(j+1)*m]
 		Y_batch = Y_dataset[j*m:(j+1)*m]
 		X_batch = np.concatenate((X_batch), axis=0)
