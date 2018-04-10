@@ -90,8 +90,14 @@ def generate_model_data(merged_data, m, X_hours, Y_hours = 48, step=1):
 			Y = np.expand_dims(Y, axis=0) # (1, Ty, feature_length)
 										  # otherwise not using mini-batch
 										  # (Tx, feature_length), (Ty, feature_length)
-		X_dataset.append(X) 
-		Y_dataset.append(Y)
+		
+		# 剔除 NaN
+		if True in np.isnan(X) or True in np.isnan(Y):
+			continue
+		else : 
+			X_dataset.append(X) 
+			Y_dataset.append(Y)
+
 
 	# if not using mini_batch, just return X_dataset and Y_dataset
 	if m==1 :
