@@ -73,6 +73,7 @@ def generate_model_data(merged_data, m, X_hours, Y_hours = 48, step=1):
 	Return:
 		list of m batch size data.
 	'''
+	
 	X_dataset = []
 	Y_dataset = []
 
@@ -117,7 +118,7 @@ def generate_model_data_v1(merged_data, step):
 		step : sample step.
 		m : batch size.
 	Return:
-		Training data of shape (m, Tx, feature_length), (m, Ty, feature_length)
+		Data of shape (m, Tx, feature_length), (m, Ty, feature_length)
 	'''
 
 	X_dataset = []
@@ -139,6 +140,29 @@ def generate_model_data_v1(merged_data, step):
 	Y_batches = np.concatenate((Y_dataset), axis=0)
 
 	return X_batches, Y_batches
+
+# def split_dataset(dataset):
+# 	'''
+# 	Small data set. Use split of 70%, 15%, 15% for train/dev/test set
+# 	There are 3 kinds of data shape:
+# 		1. (m, Tx, feature_length), (m, Ty, feature_length)
+# 		2. list of (Tx, feature_length) ; list of (Ty, feature_length)
+# 		3. list of (m, Tx, feature_length) ; list of (m, Ty, feature_length)
+# 	'''
+
+# 	# type 1
+
+# 	# type 2
+# 	X_dataset, Y_dataset = dataset
+# 	index = list(range(len(X_dataset))
+# 	np.random.shuffle(index)
+# 	return 
+
+
+# def unison_shuffled_copies(a, b):
+# 	assert len(a) == len(b)
+# 	p = numpy.random.permutation(len(a))
+# 	return a[p], b[p]
 
 
 
