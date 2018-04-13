@@ -167,7 +167,7 @@ def convert_df_to_dicts(df):
 
 
 
-def train_and_predict_timeseries_lstm(data, num_features=1, num_units=128, train_steps=1000):
+def train_and_predict_timeseries_lstm(data, window_size=100, num_features=1, num_units=128, train_steps=1000, batch_size=4):
   '''
   function created by txy based on the __main__ function in this file.
   data is a dict with keys "time" and "values" 
@@ -177,7 +177,7 @@ def train_and_predict_timeseries_lstm(data, num_features=1, num_units=128, train
   reader = NumpyReader(data)
 
   train_input_fn = tf.contrib.timeseries.RandomWindowInputFn(
-    reader, batch_size=4, window_size=100)  # window_size 是时间序列段的总长度，= input_length + output_length
+    reader, batch_size=batch_size, window_size=window_size)  # window_size 是时间序列段的总长度，= input_length + output_length
 
   # model
   estimator = ts_estimators.TimeSeriesRegressor(
@@ -185,6 +185,7 @@ def train_and_predict_timeseries_lstm(data, num_features=1, num_units=128, train
     optimizer=tf.train.AdamOptimizer(0.001))
 
   # training
+  # 这个模型使用的 window_size 中的 input_length 和 output_length 分别是多少？
   estimator.train(input_fn=train_input_fn, steps=train_steps)
   evaluation_input_fn = tf.contrib.timeseries.WholeDatasetInputFn(reader)
   evaluation = estimator.evaluate(input_fn=evaluation_input_fn, steps=1)
