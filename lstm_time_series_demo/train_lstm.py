@@ -179,7 +179,7 @@ if __name__ == '__main__':
       optimizer=tf.train.AdamOptimizer(0.001))
 
   # train 2000 times
-  estimator.train(input_fn=train_input_fn, steps=2000)
+  estimator.train(input_fn=train_input_fn, steps=5000)
   evaluation_input_fn = tf.contrib.timeseries.WholeDatasetInputFn(reader)
   evaluation = estimator.evaluate(input_fn=evaluation_input_fn, steps=1)
 
@@ -205,4 +205,4 @@ if __name__ == '__main__':
   predicted_lines = plt.plot(predicted_times, predicted, label="prediction", color="r")
   plt.legend(handles=[observed_lines[0], evaluated_lines[0], predicted_lines[0]],
              loc="upper left")
-  plt.savefig('predict_result.jpg')
+  plt.savefig('predict_result.png')
