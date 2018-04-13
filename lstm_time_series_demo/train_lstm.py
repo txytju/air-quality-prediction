@@ -182,7 +182,8 @@ def train_and_predict_timeseries_lstm(data, window_size=100, num_features=1, num
   # model
   estimator = ts_estimators.TimeSeriesRegressor(
     model=_LSTMModel(num_features=num_features, num_units=num_units), 
-    optimizer=tf.train.AdamOptimizer(0.001))
+    optimizer=tf.train.AdamOptimizer(0.001),
+    model_dir="./output_model")
 
   # training
   # 这个模型使用的 window_size 中的 input_length 和 output_length 分别是多少？
