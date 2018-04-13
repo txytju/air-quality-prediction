@@ -32,18 +32,22 @@ import matplotlib.pyplot as plt
 
 
 class _LSTMModel(ts_model.SequentialTimeSeriesModel):
-  """A time series model-building example using an RNNCell."""
+  """
+  A time series model-building example using an RNNCell.
+  Derived class of SequentialTimeSeriesModel in tensorflow.contrib.timeseries.python.timeseries/model.py
+  """
 
   def __init__(self, num_units, num_features, dtype=tf.float32):
-    """Initialize/configure the model object.
+    """
+    Initialize/configure the model object.
     Note that we do not start graph building here. Rather, this object is a
     configurable factory for TensorFlow graphs which are run by an Estimator.
     Args:
       num_units: The number of units in the model's LSTMCell.
-      num_features: The dimensionality of the time series (features per
-        timestep).
+      num_features: The dimensionality of the time series (features per timestep).
       dtype: The floating point data type to use.
     """
+    # 首先调用父类的 __init__() 函数
     super(_LSTMModel, self).__init__(
         # Pre-register the metrics we'll be outputting (just a mean here).
         train_output_names=["mean"],
@@ -65,6 +69,7 @@ class _LSTMModel(ts_model.SequentialTimeSeriesModel):
       input_statistics: A math_utils.InputStatistics object.
     """
     super(_LSTMModel, self).initialize_graph(input_statistics=input_statistics)
+    # LSTMCell created here.
     self._lstm_cell = tf.nn.rnn_cell.LSTMCell(num_units=self._num_units)
     # Create templates so we don't have to worry about variable reuse.
     self._lstm_cell_run = tf.make_template(
@@ -154,6 +159,59 @@ class _LSTMModel(ts_model.SequentialTimeSeriesModel):
         "Exogenous inputs are not implemented for this example.")
 
 
+def convert_df_to_dicts(df):
+  '''
+  Convert Padans dataframe to dicts to do regression with train_and_predict_timeseries_lstm function.
+  '''
+  
+
+
+
+def train_and_predict_timeseries_lstm(data, num_features=1, num_units=128, train_steps=1000):
+  '''
+  function created by txy based on the __main__ function in this file.
+  data is a dict with keys "time" and "values" 
+  '''
+  tf.logging.set_verbosity(tf.logging.INFO)
+
+  reader = NumpyReader(data)
+
+  train_input_fn = tf.contrib.timeseries.RandomWindowInputFn(
+    reader, batch_size=4, window_size=100)  # window_size 是时间序列段的总长度，= input_length + output_length
+
+  # model
+  estimator = ts_estimators.TimeSeriesRegressor(
+    model=_LSTMModel(num_features=num_features, num_units=num_units), 
+    optimizer=tf.train.AdamOptimizer(0.001))
+
+  # training
+  estimator.train(input_fn=train_input_fn, steps=train_steps)
+  evaluation_input_fn = tf.contrib.timeseries.WholeDatasetInputFn(reader)
+  evaluation = estimator.evaluate(input_fn=evaluation_input_fn, steps=1)
+
+
+  # Predict starting after the evaluation
+  # 以 以上数据的结尾处为起点，对后续 steps 步骤的值进行预测
+  (predictions,) = tuple(estimator.predict(input_fn=tf.contrib.timeseries.predict_continuation_input_fn(evaluation, steps=200)))
+
+  # 绘制结果
+  observed_times = evaluation["times"][0]
+  observed = evaluation["observed"][0, :, :]
+  evaluated_times = evaluation["times"][0]
+  evaluated = evaluation["mean"][0]
+  predicted_times = predictions['times']
+  predicted = predictions["mean"]
+
+  plt.figure(figsize=(15, 5))
+  plt.axvline(999, linestyle="dotted", linewidth=4, color='r')
+  observed_lines = plt.plot(observed_times, observed, label="observation", color="k")
+  evaluated_lines = plt.plot(evaluated_times, evaluated, label="evaluation", color="g")
+  predicted_lines = plt.plot(predicted_times, predicted, label="prediction", color="r")
+  plt.legend(handles=[observed_lines[0], evaluated_lines[0], predicted_lines[0]],loc="upper left")
+  plt.savefig('predict_result.png')
+
+
+
 if __name__ == '__main__':
   tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -179,7 +237,7 @@ if __name__ == '__main__':
       optimizer=tf.train.AdamOptimizer(0.001))
 
   # train 2000 times
-  estimator.train(input_fn=train_input_fn, steps=5000)
+  estimator.train(input_fn=train_input_fn, steps=2000)
   evaluation_input_fn = tf.contrib.timeseries.WholeDatasetInputFn(reader)
   evaluation = estimator.evaluate(input_fn=evaluation_input_fn, steps=1)
 

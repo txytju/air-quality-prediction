@@ -159,9 +159,6 @@ if __name__ == '__main__':
       column_names=((tf.contrib.timeseries.TrainEvalFeatures.TIMES,)
                     + (tf.contrib.timeseries.TrainEvalFeatures.VALUES,) * 5))
   
-
-
-
   train_input_fn = tf.contrib.timeseries.RandomWindowInputFn(
       reader, batch_size=4, window_size=32)
 
