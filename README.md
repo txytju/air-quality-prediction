@@ -10,3 +10,5 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
   - 生成了对应模型输入的训练数据
   - 参照了 Attention model (machine translation) 创建了一个 Attention model。当前模型在训练时每一个 epoch 的起始损失和中止时候损失一样，应该是模型定义的问题。
   - 新增 home page
+- 20180414 v2 
+  - 增加了 lstm 模型
