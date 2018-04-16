@@ -13,7 +13,7 @@ lambda_l2_reg = 0.003
 # length of input signals
 input_seq_len = 120
 # length of output signals
-output_seq_len = 48 
+output_seq_len = 10  # 48 
 # size of LSTM Cell
 hidden_dim = 64 
 # num of input signals
