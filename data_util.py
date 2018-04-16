@@ -234,7 +234,8 @@ def generate_training_data_for_seq2seq(ts, batch_size=10, input_seq_len=120, out
         np.array(input_seq_y) shape : [batch_size, input_seq_len]
         np.array(output_seq_y) shape : [batch_size, output_seq_len]
     '''
-    TS = np.array(ts)
+    # TS = np.array(ts)
+    TS = ts
 
     total_start_points = len(TS) - input_seq_len - output_seq_len
     start_x_idx = np.random.choice(range(total_start_points), batch_size)
@@ -247,9 +248,28 @@ def generate_training_data_for_seq2seq(ts, batch_size=10, input_seq_len=120, out
 
     return np.array(input_seq), np.array(output_seq)
 
+def generate_dev_data_for_seq2seq(ts, input_seq_len=120, output_seq_len=48):
+    
+    TS = ts
+    dev_set = []
+    total_start_points = len(TS) - input_seq_len - output_seq_len
+
+    for i in range(total_start_points):
+        input_seq = TS[i:(i+input_seq_len)]
+        output_seq = TS[(i+input_seq_len):(i+input_seq_len+output_seq_len)]
+        dev_set.append((input_seq, output_seq))
+
+    return dev_set
 
 
-
+def generate_train_dev_set(ts, dev_set_proportion):
+    ts = ts.values
+    all_length = len(ts)
+    dev_length = int(dev_set_proportion * all_length)
+    dev = ts[-dev_length:]
+    train = ts[:-dev_length]
+    
+    return train, dev
 
 
 
