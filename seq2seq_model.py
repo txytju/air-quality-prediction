@@ -11,9 +11,9 @@ lambda_l2_reg = 0.003
 # 注意这里的参数要和 ipynb 里的保持一致
 ## Network Parameters
 # length of input signals
-input_seq_len = 120
+input_seq_len = 300
 # length of output signals
-output_seq_len = 10  # 48 
+output_seq_len = 48 
 # size of LSTM Cell
 hidden_dim = 64 
 # num of input signals

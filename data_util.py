@@ -272,25 +272,6 @@ def generate_train_dev_set(ts, dev_set_proportion):
     return train, dev
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def plot_station(bj_aq_stations, station, feature, minimum=datetime.datetime(2017,1,1), maxmimum=datetime.datetime(2018,3,30)):
     data = bj_aq_stations[station].loc[minimum:maxmimum]
     features = data[feature]
