@@ -1,0 +1,2 @@
+model_checkpoint_path: "univariate_ts_model0"
+all_model_checkpoint_paths: "univariate_ts_model0"

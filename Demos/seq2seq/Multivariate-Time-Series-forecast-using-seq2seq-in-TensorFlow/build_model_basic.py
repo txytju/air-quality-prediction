@@ -25,7 +25,10 @@ num_stacked_layers = 2
 GRADIENT_CLIPPING = 2.5 
 
 def build_graph(feed_previous = False):
-    
+    '''
+    When using dec_inps, set feed_previous to False
+    When not using dec_inps to do prediction, set feed_previous to True
+    '''
     tf.reset_default_graph()
     
     global_step = tf.Variable(

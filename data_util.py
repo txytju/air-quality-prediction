@@ -223,6 +223,52 @@ def generate_data_for_lstm(ts, num_periods = 120, f_horizon = 4):
     return x_batches, y_batches, testX, testY
 
 
+def generate_training_data_for_seq2seq(ts, batch_size=10, input_seq_len=120, output_seq_len=48):
+    '''
+    args:
+        ts : training time series to be used.
+        batch_size : batch_size for the training data.
+        input_seq_len : length of input_seq to the encoder.
+        output_seq_len : length of output_seq of the decoder.
+    returns:
+        np.array(input_seq_y) shape : [batch_size, input_seq_len]
+        np.array(output_seq_y) shape : [batch_size, output_seq_len]
+    '''
+    TS = np.array(ts)
+
+    total_start_points = len(TS) - input_seq_len - output_seq_len
+    start_x_idx = np.random.choice(range(total_start_points), batch_size)
+    
+    input_seq = [TS[i:(i+input_seq_len)] for i in start_x_idx]
+    output_seq = [TS[(i+input_seq_len):(i+input_seq_len+output_seq_len)] for i in start_x_idx]
+    
+    # input_seq_y = [generate_y_values(x) for x in input_seq_x]
+    # output_seq_y = [generate_y_values(x) for x in output_seq_x]
+
+    return np.array(input_seq), np.array(output_seq)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def plot_station(bj_aq_stations, station, feature, minimum=datetime.datetime(2017,1,1), maxmimum=datetime.datetime(2018,3,30)):
