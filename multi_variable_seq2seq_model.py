@@ -18,11 +18,11 @@ output_seq_len = 48
 # size of LSTM Cell
 hidden_dim = 512 
 # num of input signals
-input_dim = 18
+input_dim = 210
 # num of output signals
-output_dim = 9
+output_dim = 105
 # num of stacked lstm layers 
-num_stacked_layers = 2 
+num_stacked_layers = 3
 # gradient clipping - to avoid gradient exploding
 GRADIENT_CLIPPING = 2.5 
 
