@@ -12,3 +12,6 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
   - 新增 home page
 - 20180414 v2 
   - 增加了 lstm 模型
+- 20180416 v3
+  - 增加了单变量和多变量 seq2seq 模型
+
