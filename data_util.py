@@ -165,12 +165,6 @@ def generate_model_data_v1(merged_data, step):
 # 	return 
 
 
-# def unison_shuffled_copies(a, b):
-# 	assert len(a) == len(b)
-# 	p = numpy.random.permutation(len(a))
-# 	return a[p], b[p]
-
-
 def generate_toy_data_for_lstm(num_periods = 120, f_horizon = 4, samples = 10020):
     '''
     Generate toy data.
@@ -272,18 +266,34 @@ def generate_train_dev_set(ts, dev_set_proportion):
     return train, dev
 
 
-def plot_station(bj_aq_stations, station, feature, minimum=datetime.datetime(2017,1,1), maxmimum=datetime.datetime(2018,3,30)):
-    data = bj_aq_stations[station].loc[minimum:maxmimum]
-    features = data[feature]
-    plt.figure(figsize=(20,10))
-    plt.plot(features);
 
 
-def plot_stations(bj_aq_stations, feature, 
-				  minimum=datetime.datetime(2017,1,1), 
-				  maxmimum=datetime.datetime(2018,3,30)):
-    plt.figure(figsize=(20,10))
-    for station in bj_aq_stations.keys():
-    	data = bj_aq_stations[station].loc[minimum:maxmimum]
-    	features = data[feature]
-    	plt.plot(features);	
+
+# for multi_variable_seq2seq
+
+def generate_train_samples(x, y, batch_size=32, input_seq_len=30, output_seq_len=5):
+
+    total_start_points = len(x) - input_seq_len - output_seq_len
+    start_x_idx = np.random.choice(range(total_start_points), batch_size, replace = False)
+    
+    input_batch_idxs = [list(range(i, i+input_seq_len)) for i in start_x_idx]
+    input_seq = np.take(x, input_batch_idxs, axis = 0)
+    
+    output_batch_idxs = [list(range(i+input_seq_len, i+input_seq_len+output_seq_len)) for i in start_x_idx]
+    output_seq = np.take(y, output_batch_idxs, axis = 0)
+    
+    return input_seq, output_seq # in shape: (batch_size, time_steps, feature_dim)
+
+def generate_test_samples(x, y, input_seq_len=30, output_seq_len=5):
+    
+    total_samples = x.shape[0]
+    
+    input_batch_idxs = [list(range(i, i+input_seq_len)) for i in range((total_samples-input_seq_len-output_seq_len))]
+    input_seq = np.take(x, input_batch_idxs, axis = 0)
+    
+    output_batch_idxs = [list(range(i+input_seq_len, i+input_seq_len+output_seq_len)) for i in range((total_samples-input_seq_len-output_seq_len))]
+    output_seq = np.take(y, output_batch_idxs, axis = 0)
+    
+    return input_seq, output_seq
+
+
