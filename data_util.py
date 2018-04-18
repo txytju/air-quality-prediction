@@ -54,13 +54,15 @@ def parse_bj_aq_data(fill_method="ffill"):
 		# fill NaN
 		if fill_method == "ffill":
 			bj_aq_station_renamed.fillna(method="ffill", inplace=True)
-
+                
+		# assert not np.any(np.isnan(bj_aq_station_renamed))
 		bj_aq_stations[station] = bj_aq_station_renamed
 
 
 	# 整合成一个大的 dataframe
 	bj_aq_stations_merged = pd.concat(list(bj_aq_stations.values()), axis=1)
-
+	# bj_aq_stations_merged.fillna(method="ffill")
+	# assert not bj_aq_stations_merged.isnull().values.any()
 	return bj_aq_dataset, stations, bj_aq_stations, bj_aq_stations_merged
 
 
