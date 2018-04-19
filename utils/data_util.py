@@ -68,7 +68,11 @@ def parse_bj_aq_data(fill_method="ffill"):
 
 def generate_model_data(merged_data, m, X_hours, Y_hours = 48, step=1):
 	'''
-	Input:
+        Generate all training data at a time. 
+        If batch_size=1, retrun X_dataset as list of (Tx, feature_length) and Y_dataset as list of (Ty, feature_length)
+        If batch_size>1, retrun X_dataset as list of (m, Tx, feature_length) and Y_dataset as list of (m, Ty, feature_length)
+
+	Input: 
 		step : sample step.
 		m : batch size.
 		X_hours : use how many hours in a X data.
@@ -120,51 +124,34 @@ def generate_model_data(merged_data, m, X_hours, Y_hours = 48, step=1):
 	return X_batches, Y_batches
 
 
-def generate_model_data_v1(merged_data, step):
-	'''
-	Input:
-		step : sample step.
-		m : batch size.
-	Return:
-		Data of shape (m, Tx, feature_length), (m, Ty, feature_length)
-	'''
-
-	X_dataset = []
-	Y_dataset = []
-
-	model_length = 7 * 24
-	data_length = merged_data.shape[0]
-
-	for i in range(0,data_length - model_length, step):
-		X = merged_data.ix[i:i+5*24].values
-		Y = merged_data.ix[i+5*24:i+7*24].values
-		X = np.expand_dims(X, axis=0) # (1, Tx, feature_length)
-		Y = np.expand_dims(Y, axis=0) # (1, Ty, feature_length)
-
-		X_dataset.append(X) 
-		Y_dataset.append(Y)
-
-	X_batches = np.concatenate((X_dataset), axis=0)
-	Y_batches = np.concatenate((Y_dataset), axis=0)
-
-	return X_batches, Y_batches
-
-# def split_dataset(dataset):
+# def generate_model_data_v1(merged_data, step):
 # 	'''
-# 	Small data set. Use split of 70%, 15%, 15% for train/dev/test set
-# 	There are 3 kinds of data shape:
-# 		1. (m, Tx, feature_length), (m, Ty, feature_length)
-# 		2. list of (Tx, feature_length) ; list of (Ty, feature_length)
-# 		3. list of (m, Tx, feature_length) ; list of (m, Ty, feature_length)
+# 	Input:
+# 		step : sample step.
+# 		m : batch size.
+# 	Return:
+# 		Data of shape (m, Tx, feature_length), (m, Ty, feature_length)
 # 	'''
 
-# 	# type 1
+# 	X_dataset = []
+# 	Y_dataset = []
 
-# 	# type 2
-# 	X_dataset, Y_dataset = dataset
-# 	index = list(range(len(X_dataset))
-# 	np.random.shuffle(index)
-# 	return 
+# 	model_length = 7 * 24
+# 	data_length = merged_data.shape[0]
+
+# 	for i in range(0,data_length - model_length, step):
+# 		X = merged_data.ix[i:i+5*24].values
+# 		Y = merged_data.ix[i+5*24:i+7*24].values
+# 		X = np.expand_dims(X, axis=0) # (1, Tx, feature_length)
+# 		Y = np.expand_dims(Y, axis=0) # (1, Ty, feature_length)
+
+# 		X_dataset.append(X) 
+# 		Y_dataset.append(Y)
+
+# 	X_batches = np.concatenate((X_dataset), axis=0)
+# 	Y_batches = np.concatenate((Y_dataset), axis=0)
+
+# 	return X_batches, Y_batches
 
 
 def generate_toy_data_for_lstm(num_periods = 120, f_horizon = 4, samples = 10020):
