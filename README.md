@@ -14,4 +14,6 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
   - 增加了 lstm 模型
 - 20180416 v3
   - 增加了单变量和多变量 seq2seq 模型
+- 20180419 v4
+  - 实现了 lstm 和 seq2seq 的多变量模型，模型仅考虑空气质量数据
 
