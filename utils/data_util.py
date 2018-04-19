@@ -4,15 +4,15 @@ import datetime
 from matplotlib import pyplot as plt
 
 def parse_bj_aq_data(fill_method="ffill"):
-	bj_aq_dataset_1 = pd.read_csv("./KDD_CUP_2018/Beijing/beijing_17_18_aq.csv")
-	bj_aq_dataset_2 = pd.read_csv("./KDD_CUP_2018/Beijing/beijing_201802_201803_aq.csv")
+	bj_aq_dataset_1 = pd.read_csv("./KDD_CUP_2018/Beijing/aq/beijing_17_18_aq.csv")
+	bj_aq_dataset_2 = pd.read_csv("./KDD_CUP_2018/Beijing/aq/beijing_201802_201803_aq.csv")
 	bj_aq_dataset = pd.concat([bj_aq_dataset_1, bj_aq_dataset_2], ignore_index=True)
 
 	# 将 string 类型的日期转换为 datetime 类型
 	length = bj_aq_dataset.shape[0]
 	formet_time = pd.Series([datetime.datetime.strptime(bj_aq_dataset["utc_time"][i],'%Y-%m-%d %H:%M:%S') for i in range(length)])
 	bj_aq_dataset["format_time"] = formet_time
-	# bj_aq_dataset.set_index("format_time")
+	bj_aq_dataset.set_index("format_time", inplace=True)
 
 
 	# NaN in dataset
@@ -42,7 +42,7 @@ def parse_bj_aq_data(fill_method="ffill"):
 	bj_aq_stations_noname = {}
 	for station in stations:
 		bj_aq_station = bj_aq_dataset[bj_aq_dataset["stationId"]==station]
-		bj_aq_station.set_index("format_time", inplace=True)
+		# bj_aq_station.set_index("format_time", inplace=True)
 		bj_aq_station.drop("utc_time", axis=1, inplace=True)
 		bj_aq_station.drop("stationId", axis=1, inplace=True)
 
