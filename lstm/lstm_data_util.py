@@ -76,13 +76,13 @@ def generate_train_samples(x, y, batch_size=32, num_periods=168, f_horizon=48):
         input_seq : shape of (batch_size, num_periods-f_horizon, feature_dim)
         output_seq : shape of (batch_size, f_horizon, feature_dim)
     '''
-    total_start_points = len(x) - num_periods
+    total_start_points = len(x) - num_periods - f_horizon
     start_x_idx = np.random.choice(range(total_start_points), batch_size, replace = False)
     
-    input_batch_idxs = [list(range(i, i+(num_periods-f_horizon))) for i in start_x_idx]
+    input_batch_idxs = [list(range(i, i+num_periods)) for i in start_x_idx]
     input_seq = np.take(x, input_batch_idxs, axis = 0)
     
-    output_batch_idxs = [list(range(i+(num_periods-f_horizon), i+num_periods)) for i in start_x_idx]
+    output_batch_idxs = [list(range(i+f_horizon, i+num_periods+f_horizon)) for i in start_x_idx]
     output_seq = np.take(y, output_batch_idxs, axis = 0)
     
     return input_seq, output_seq
@@ -92,10 +92,10 @@ def generate_test_samples(x, y, num_periods=168, f_horizon=48):
     
     total_samples = x.shape[0]
     
-    input_batch_idxs = [list(range(i, i+(num_periods-f_horizon))) for i in range((total_samples-num_periods))]
+    input_batch_idxs = [list(range(i, i+num_periods)) for i in range((total_samples-num_periods-f_horizon))]
     input_seq = np.take(x, input_batch_idxs, axis = 0)
     
-    output_batch_idxs = [list(range(i+(num_periods-f_horizon), i+num_periods)) for i in range((total_samples-num_periods))]
+    output_batch_idxs = [list(range(i+f_horizon, i+num_periods+f_horizon)) for i in range((total_samples-num_periods-f_horizon))]
     output_seq = np.take(y, output_batch_idxs, axis = 0)
     
     return input_seq, output_seq

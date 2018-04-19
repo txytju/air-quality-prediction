@@ -7,28 +7,6 @@ import tensorflow as tf
 from .lstm_data_util import generate_toy_data_for_lstm, generate_train_samples
 
 
-
-def generate_train_samples(x, y, batch_size=32, num_periods=168, f_horizon=48):
-
-    '''
-    x, y are dataframe of shape (len_data, features)
-
-    return:
-        input_seq : shape of (batch_size, num_periods-f_horizon, feature_dim)
-        output_seq : shape of (batch_size, f_horizon, feature_dim)
-    '''
-    total_start_points = len(x) - num_periods
-    start_x_idx = np.random.choice(range(total_start_points), batch_size, replace = False)
-    
-    input_batch_idxs = [list(range(i, i+(num_periods-f_horizon))) for i in start_x_idx]
-    input_seq = np.take(x, input_batch_idxs, axis = 0)
-    
-    output_batch_idxs = [list(range(i+(num_periods-f_horizon), i+num_periods)) for i in start_x_idx]
-    output_seq = np.take(y, output_batch_idxs, axis = 0)
-    
-    return input_seq, output_seq
-
-
 def single_rnn_model(X_train, y_train, X_test, y_test, cell="BasicRNNCell", 
               learning_rate=0.001, epochs=500, print_every=100, 
               inputs=1, outputs=1, hidden=100, num_periods=20):
@@ -143,22 +121,23 @@ def rnn_model(X_train, y_train, X_test, y_test, cell="BasicRNNCell",
     with tf.Session() as sess:
         sess.run(init)
         for ep in range(epochs):
-            X_train_batch, Y_train_batch = generate_train_samples(X_train, y_train, batch_size=32, input_seq_len=num_periods-f_horizon, output_seq_len=f_horizon)
+            X_train_batch, Y_train_batch = generate_train_samples(X_train, y_train, batch_size=32, num_periods=num_periods, f_horizon=f_horizon)
+            # print(X_train_batch.shape, Y_train_batch.shape)
             _, loss_value = sess.run([training_op, loss], feed_dict={X:X_train_batch, y:Y_train_batch})
             losses.append(loss_value)
             
             if ep % print_every == 0:
                 mse = loss.eval(feed_dict={X:X_train_batch, y:Y_train_batch})
-                print(ep, "  MSE on training batch :", mse)
+                print("MSE on %d th epoch : %d" %(ep, mse))
 
         
         y_pred = sess.run(outputs, feed_dict={X:X_test})
         # print(y_pred)
 
-    plt.title("Forecast vs Actual", fontsize=14)
-    plt.plot(pd.Series(np.ravel(y_test)), 'bo', markersize=10, label="Actual")
-    plt.plot(pd.Series(np.ravel(y_pred)), 'r.', markersize=10, label="Forecast")
-    plt.legend(loc="upper left")
-    plt.xlabel("Time Periods")
+    # plt.title("Forecast vs Actual", fontsize=14)
+    # plt.plot(pd.Series(np.ravel(y_test)), 'bo', markersize=10, label="Actual")
+    # plt.plot(pd.Series(np.ravel(y_pred)), 'r.', markersize=10, label="Forecast")
+    # plt.legend(loc="upper left")
+    # plt.xlabel("Time Periods")
 
     return losses, y_pred
