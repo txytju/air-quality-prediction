@@ -1,6 +1,6 @@
 import numpy as np
 
-def symmetric_mean_absolute_percentage_error(actual, forecast):
+def symmetric_mean_absolute_percentage_error(actual, forecast, y_mean, y_std):
     '''
     Compute the Symmetric mean absolute percentage error (SMAPE or sMAPE) on a single data of the dev set or test set.
     Details of SMAPE here : https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error
@@ -8,7 +8,9 @@ def symmetric_mean_absolute_percentage_error(actual, forecast):
     Args:
         actual : an actual values in the dev/test dataset.
         forecast : an model forecast values.
-
+        y_mean : mean value used when doing preprocess.
+        y_std : std value used when doing preprocess.
+        
     '''
     actual = np.squeeze(actual)
     forecast = np.squeeze(forecast)
@@ -16,6 +18,8 @@ def symmetric_mean_absolute_percentage_error(actual, forecast):
     assert len(actual) == len(forecast), "The shape of actual value and forecast value are not the same."
 
     length = len(actual)
+    actual = actual * y_std + y_mean
+    forecast = forecast * y_std + y_mean
 
     r = 0
 
@@ -28,7 +32,7 @@ def symmetric_mean_absolute_percentage_error(actual, forecast):
     return r/length
 
 
-def SMAPE_on_dataset(actual_data, forecast_data, feature_list, forecast_duration=24):
+def SMAPE_on_dataset(actual_data, forecast_data, feature_list, y_mean, y_std, forecast_duration=24):
     '''
     Compute SMAPE value on the dataset of actual and forecast.
 	
@@ -53,7 +57,7 @@ def SMAPE_on_dataset(actual_data, forecast_data, feature_list, forecast_duration
             feature = feature_list[j]
             a = actual_data_item[:,j]
             f = forecast_data_item[:,j]
-            smape_a_feature_a_day = symmetric_mean_absolute_percentage_error(a,f)
+            smape_a_feature_a_day = symmetric_mean_absolute_percentage_error(a, f, y_mean, y_std)
             smapes_list_of_features[feature].append(smape_a_feature_a_day)
 
     smapes_of_features = {feature:np.mean(value) for feature, value in smapes_list_of_features.items()}
