@@ -8,8 +8,9 @@ def load_bj_aq_data():
 	# load csvs 
 	bj_aq_dataset_1 = pd.read_csv("./KDD_CUP_2018/Beijing/aq/beijing_17_18_aq.csv")
 	bj_aq_dataset_2 = pd.read_csv("./KDD_CUP_2018/Beijing/aq/beijing_201802_201803_aq.csv")
-	bj_aq_dataset = pd.concat([bj_aq_dataset_1, bj_aq_dataset_2], ignore_index=True)
-
+	bj_aq_dataset_3 = pd.read_csv("./KDD_CUP_2018/Beijing/aq/new.csv")
+	bj_aq_dataset = pd.concat([bj_aq_dataset_1, bj_aq_dataset_2, bj_aq_dataset_3], ignore_index=True)
+	# bj_aq_dataset = pd.concat([bj_aq_dataset_1, bj_aq_dataset_2], ignore_index=True)
 
 	# turn date from string type to datetime type
 	bj_aq_dataset["time"] = pd.to_datetime(bj_aq_dataset['utc_time'])
