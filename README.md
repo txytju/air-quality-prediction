@@ -50,7 +50,13 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
 
   ​
 
-  ​
+  [workflow](https://github.com/txytju/air-quality-prediction/blob/master/project_wokflow.pdf)
+
+  # 心得体会
+
+  - 增加代码规划时间，动手前尽量把问题想全面
+  - 接口留出充足的灵活性，避免重复造工具
+  - 成果结构化，方便复用；先搭框架，再调模型
 
 
 
