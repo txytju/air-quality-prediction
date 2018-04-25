@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 # For single varuable seq2seq model 
 def generate_train_dev_set(ts, dev_set_proportion):
@@ -129,6 +130,20 @@ def generate_test_samples(x, y, input_seq_len=30, output_seq_len=5):
     return input_seq, output_seq
 
 
+
+
+
+# 计算训练集数据的统计量
+def get_training_statics():
+    '''
+    Get statics values of aq and meo data.
+    '''
+    aq_train = pd.read_csv("data/aq_train_data.csv")
+    meo_train = pd.read_csv("data/meo_train_data.csv")   
+    train_df = pd.concat([aq_train, meo_train], axis=1)
+
+
+
 # 可以按照 站点名称，特征名称，数据天数来灵活的生成验证集
 
 def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, use_day=True, pre_days=5, batch_size=32):
@@ -158,12 +173,12 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
     aq_train = pd.read_csv("data/aq_train_data.csv")
     meo_train = pd.read_csv("data/meo_train_data.csv")
     
-    dev_df = pd.concat([aq_train, meo_train], axis=1)
+    train_df = pd.concat([aq_train, meo_train], axis=1)
     
     # step 1 : keep all features about the stations
     station_filters = []
     for station in station_list : 
-        station_filter = [index for index in dev_df.columns if station in index]
+        station_filter = [index for index in train_df.columns if station in index]
         station_filters += station_filter
     
     # step 2 : filter of X features
@@ -178,7 +193,7 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
             X_feature_filters += [i]
             
     X_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
-    X_df = dev_df[X_feature_filters]
+    X_df = train_df[X_feature_filters]
     
     # step 3 : filter of y features
     y_feature_filters = []
@@ -189,7 +204,7 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
             y_feature_filters += [i]
     
     y_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
-    y_df = dev_df[y_feature_filters]
+    y_df = train_df[y_feature_filters]
     
     # step 4 : generate training batch
     X_df_list = []
