@@ -3,6 +3,51 @@ import pandas as pd
 import datetime
 from matplotlib import pyplot as plt
 
+def load_bj_grid_meo_data():
+
+    # 网格气象数据
+    bj_grid_meo_dataset_1 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv")
+    # API 下载数据
+    bj_grid_meo_dataset_2 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/new.csv")
+
+    bj_grid_meo_dataset = pd.concat([bj_grid_meo_dataset_1, bj_grid_meo_dataset_2], ignore_index=True)
+
+    # turn date from string type to datetime type
+    bj_grid_meo_dataset["time"] = pd.to_datetime(bj_grid_meo_dataset['utc_time'])
+    bj_grid_meo_dataset.set_index("time", inplace=True)
+    bj_grid_meo_dataset.drop("utc_time", axis=1, inplace=True)
+
+    # names of all stations
+    stations = set(bj_grid_meo_dataset['stationName'])
+
+    # a dict of station aq, Beijing
+    bj_meo_stations = {}
+    for station in stations:
+        bj_meo_station = bj_grid_meo_dataset[bj_grid_meo_dataset["stationName"]==station].copy()
+        bj_meo_station.drop("stationName", axis=1, inplace=True)
+
+        # rename
+        original_names = bj_meo_station.columns.values.tolist()
+        names_dict = {original_name : station+"_"+original_name for original_name in original_names}
+        bj_meo_station_renamed = bj_meo_station.rename(index=str, columns=names_dict)
+        
+        length = bj_meo_station_renamed.shape[0]
+        order = range(length)
+        bj_meo_station_renamed['order'] = pd.Series(order, index=bj_meo_station_renamed.index)
+
+
+        bj_meo_stations[station] = bj_meo_station_renamed
+
+
+    return bj_grid_meo_dataset, stations, bj_meo_stations
+
+
+
+
+
+
+
+
 def get_station_locations(stations_df):
     '''
     Get all the locations of stations in stations_df.
@@ -53,11 +98,13 @@ def get_location_lists(locations):
         
     return longitudes, latitudes
 
+
 def find_nearst_meo_station_name(aq_location, meo_locations):
     '''
-    From meo stations ans frid meos, find the nearest station.
-    aq_location : an aq station information of (station_name, (longitude, latitude))
-    meo_locations : meo information, list of ((station_name, (longitude, latitude)))
+    From meo stations ans grid meos stations, find the nearest meo station of aq station.
+    Args :
+        aq_location : an aq station information of (station_name, (longitude, latitude))
+        meo_locations : meo information, list of ((station_name, (longitude, latitude)))
     '''
     nearest_station_name = ""
     nearest_distance = 1e10
@@ -98,3 +145,8 @@ def get_related_meo_dfs(aq_station_nearest_meo_station, bj_meo_all, bj_grid_meo_
             print("meo station name not found.")
     
     return related_meo_dfs
+
+
+
+
+

@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 from matplotlib import pyplot as plt
 
+
 def load_bj_aq_data():
 
 	# load csvs 
@@ -46,31 +47,7 @@ def load_bj_aq_data():
 
 def data_perprocess():
 
-	# NaN in dataset
-	# pm25_nan = sum(bj_aq_dataset["PM2.5"].isnull())
-	# pm10_nan = sum(bj_aq_dataset["PM10"].isnull())
-	# no2_nan = sum(bj_aq_dataset["NO2"].isnull())
-	# co_nan = sum(bj_aq_dataset["CO"].isnull())
-	# o3_nan = sum(bj_aq_dataset["O3"].isnull())
-	# so2_nan = sum(bj_aq_dataset["SO2"].isnull())
-	# num_rows = bj_aq_dataset.shape[0]
-
-	# print("NaN in PM2.5 is %d, %7.6f %%" %(pm25_nan, 100 * pm25_nan/num_rows))
-	# print("NaN in PM10 is %d, %7.6f %%" %(pm10_nan, 100 * pm10_nan/num_rows))
-	# print("NaN in NO2 is %d, %7.6f %%" %(no2_nan, 100 * no2_nan/num_rows))
-	# print("NaN in CO is %d, %7.6f %%" %(co_nan, 100 * co_nan/num_rows))
-	# print("NaN in O3 is %d, %7.6f %%" %(o3_nan, 100 * o3_nan/num_rows))
-	# print("NaN in SO2 is %d, %7.6f %%" %(so2_nan, 100 * so2_nan/num_rows))
-
 	return
-
-
-
-
-
-
-
-
 
 
 def generate_model_data(merged_data, m, X_hours, Y_hours = 48, step=1):
