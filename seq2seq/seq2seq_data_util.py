@@ -127,3 +127,198 @@ def generate_test_samples(x, y, input_seq_len=30, output_seq_len=5):
     output_seq = np.take(y, output_batch_idxs, axis = 0)
     
     return input_seq, output_seq
+
+
+# 可以按照 站点名称，特征名称，数据天数来灵活的生成验证集
+
+def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, use_day=True, pre_days=5, batch_size=32):
+    '''
+    
+    Args:
+        station_list : a list of used stations.
+        X_aq_list : a list of used aq features as input.
+        y_aq_list : a list of used aq features as output. 
+        X_meo_list : a list of used meo features.
+        use_day : bool, True to just use 0-24 h days.
+        pre_days : use pre_days history days to predict.
+        batch_size
+        
+    station_list = ['dongsi_aq','tiantan_aq','guanyuan_aq','wanshouxigong_aq','aotizhongxin_aq',
+                'nongzhanguan_aq','wanliu_aq','beibuxinqu_aq','zhiwuyuan_aq','fengtaihuayuan_aq',
+                'yungang_aq','gucheng_aq','fangshan_aq','daxing_aq','yizhuang_aq','tongzhou_aq',
+                'shunyi_aq','pingchang_aq','mentougou_aq','pinggu_aq','huairou_aq','miyun_aq',
+                'yanqin_aq','dingling_aq','badaling_aq','miyunshuiku_aq','donggaocun_aq',
+                'yongledian_aq','yufa_aq','liulihe_aq','qianmen_aq','yongdingmennei_aq',
+                'xizhimenbei_aq','nansanhuan_aq','dongsihuan_aq']            
+    X_aq_list = ["PM2.5","PM10","O3","CO","SO2","NO2"]  
+    y_aq_list = ["PM2.5","PM10","O3"]
+    X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
+    '''
+    
+    aq_train = pd.read_csv("data/aq_train_data.csv")
+    meo_train = pd.read_csv("data/meo_train_data.csv")
+    
+    dev_df = pd.concat([aq_train, meo_train], axis=1)
+    
+    # step 1 : keep all features about the stations
+    station_filters = []
+    for station in station_list : 
+        station_filter = [index for index in dev_df.columns if station in index]
+        station_filters += station_filter
+    
+    # step 2 : filter of X features
+    X_feature_filters = []
+    if X_meo_list :
+        X_features = X_aq_list + X_meo_list
+    else :
+        X_features = X_aq_list
+        
+    for i in station_filters : 
+        if i.split("_")[-1] in X_features :
+            X_feature_filters += [i]
+            
+    X_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
+    X_df = dev_df[X_feature_filters]
+    
+    # step 3 : filter of y features
+    y_feature_filters = []
+    y_features = y_aq_list
+    
+    for i in station_filters : 
+        if i.split("_")[-1] in y_features :
+            y_feature_filters += [i]
+    
+    y_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
+    y_df = dev_df[y_feature_filters]
+    
+    # step 4 : generate training batch
+    X_df_list = []
+    y_df_list = []
+    
+    max_start_points = X_df.shape[0] - (pre_days + 2) * 24
+    if use_day : 
+        total_start_points = range(0, max_start_points, 24)
+    else :
+        total_start_points = range(0, max_start_points, 1)
+    
+    for i in range(batch_size):       
+        flag = True        
+        while flag :
+            X_start_index = int(np.random.choice(total_start_points, 1, replace = False))
+            X_end_index = X_start_index + pre_days * 24 - 1
+
+            y_start_index = X_end_index + 1
+            y_end_index = X_end_index + 48
+    
+            # print(X_start_index, X_end_index, y_start_index, y_end_index)
+
+            X = X_df.loc[X_start_index : X_end_index]
+            y = y_df.loc[y_start_index : y_end_index]
+
+            # 判断是不是有 NAN
+            if pd.isnull(X).any().any() :
+                pass
+            else :     
+                X = np.array(X)
+                y = np.array(y)
+                X = np.expand_dims(X, axis=0)
+                y = np.expand_dims(y, axis=0)
+                X_df_list.append(X)
+                y_df_list.append(y)
+                flag = False
+
+    X_train_batch = np.concatenate(X_df_list, axis=0)
+    y_train_batch = np.concatenate(y_df_list, axis=0)
+    
+    return X_train_batch, y_train_batch
+
+
+
+
+def generate_dev_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, pre_days=5):
+    '''
+   
+    Args:
+        station_list : a list of used stations.
+        X_aq_list : a list of used aq features as input.
+        y_aq_list : a list of used aq features as output. 
+        X_meo_list : a list of used meo features.
+        
+    station_list = ['dongsi_aq','tiantan_aq','guanyuan_aq','wanshouxigong_aq','aotizhongxin_aq',
+                'nongzhanguan_aq','wanliu_aq','beibuxinqu_aq','zhiwuyuan_aq','fengtaihuayuan_aq',
+                'yungang_aq','gucheng_aq','fangshan_aq','daxing_aq','yizhuang_aq','tongzhou_aq',
+                'shunyi_aq','pingchang_aq','mentougou_aq','pinggu_aq','huairou_aq','miyun_aq',
+                'yanqin_aq','dingling_aq','badaling_aq','miyunshuiku_aq','donggaocun_aq',
+                'yongledian_aq','yufa_aq','liulihe_aq','qianmen_aq','yongdingmennei_aq',
+                'xizhimenbei_aq','nansanhuan_aq','dongsihuan_aq']            
+    X_aq_list = ["PM2.5","PM10","O3","CO","SO2","NO2"]  
+    y_aq_list = ["PM2.5","PM10","O3"]
+    X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
+    '''
+    aq_dev = pd.read_csv("data/aq_dev_data.csv")
+    meo_dev = pd.read_csv("data/meo_dev_data.csv")
+    
+    dev_df = pd.concat([aq_dev, meo_dev], axis=1)
+    
+    # step 1 : keep all features about the stations
+    station_filters = []
+    for station in station_list : 
+        station_filter = [index for index in dev_df.columns if station in index]
+        station_filters += station_filter
+    
+    # step 2 : filter of X features
+    X_feature_filters = []
+    if X_meo_list :
+        X_features = X_aq_list + X_meo_list
+    else :
+        X_features = X_aq_list
+        
+    for i in station_filters : 
+        if i.split("_")[-1] in X_features :
+            X_feature_filters += [i]
+            
+    X_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
+    X_df = dev_df[X_feature_filters]
+    
+    # step 3 : filter of y features
+    y_feature_filters = []
+    y_features = y_aq_list
+    
+    for i in station_filters : 
+        if i.split("_")[-1] in y_features :
+            y_feature_filters += [i]
+    
+    y_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
+    y_df = dev_df[y_feature_filters]   
+    
+    # step 4 : 按天生成数据
+    X_df_list = []
+    y_df_list = []
+    
+    m = int(np.floor(X_df.shape[0] / 24 + 1 - (pre_days + 2)))
+
+    for i in range(m):
+
+        X_start_index = 24 * i
+        X_end_index = 24 * (i + pre_days) - 1
+
+        y_start_index = 24 * (i + pre_days)
+        y_end_index = 24 * (i + pre_days + 2) - 1
+
+
+        X = X_df.loc[X_start_index : X_end_index]
+        y = y_df.loc[y_start_index : y_end_index]
+
+        X = np.array(X)
+        y = np.array(y)
+
+        X = np.expand_dims(X, axis=0)
+        y = np.expand_dims(y, axis=0)
+
+        X_df_list.append(X)
+        y_df_list.append(y)
+
+    X_dev_batch = np.concatenate(X_df_list, axis=0)
+    y_dev_batch = np.concatenate(y_df_list, axis=0)
+    
+    return X_dev_batch, y_dev_batch
