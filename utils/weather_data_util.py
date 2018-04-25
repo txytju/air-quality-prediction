@@ -3,10 +3,18 @@ import pandas as pd
 import datetime
 from matplotlib import pyplot as plt
 
-def load_bj_grid_meo_data():
+def load_bj_grid_meo_data(useful_stations):
+    '''
+    useful_stations : dict of {aq_station : meo_station}
+    '''
+
 
     # 网格气象数据
     bj_grid_meo_dataset_1 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv")
+    # 去掉位置信息
+    bj_grid_meo_dataset_1.drop("longitude", axis=1, inplace=True)
+    bj_grid_meo_dataset_1.drop("latitude", axis=1, inplace=True)
+
     # API 下载数据
     bj_grid_meo_dataset_2 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/new.csv")
 
@@ -22,21 +30,20 @@ def load_bj_grid_meo_data():
 
     # a dict of station aq, Beijing
     bj_meo_stations = {}
-    for station in stations:
-        bj_meo_station = bj_grid_meo_dataset[bj_grid_meo_dataset["stationName"]==station].copy()
-        bj_meo_station.drop("stationName", axis=1, inplace=True)
 
-        # rename
-        original_names = bj_meo_station.columns.values.tolist()
-        names_dict = {original_name : station+"_"+original_name for original_name in original_names}
-        bj_meo_station_renamed = bj_meo_station.rename(index=str, columns=names_dict)
-        
-        length = bj_meo_station_renamed.shape[0]
-        order = range(length)
-        bj_meo_station_renamed['order'] = pd.Series(order, index=bj_meo_station_renamed.index)
+    for aq_station, meo_station in useful_stations.items() :
 
+    	if meo_station in stations :
+	        bj_meo_station = bj_grid_meo_dataset[bj_grid_meo_dataset["stationName"]==meo_station].copy()
+	        bj_meo_station.drop("stationName", axis=1, inplace=True)
 
-        bj_meo_stations[station] = bj_meo_station_renamed
+	        # rename
+	        original_names = bj_meo_station.columns.values.tolist()
+	        names_dict = {original_name : aq_station+"_"+original_name for original_name in original_names}
+	        bj_meo_station_renamed = bj_meo_station.rename(index=str, columns=names_dict)
+	        
+
+	        bj_meo_stations[aq_station] = bj_meo_station_renamed    	
 
 
     return bj_grid_meo_dataset, stations, bj_meo_stations
