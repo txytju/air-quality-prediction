@@ -131,17 +131,19 @@ def generate_test_samples(x, y, input_seq_len=30, output_seq_len=5):
 
 
 
-
-
-# 计算训练集数据的统计量
-def get_training_statics():
+def get_training_statistics():
     '''
     Get statics values of aq and meo data.
     '''
-    aq_train = pd.read_csv("data/aq_train_data.csv")
-    meo_train = pd.read_csv("data/meo_train_data.csv")   
-    train_df = pd.concat([aq_train, meo_train], axis=1)
-
+    aq_describe = pd.read_csv("data/bj_aq_describe.csv")
+    aq_describe.set_index("label", inplace=True)
+    
+    meo_describe = pd.read_csv("data/bj_meo_describe.csv")
+    meo_describe.set_index("label", inplace=True)  
+    
+    statistics = pd.concat([aq_describe, meo_describe], axis=1)
+    statistics = statistics.loc[["mean", "std"]]
+    return statistics
 
 
 # 可以按照 站点名称，特征名称，数据天数来灵活的生成验证集

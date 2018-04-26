@@ -48,7 +48,10 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
 
 - 20180426 v5.3
 
-  - 数据的归一化
+  - ~~数据的归一化~~
+    - 分别在空气质量数据和天气数据的预处理文档中实现了数据的归一化
+    - 将数据统计特征和正则化数据保存成中间文件
+    - 后续在预测和计算指标时需要再次用到数据统计特征
   - 实现`seq2aeq`模型的不同版本
     - 考虑的因素包括
       - 站点
@@ -85,7 +88,5 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
   - 增加代码规划时间，动手前尽量把问题想全面
   - 接口留出充足的灵活性，避免重复造工具
   - 成果结构化，方便复用；先搭框架，再调模型
-
-
 
 
