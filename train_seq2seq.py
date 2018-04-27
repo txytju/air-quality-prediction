@@ -1,6 +1,6 @@
+import tkinter
 import os
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np 
 import seaborn as sns
 import tensorflow as tf
@@ -47,11 +47,6 @@ lambda_l2_reg=0.003
 GRADIENT_CLIPPING=2.5
 total_iteractions = 1000
 KEEP_RATE = 0.5
-
-
-
-
-
 
 
 # Generate test data for the model
@@ -153,6 +148,7 @@ for name in saved_iteractions :
 
 	    sess.run(init)
 	    
+	    print("Using checkpoint: ", name)
 	    saver = rnn_model['saver']().restore(sess,  os.path.join('./seq2seq/new_multi_variable_model_results/', name))
 	    
 	    feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction
@@ -162,13 +158,18 @@ for name in saved_iteractions :
 	    final_preds = [np.expand_dims(pred, 1) for pred in final_preds]
 	    final_preds = np.concatenate(final_preds, axis = 1)
 
-        aver_smapes, smapes_of_features = SMAPE_on_dataset_v1(test_y, final_preds, output_features, statistics, 1)
+	aver_smapes, smapes_of_features = SMAPE_on_dataset_v1(test_y, final_preds, output_features, statistics, 1)
 
-        aver_smapes_on_iteractions[name] = aver_smapes
+	aver_smapes_on_iteractions[name] = aver_smapes
 
 
 print(aver_smapes_on_iteractions)
 
+
+df_aver_smapes_on_iteractions = pd.Series(aver_smapes_on_iteractions)
+df_aver_smapes_on_iteractions.to_csv("data/seq2seq_result.csv")
+
+print("Trianing done! model saved at data/seq2seq_result.csv")
 
 
 
