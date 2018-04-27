@@ -12,7 +12,7 @@ from seq2seq.seq2seq_data_util import get_training_statistics, generate_training
 from seq2seq.multi_variable_seq2seq_model_parameters import build_graph
 
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 gpu_config = tf.ConfigProto()
 gpu_config.gpu_options.allow_growth = True
@@ -37,7 +37,7 @@ X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
 
 
 # 调整的参数
-learning_rates = np.random.uniform(-6,-3, size=10)
+learning_rates = np.random.uniform(-5,-3, size=10)
 # learning_rate = 10 ** learning_rates[i]
 pre_days_list = range(1,10)
 
@@ -46,7 +46,6 @@ pre_days_list = range(1,10)
 # 固定的参数
 use_day=True
 batch_size=128
-input_seq_len = pre_days * 24
 output_seq_len = 48
 hidden_dim = 512
 input_dim = 210
@@ -55,7 +54,7 @@ num_stacked_layers = 3
 
 lambda_l2_reg=0.003
 GRADIENT_CLIPPING=2.5
-total_iteractions = 200
+total_iteractions = 500
 KEEP_RATE = 0.5
 
 
@@ -66,6 +65,8 @@ flag = False
 for lr in learning_rates : 
     learning_rate = 10**lr
     for pre_days in pre_days_list : 
+
+        input_seq_len = pre_days * 24
 
         # Generate test data for the model
         test_x, test_y = generate_dev_set(station_list=station_list,
@@ -184,14 +185,15 @@ for lr in learning_rates :
         
         if not flag : 
             result = df_aver_smapes_on_iteractions
+            flag = True
         else :
             result[column_name] = df_aver_smapes_on_iteractions
 
 
 
-result.to_csv("data/seq2seq_result.csv")
+result.to_csv("data/seq2seq_random_search_result.csv")
 
-print("Trianing done! model saved at data/seq2seq_result.csv")
+print("Trianing done! model saved at data/seq2seq_random_search_result.csv")
 
 
 
