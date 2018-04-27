@@ -235,7 +235,7 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
             y = y_df.loc[y_start_index : y_end_index]
 
             # 判断是不是有 NAN
-            if pd.isnull(X).any().any() :
+            if pd.isnull(X).any().any() or pd.isnull(y).any().any():
                 pass
             else :     
                 X = np.array(X)
