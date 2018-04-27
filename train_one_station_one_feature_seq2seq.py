@@ -16,7 +16,7 @@ from seq2seq.seq2seq_data_util import get_training_statistics, generate_training
 from seq2seq.multi_variable_seq2seq_model_parameters import build_graph
 
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 gpu_config = tf.ConfigProto()
 gpu_config.gpu_options.allow_growth = True
@@ -25,25 +25,28 @@ KTF.set_session(session)
 
 
 # Args
-station_list = ['dongsi_aq','tiantan_aq','guanyuan_aq','wanshouxigong_aq','aotizhongxin_aq',
+station_lists = ['dongsi_aq','tiantan_aq','guanyuan_aq','wanshouxigong_aq','aotizhongxin_aq',
             'nongzhanguan_aq','wanliu_aq','beibuxinqu_aq','zhiwuyuan_aq','fengtaihuayuan_aq',
             'yungang_aq','gucheng_aq','fangshan_aq','daxing_aq','yizhuang_aq','tongzhou_aq',
             'shunyi_aq','pingchang_aq','mentougou_aq','pinggu_aq','huairou_aq','miyun_aq',
             'yanqin_aq','dingling_aq','badaling_aq','miyunshuiku_aq','donggaocun_aq',
             'yongledian_aq','yufa_aq','liulihe_aq','qianmen_aq','yongdingmennei_aq',
             'xizhimenbei_aq','nansanhuan_aq','dongsihuan_aq']            
-X_aq_list = ["PM2.5","PM10","O3","CO","SO2","NO2"]  
-y_aq_list = ["PM2.5","PM10","O3"]
-X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
+X_aq_lists = ["PM2.5","PM10","O3","CO","SO2","NO2"]  
+y_aq_lists = ["PM2.5","PM10","O3"]
+X_meo_lists = ["temperature","pressure","humidity","direction","speed/kph"]
 
 
 
 # 只选一个站点，一个特征预测，同时只使用该站的数据
-station_list = station_list[0]
-X_aq_list = X_aq_list
-y_aq_list = y_aq_list[0]
-X_meo_list = X_meo_list
+station_list = station_lists[0]
+X_aq_list = X_aq_lists
+y_aq_list = y_aq_lists[0]
+X_meo_list = X_meo_lists
 
+print(station_list)
+print(X_aq_list)
+print(y_aq_list)
 
 # 调整的参数
 use_day=True
@@ -71,6 +74,7 @@ test_x, test_y = generate_dev_set(station_list=station_list,
                                   y_aq_list=y_aq_list, 
                                   X_meo_list=None,
                                   pre_days=pre_days)
+print(test_x.shape, test_y.shape)
 
 
 # Define training model
@@ -99,9 +103,9 @@ with tf.Session() as sess:
     losses = []
     print("Training losses: ")
     for i in range(total_iteractions):
-        batch_input, batch_output = generate_training_set(station_list,
-                                                          X_aq_list,
-                                                          y_aq_list,
+        batch_input, batch_output = generate_training_set(station_list=station_list,
+                                                          X_aq_list=X_aq_list,
+                                                          y_aq_list=y_aq_list,
                                                           X_meo_list=None,
                                                           use_day=use_day,
                                                           pre_days=pre_days,
