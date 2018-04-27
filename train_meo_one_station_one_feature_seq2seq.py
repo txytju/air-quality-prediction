@@ -1,4 +1,5 @@
 # 一个站点，一个指标
+# 使用 meo 数据
 
 
 
@@ -56,13 +57,13 @@ batch_size=128
 input_seq_len = pre_days * 24
 output_seq_len = 48
 hidden_dim = 32
-input_dim = 6
+input_dim = 11
 output_dim = 1
 num_stacked_layers = 3
 
 lambda_l2_reg=0.003
 GRADIENT_CLIPPING=2.5
-total_iteractions = 500
+total_iteractions = 2000
 KEEP_RATE = 0.5
 
 
@@ -70,7 +71,7 @@ KEEP_RATE = 0.5
 test_x, test_y = generate_dev_set(station_list=station_list,
                                   X_aq_list=X_aq_list, 
                                   y_aq_list=y_aq_list, 
-                                  X_meo_list=None,
+                                  X_meo_list=X_meo_list,
                                   pre_days=pre_days)
 print(test_x.shape, test_y.shape)
 
@@ -104,7 +105,7 @@ with tf.Session() as sess:
         batch_input, batch_output = generate_training_set(station_list=station_list,
                                                           X_aq_list=X_aq_list,
                                                           y_aq_list=y_aq_list,
-                                                          X_meo_list=None,
+                                                          X_meo_list=X_meo_list,
                                                           use_day=use_day,
                                                           pre_days=pre_days,
                                                           batch_size=batch_size)
@@ -120,18 +121,10 @@ with tf.Session() as sess:
             temp_saver = rnn_model['saver']()
             name = 'multivariate_%d_iteractions' %(i)
             saved_iteractions.append(name)
-            save_path = temp_saver.save(sess, os.path.join('./seq2seq/one_variable_model_results/', name))
+            save_path = temp_saver.save(sess, os.path.join('./seq2seq/meo_one_variable_model_results/', name))
             print("Checkpoint saved at: ", save_path)
 
         losses.append(loss_t)
-        
-    # temp_saver = rnn_model['saver']()
-    # save_path = temp_saver.save(sess, os.path.join('./seq2seq/new_multi_variable_model_results/', 'multivariate_ts_pollution_case'))
-        
-# print("Checkpoint saved at: ", save_path)
-
-
-
 
 output_features = []
 for station in station_list : 
@@ -167,7 +160,7 @@ for name in saved_iteractions :
 	    sess.run(init)
 	    
 	    print("Using checkpoint: ", name)
-	    saver = rnn_model['saver']().restore(sess,  os.path.join('./seq2seq/one_variable_model_results/', name))
+	    saver = rnn_model['saver']().restore(sess,  os.path.join('./meo_seq2seq/one_variable_model_results/', name))
 	    
 	    feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction
 	    feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
@@ -185,9 +178,9 @@ print(aver_smapes_on_iteractions)
 
 
 df_aver_smapes_on_iteractions = pd.Series(aver_smapes_on_iteractions)
-df_aver_smapes_on_iteractions.to_csv("data/one_station_one_feature_seq2seq_result.csv")
+df_aver_smapes_on_iteractions.to_csv("data/meo_one_station_one_feature_seq2seq_result.csv")
 
-print("Trianing done! model saved at data/one_station_one_feature_seq2seq_result.csv")
+print("Trianing done! model saved at data/meo_one_station_one_feature_seq2seq_result.csv")
 
 
 
