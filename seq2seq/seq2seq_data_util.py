@@ -196,6 +196,7 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
             
     X_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
     X_df = train_df[X_feature_filters]
+    # print(X_df.columns)
     
     # step 3 : filter of y features
     y_feature_filters = []
@@ -207,6 +208,7 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
     
     y_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
     y_df = train_df[y_feature_filters]
+    # print(y_df.columns)
     
     # step 4 : generate training batch
     X_df_list = []
@@ -296,6 +298,7 @@ def generate_dev_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, pre_da
             
     X_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
     X_df = dev_df[X_feature_filters]
+    # print(X_df.columns)
     
     # step 3 : filter of y features
     y_feature_filters = []
@@ -307,6 +310,7 @@ def generate_dev_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, pre_da
     
     y_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
     y_df = dev_df[y_feature_filters]   
+    # print(y_df.columns)
     
     # step 4 : 按天生成数据
     X_df_list = []
