@@ -62,7 +62,7 @@ num_stacked_layers = 3
 
 lambda_l2_reg=0.003
 GRADIENT_CLIPPING=2.5
-total_iteractions = 500
+total_iteractions = 2000
 KEEP_RATE = 0.5
 
 
