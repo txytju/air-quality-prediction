@@ -32,7 +32,7 @@ def symmetric_mean_absolute_percentage_error(actual, forecast, y_mean, y_std):
     return r/length
 
 
-def SMAPE_on_dataset(actual_data, forecast_data, feature_list, y_mean, y_std, forecast_duration=1):
+def SMAPE_on_dataset(actual_data, forecast_data, feature_list, y_mean, y_std, forecast_duration=24):
     '''
     Compute SMAPE value on the dataset of actual and forecast.
 	
