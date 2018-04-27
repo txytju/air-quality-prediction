@@ -31,10 +31,16 @@ station_list = ['dongsi_aq','tiantan_aq','guanyuan_aq','wanshouxigong_aq','aotiz
 X_aq_list = ["PM2.5","PM10","O3","CO","SO2","NO2"]  
 y_aq_list = ["PM2.5","PM10","O3"]
 X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
-use_day=True
+
+
+
+# 调整的参数
+use_day=False
+learning_rate=1e-3
+
+# 固定的参数
 pre_days=5
 batch_size=128
-
 input_seq_len = pre_days * 24
 output_seq_len = 48
 hidden_dim = 512
@@ -42,7 +48,6 @@ input_dim = 210
 output_dim = 105
 num_stacked_layers = 3
 
-learning_rate=1e-3
 lambda_l2_reg=0.003
 GRADIENT_CLIPPING=2.5
 total_iteractions = 1000
