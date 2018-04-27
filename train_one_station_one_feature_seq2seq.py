@@ -25,28 +25,26 @@ KTF.set_session(session)
 
 
 # Args
-station_lists = ['dongsi_aq','tiantan_aq','guanyuan_aq','wanshouxigong_aq','aotizhongxin_aq',
+station_list = ['dongsi_aq','tiantan_aq','guanyuan_aq','wanshouxigong_aq','aotizhongxin_aq',
             'nongzhanguan_aq','wanliu_aq','beibuxinqu_aq','zhiwuyuan_aq','fengtaihuayuan_aq',
             'yungang_aq','gucheng_aq','fangshan_aq','daxing_aq','yizhuang_aq','tongzhou_aq',
             'shunyi_aq','pingchang_aq','mentougou_aq','pinggu_aq','huairou_aq','miyun_aq',
             'yanqin_aq','dingling_aq','badaling_aq','miyunshuiku_aq','donggaocun_aq',
             'yongledian_aq','yufa_aq','liulihe_aq','qianmen_aq','yongdingmennei_aq',
             'xizhimenbei_aq','nansanhuan_aq','dongsihuan_aq']            
-X_aq_lists = ["PM2.5","PM10","O3","CO","SO2","NO2"]  
-y_aq_lists = ["PM2.5","PM10","O3"]
-X_meo_lists = ["temperature","pressure","humidity","direction","speed/kph"]
+X_aq_list = ["PM2.5","PM10","O3","CO","SO2","NO2"]  
+y_aq_list = ["PM2.5","PM10","O3"]
+X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
 
 
 
 # 只选一个站点，一个特征预测，同时只使用该站的数据
-station_list = station_lists[0]
-X_aq_list = X_aq_lists
-y_aq_list = y_aq_lists[0]
-X_meo_list = X_meo_lists
+# 注意要以 list 的形式！！！！
+station_list = [station_list[0]]
+X_aq_list = X_aq_list
+y_aq_list = [y_aq_list[0]]
+X_meo_list = X_meo_list
 
-print(station_list)
-print(X_aq_list)
-print(y_aq_list)
 
 # 调整的参数
 use_day=True
