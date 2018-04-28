@@ -1,3 +1,4 @@
+result/
 test/
 seq2seq/hidden_dim/
 seq2seq/less_hidden_dim_one_variable_model_results/

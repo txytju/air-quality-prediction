@@ -23,26 +23,27 @@ train_dev_set_split(city="bj")
 # train_dev_set_split(city="ld")
 
 # 4. 训练模型
-pred_days_list = [3,5,7,10]
-loss_functions = ["L2", "L1", "huber_loss"]
 
-for pred_days in pred_days_list :
+# pred_days_list = [3,5,7,10]
+# loss_functions = ["L2", "L1", "huber_loss"]
 
-    # pred_days 不同生成的 dev set 也不同
-    test_x, test_y = generate_dev_set(city=city,
-                                  station_list=station_list,
-                                  X_aq_list=X_aq_list, 
-                                  y_aq_list=y_aq_list, 
-                                  X_meo_list=X_meo_list,
-                                  pre_days=pre_days,
-                                  gap=gap)
-    for loss_function in loss_functions :
-        model_preds, model_name = train_and_dev(city='bj',
-                                                test_set=,
-                                                pre_days=pred_days, 
-                                                gap=gap, 
-                                                loss_function=loss_function)
+# for pred_days in pred_days_list :
 
+#     # pred_days 不同生成的 dev set 也不同
+#     test_x, test_y = generate_dev_set(city=city,
+#                                  station_list=station_list,
+#                                  X_aq_list=X_aq_list, 
+#                                  y_aq_list=y_aq_list, 
+#                                  X_meo_list=X_meo_list,
+#                                  pre_days=pre_days,
+#                                  gap=gap)
+#     for loss_function in loss_functions :
+#         model_preds, model_name = train_and_dev(city='bj',
+#                                                test_set=,
+#                                                pre_days=pred_days, 
+#                                                gap=gap, 
+#                                                loss_function=loss_function)
+#
 
 # 5. 模型融合
 

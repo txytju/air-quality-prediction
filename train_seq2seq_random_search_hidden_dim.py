@@ -12,7 +12,7 @@ from seq2seq.seq2seq_data_util import get_training_statistics, generate_training
 from seq2seq.multi_variable_seq2seq_model_parameters import build_graph
 
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 gpu_config = tf.ConfigProto()
 gpu_config.gpu_options.allow_growth = True
@@ -48,7 +48,7 @@ use_day=True
 batch_size=128
 output_seq_len = 48
 hidden_dim = 512
-input_dim = 210
+input_dim = 385
 output_dim = 105
 num_stacked_layers = 3
 
@@ -68,7 +68,7 @@ for hidden_dim in hidden_dims :
     test_x, test_y = generate_dev_set(station_list=station_list,
                                       X_aq_list=X_aq_list, 
                                       y_aq_list=y_aq_list, 
-                                      X_meo_list=None,
+                                      X_meo_list=X_meo_list,
                                       pre_days=pre_days)
 
 
@@ -98,10 +98,10 @@ for hidden_dim in hidden_dims :
         losses = []
         print("Training losses: ")
         for i in range(total_iteractions):
-            batch_input, batch_output = generate_training_set(station_list,
-                                                              X_aq_list,
-                                                              y_aq_list,
-                                                              X_meo_list=None,
+            batch_input, batch_output = generate_training_set(station_list=station_list,
+                                                              X_aq_list=X_aq_list,
+                                                              y_aq_list=y_aq_list,
+                                                              X_meo_list=X_meo_list,
                                                               use_day=use_day,
                                                               pre_days=pre_days,
                                                               batch_size=batch_size)

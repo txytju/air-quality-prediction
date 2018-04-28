@@ -37,9 +37,9 @@ X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
 
 
 # 调整的参数
-learning_rates = np.random.uniform(-5,-3, size=10)
+learning_rates = np.random.uniform(-5,-3, size=3)
 # learning_rate = 10 ** learning_rates[i]
-pre_days_list = range(1,10)
+pre_days_list = range(3,8)
 
 
 
@@ -48,7 +48,7 @@ use_day=True
 batch_size=128
 output_seq_len = 48
 hidden_dim = 512
-input_dim = 210
+input_dim = 385
 output_dim = 105
 num_stacked_layers = 3
 
@@ -69,10 +69,11 @@ for lr in learning_rates :
         input_seq_len = pre_days * 24
 
         # Generate test data for the model
-        test_x, test_y = generate_dev_set(station_list=station_list,
+        test_x, test_y = generate_dev_set(city="bj",
+                                          station_list=station_list,
                                           X_aq_list=X_aq_list, 
                                           y_aq_list=y_aq_list, 
-                                          X_meo_list=None,
+                                          X_meo_list=X_meo_list,
                                           pre_days=pre_days)
 
 
@@ -102,10 +103,11 @@ for lr in learning_rates :
             losses = []
             print("Training losses: ")
             for i in range(total_iteractions):
-                batch_input, batch_output = generate_training_set(station_list,
-                                                                  X_aq_list,
-                                                                  y_aq_list,
-                                                                  X_meo_list=None,
+                batch_input, batch_output = generate_training_set(city="bj",
+                                                                  station_list=station_list,
+                                                                  X_aq_list=X_aq_list,
+                                                                  y_aq_list=y_aq_list,
+                                                                  X_meo_list=X_meo_list,
                                                                   use_day=use_day,
                                                                   pre_days=pre_days,
                                                                   batch_size=batch_size)
