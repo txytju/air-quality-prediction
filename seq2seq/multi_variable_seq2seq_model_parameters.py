@@ -10,7 +10,7 @@ def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48,
                 hidden_dim=512, input_dim=210, output_dim=105, num_stacked_layers=3, 
                 learning_rate=0.0001, lambda_l2_reg=0.003, GRADIENT_CLIPPING=2.5, loss_function="L2"):
     '''
-    loss_fuction : one of "L2", 
+    loss_fuction : one of "L2", "L1", "huber_loss" 
     '''
     
     tf.reset_default_graph()
@@ -163,6 +163,9 @@ def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48,
         elif loss_function == "L1" :
           for _y, _Y in zip(reshaped_outputs, target_seq):
               output_loss += tf.reduce_mean(tf.abs(_y - _Y))
+        elif loss_fuction == "huber_loss" :
+          for _y, _Y in zip(reshaped_outputs, target_seq):
+              output_loss += tf.losses.huber_loss(labels=_Y, predictions=_y)       
 
         # L2 regularization for weights and biases
         reg_loss = 0
