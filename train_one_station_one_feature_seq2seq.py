@@ -120,7 +120,7 @@ with tf.Session() as sess:
             temp_saver = rnn_model['saver']()
             name = 'multivariate_%d_iteractions' %(i)
             saved_iteractions.append(name)
-            save_path = temp_saver.save(sess, os.path.join('./seq2seq/one_variable_model_results/', name))
+            save_path = temp_saver.save(sess, os.path.join('./seq2seq/less_hidden_dim_one_variable_model_results/', name))
             print("Checkpoint saved at: ", save_path)
 
         losses.append(loss_t)
@@ -167,7 +167,7 @@ for name in saved_iteractions :
 	    sess.run(init)
 	    
 	    print("Using checkpoint: ", name)
-	    saver = rnn_model['saver']().restore(sess,  os.path.join('./seq2seq/one_variable_model_results/', name))
+	    saver = rnn_model['saver']().restore(sess,  os.path.join('./seq2seq/less_hidden_dim_one_variable_model_results/', name))
 	    
 	    feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction
 	    feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
@@ -185,9 +185,9 @@ print(aver_smapes_on_iteractions)
 
 
 df_aver_smapes_on_iteractions = pd.Series(aver_smapes_on_iteractions)
-df_aver_smapes_on_iteractions.to_csv("data/one_station_one_feature_seq2seq_result.csv")
+df_aver_smapes_on_iteractions.to_csv("data/less_hidden_dim_one_station_one_feature_seq2seq_result.csv")
 
-print("Trianing done! model saved at data/one_station_one_feature_seq2seq_result.csv")
+print("Trianing done! model saved at data/less_hidden_dim_one_station_one_feature_seq2seq_result.csv")
 
 
 

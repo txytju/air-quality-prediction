@@ -154,6 +154,9 @@ rnn_model = build_graph(feed_previous=True,
 
 aver_smapes_on_iteractions = {}
 
+
+saved_iteractions = ['multivariate_%d_iteractions' %(i) for i in range(0,total_iteractions,10)]
+
 for name in saved_iteractions :
 
 	init = tf.global_variables_initializer()
