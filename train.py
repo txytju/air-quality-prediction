@@ -125,7 +125,7 @@ for index in df_merged.index :
 
 
 # 现在数据中没有缺失值了 :)
-pd.isnull(df_merged).any().any()
+print(pd.isnull(df_merged).any().any())
 
 print(df_merged.shape)
 
