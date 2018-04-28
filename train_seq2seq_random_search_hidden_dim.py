@@ -43,6 +43,7 @@ hidden_dims = [128, 192, 256, 320, 384, 448, 512]
 # 固定的参数
 learning_rate = 1e-3
 pre_days = 5
+input_seq_len = pre_days * 24
 use_day=True
 batch_size=128
 output_seq_len = 48
