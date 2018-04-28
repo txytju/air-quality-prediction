@@ -188,15 +188,15 @@ def aq_data_preprocess(city="bj"):
 
     # 3.4 数据存储
 
-    df_merged.to_csv("test/bj_aq_data.csv")
+    df_merged.to_csv("test/%s_aq_data.csv" %(city))
 
 
     # ### 4. 数据归一化
 
     describe = df_merged.describe()
-    describe.to_csv("test/bj_aq_describe.csv")
+    describe.to_csv("test/%s_aq_describe.csv" %(city))
 
     df_norm = (df_merged - describe.loc['mean']) / describe.loc['std']
-    df_norm.to_csv("test/bj_aq_norm_data.csv")
+    df_norm.to_csv("test/%s_aq_norm_data.csv" %(city))
 
-    print("完成对空气质量数据的预处理！")
+    print("完成对 %s 空气质量数据的预处理！" %(city))

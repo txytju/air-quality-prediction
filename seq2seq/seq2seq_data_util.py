@@ -148,7 +148,7 @@ def get_training_statistics():
 
 # 可以按照 站点名称，特征名称，数据天数来灵活的生成验证集
 
-def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, use_day=True, pre_days=5, batch_size=32):
+def generate_training_set(city="bj", station_list=None, X_aq_list=None, y_aq_list=None, X_meo_list=None, use_day=True, pre_days=5, batch_size=32, gap=0):
     '''
     
     Args:
@@ -158,7 +158,11 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
         X_meo_list : a list of used meo features.
         use_day : bool, True to just use 0-24 h days.
         pre_days : use pre_days history days to predict.
-        batch_size
+        batch_size : batch_size.
+        gap : 0 or 12 or 24. 
+                0 : 当天 23点以后进行的模型训练
+                12 : 当天中午进行的模型训练
+                24 : 不使用当天数据进行的训练
         
     station_list = ['dongsi_aq','tiantan_aq','guanyuan_aq','wanshouxigong_aq','aotizhongxin_aq',
                 'nongzhanguan_aq','wanliu_aq','beibuxinqu_aq','zhiwuyuan_aq','fengtaihuayuan_aq',
@@ -171,9 +175,9 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
     y_aq_list = ["PM2.5","PM10","O3"]
     X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
     '''
-    
-    aq_train = pd.read_csv("data/aq_train_data.csv")
-    meo_train = pd.read_csv("data/meo_train_data.csv")
+
+    aq_train = pd.read_csv("test/%s_aq_train_data.csv" %(city))
+    meo_train = pd.read_csv("test/%s_meo_train_data.csv" %(city))
     
     train_df = pd.concat([aq_train, meo_train], axis=1)
     
@@ -214,7 +218,7 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
     X_df_list = []
     y_df_list = []
     
-    max_start_points = X_df.shape[0] - (pre_days + 2) * 24
+    max_start_points = X_df.shape[0] - (pre_days + 2) * 24 - gap
     if use_day : 
         total_start_points = range(0, max_start_points, 24)
     else :
@@ -223,12 +227,13 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
     for i in range(batch_size):       
         flag = True        
         while flag :
-            X_start_index = int(np.random.choice(total_start_points, 1, replace = False))
-            X_end_index = X_start_index + pre_days * 24 - 1
 
-            y_start_index = X_end_index + 1
-            y_end_index = X_end_index + 48
-    
+            X_start_index = int(np.random.choice(total_start_points, 1, replace = False))
+            X_end_index = X_start_index + pre_days * 24 - 1 - gap
+
+            y_start_index =  X_start_index + pre_days * 24
+            y_end_index = y_start_index + 47
+            
             # print(X_start_index, X_end_index, y_start_index, y_end_index)
 
             X = X_df.loc[X_start_index : X_end_index]
@@ -254,7 +259,7 @@ def generate_training_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, u
 
 
 
-def generate_dev_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, pre_days=5):
+def generate_dev_set(city="bj", station_list=None, X_aq_list=None, y_aq_list=None, X_meo_list=None, pre_days=5, gap=0):
     '''
    
     Args:
@@ -274,8 +279,8 @@ def generate_dev_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, pre_da
     y_aq_list = ["PM2.5","PM10","O3"]
     X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
     '''
-    aq_dev = pd.read_csv("data/aq_dev_data.csv")
-    meo_dev = pd.read_csv("data/meo_dev_data.csv")
+    aq_dev = pd.read_csv("test/%s_aq_dev_data.csv" %(city))
+    meo_dev = pd.read_csv("test/%s_meo_dev_data.csv" %(city))
     
     dev_df = pd.concat([aq_dev, meo_dev], axis=1)
     
@@ -321,7 +326,7 @@ def generate_dev_set(station_list, X_aq_list, y_aq_list, X_meo_list=None, pre_da
     for i in range(m):
 
         X_start_index = 24 * i
-        X_end_index = 24 * (i + pre_days) - 1
+        X_end_index = 24 * (i + pre_days) - 1 - gap
 
         y_start_index = 24 * (i + pre_days)
         y_end_index = 24 * (i + pre_days + 2) - 1

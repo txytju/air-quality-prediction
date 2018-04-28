@@ -12,7 +12,7 @@ def load_bj_grid_meo_data(useful_stations):
     csv_list = ["./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv", 
                 "./KDD_CUP_2018/Beijing/grid_meo/new.csv"]
 
- 	bj_grid_meo_dataset, stations, bj_meo_stations = load_grid_meo_data(csv_list, useful_stations)
+    bj_grid_meo_dataset, stations, bj_meo_stations = load_grid_meo_data(csv_list, useful_stations)
 
 
     return bj_grid_meo_dataset, stations, bj_meo_stations
@@ -30,10 +30,6 @@ def load_ld_grid_meo_data(useful_stations):
 
 
     return ld_grid_meo_dataset, stations, ld_meo_stations
-
-
-
-
 
 
 def load_grid_meo_data(csv_list, useful_stations):
@@ -86,6 +82,18 @@ def load_grid_meo_data(csv_list, useful_stations):
 
 
     return meo_dataset, stations, meo_stations
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def get_station_locations(stations_df):
@@ -196,9 +204,9 @@ def get_related_meo_dfs(aq_station_nearest_meo_station, bj_meo_all, bj_grid_meo_
 
 
 #     # 网格气象数据
-#     grid_meo_dataset_1 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv")
+#     bj_grid_meo_dataset_1 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv")
 #     # API 下载数据
-#     grid_meo_dataset_2 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/new.csv")
+#     bj_grid_meo_dataset_2 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/new.csv")
 
 #     # 去掉位置信息
 #     bj_grid_meo_dataset_1.drop("longitude", axis=1, inplace=True)
