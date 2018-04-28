@@ -8,7 +8,10 @@ import os
 
 def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48, 
                 hidden_dim=512, input_dim=210, output_dim=105, num_stacked_layers=3, 
-                learning_rate=0.0001, lambda_l2_reg=0.003, GRADIENT_CLIPPING=2.5 ):
+                learning_rate=0.0001, lambda_l2_reg=0.003, GRADIENT_CLIPPING=2.5, loss_fuction="L2"):
+    '''
+    loss_fuction : one of "L2", 
+    '''
     
     tf.reset_default_graph()
     
@@ -151,10 +154,15 @@ def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48,
         
     # Training loss and optimizer
     with tf.variable_scope('Loss'):
-        # L2 loss
+
         output_loss = 0
-        for _y, _Y in zip(reshaped_outputs, target_seq):
-            output_loss += tf.reduce_mean(tf.pow(_y - _Y, 2))
+
+        if loss_fuction == "L2" :
+          for _y, _Y in zip(reshaped_outputs, target_seq):
+              output_loss += tf.reduce_mean(tf.pow(_y - _Y, 2))
+        elif loss_fuction == "L1" :
+          for _y, _Y in zip(reshaped_outputs, target_seq):
+              output_loss += tf.reduce_mean(tf.abs(_y - _Y))
 
         # L2 regularization for weights and biases
         reg_loss = 0

@@ -115,7 +115,7 @@ for hidden_dim in hidden_dims :
                 print("loss after %d/%d iteractions : %.3f" %(i, total_iteractions, loss_t))
 
                 temp_saver = rnn_model['saver']()
-                name = '%d learning_rate and %d pre_days, multivariate_%d_iteractions' %(learning_rate, pre_days, i)
+                name = '%d hidden_dim, multivariate_%d_iteractions' %(hidden_dim, i)
                 saved_iteractions.append(name)
                 save_path = temp_saver.save(sess, os.path.join('./seq2seq/hidden_dim/multi_variable_model_results/', name))
                 print("Checkpoint saved at: ", save_path)
@@ -176,7 +176,7 @@ for hidden_dim in hidden_dims :
 
 
     df_aver_smapes_on_iteractions = pd.DataFrame(aver_smapes_on_iteractions).T
-    column_name = "learning_rate=%d, pre_days=%d" %(learning_rate, pre_days)
+    column_name = "hidden_dim=%d" %(hidden_dim)
     df_aver_smapes_on_iteractions.rename(columns={0:column_name}, inplace=True)
     
     if not flag : 
