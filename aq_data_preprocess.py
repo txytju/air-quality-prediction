@@ -1,4 +1,3 @@
-
 # coding: utf-8
 
 # Using pandas to process data
@@ -7,14 +6,10 @@ import numpy as np
 import pandas as pd
 import datetime
 from matplotlib import pyplot as plt
-get_ipython().magic('matplotlib inline')
 from scipy.stats import pearsonr
 
 from utils.data_util import load_bj_aq_data, generate_model_data
-
-get_ipython().magic('load_ext autoreload')
-get_ipython().magic('autoreload 2')
-
+from utils.weather_data_util import get_station_locations, get_location_lists
 
 # ### 1. 数据载入
 bj_aq_data, stations, bj_aq_stations, bj_aq_stations_merged = load_bj_aq_data()
@@ -31,20 +26,9 @@ print("最晚的日期：", bj_aq_stations_merged.index.max())
 #     2. 遍历 index ，找出对应的时间的重复值，删除后出现的重复时间
 
 df_merged = bj_aq_stations_merged
-
 df_merged["time"] = df_merged.index
-
-
 df_merged.set_index("order", inplace=True)
-
-
-# In[8]:
-
-
 print("重复值去除之前，共有数据数量", df_merged.shape[0])
-
-
-# In[9]:
 
 
 used_times = []
@@ -55,15 +39,7 @@ for index in df_merged.index :
     else : 
         df_merged.drop([index], inplace=True)
 
-
-# In[10]:
-
-
 print("重复值去除之后，共有数据数量", df_merged.shape[0])
-
-
-# In[11]:
-
 
 df_merged.set_index("time", inplace=True)
 
@@ -76,8 +52,6 @@ df_merged.set_index("time", inplace=True)
 #     - 某个小时的某个站点的某个数据缺失
 # - 对于上述第一种情况，如果某天的缺失数据超过5个小时，就放弃使用该天的数据，如果没有超过5个小时，使用插值的方式对数据进行填充。
 # - 对于后两种情况，使用距离该站的有数据的最近一个站的数据，直接作为该站的数据。
-
-# In[12]:
 
 
 min_time = df_merged.index.min()
@@ -94,16 +68,11 @@ print("缺失时间节点数量是 %d" %(10898-10113))
 # #### 3.1 整小时缺失
 # 统计哪些时间节点发生了整小时缺失的情况
 
-# In[13]:
-
 
 delta = datetime.timedelta(hours=1)
 time = min_time
 missing_hours = []
 missing_hours_str = []
-
-
-# In[14]:
 
 
 while time <=  max_time :
@@ -112,10 +81,6 @@ while time <=  max_time :
         missing_hours_str.append(datetime.date.strftime(time, '%Y-%m-%d %H:%M:%S'))
     time += delta
 
-
-# In[15]:
-
-
 print("整小时的缺失共计 : ", len(missing_hours))
 
 
@@ -123,28 +88,10 @@ print("整小时的缺失共计 : ", len(missing_hours))
 # - 在没有全部缺失的小时处，某个站点会在某个小时出现全部数据缺失的情况。这种情况下，使用距离该站最近的站的数据对其进行补全。
 # - 或者某个站点的某个值缺失，此时使用相邻站点的数据补全
 
-# In[16]:
-
-
-from utils.weather_data_util import get_station_locations, get_location_lists
-
-
-# In[17]:
-
-
-aq_station_locations = pd.read_excel("./KDD_CUP_2018/Beijing/location/Beijing_AirQuality_Stations_locations.xlsx", sheet_name=1)
-
-
-# In[18]:
-
-
-aq_station_locations.head()
+aq_station_locations = pd.read_excel("./KDD_CUP_2018/Beijing/location/Beijing_AirQuality_Stations_locations.xlsx", sheet_name=0)
 
 
 # 对于一个空气质量站点，将其他站点按照距该站点距离的大小关系排列，并保存成列表
-
-# In[19]:
-
 
 for index_t in aq_station_locations.index:
     row_t = aq_station_locations.loc[index_t]
@@ -165,17 +112,6 @@ for index_t in aq_station_locations.index:
     
     aq_station_locations[station_name] = all_dis
 
-
-# In[20]:
-
-
-# 不同站之间的距离关系
-aq_station_locations
-
-
-# In[21]:
-
-
 # 以每一个站的名字为 key，以其他站的名字组成的列表为 value list，列表中从前向后距离越来越远
 near_stations = {}
 for index_t in aq_station_locations.index:
@@ -183,18 +119,7 @@ for index_t in aq_station_locations.index:
     ordered_stations_names = aq_station_locations.sort_values(by=target_station_name)['stationName'].values[1:]
     near_stations[target_station_name] = ordered_stations_names
 
-
-# In[22]:
-
-
-# 举个例子：dingling_aq 附近的、按照距离排序的站的名字
-near_stations['dingling_aq']
-
-
 # #### 3.3 个别缺失的处理
-
-# In[23]:
-
 
 def get_estimated_value(station_name, feature_name, near_stations, row):
     '''
@@ -211,9 +136,6 @@ def get_estimated_value(station_name, feature_name, near_stations, row):
             return 0
 
 
-# In[24]:
-
-
 for index in df_merged.index :
     row = df_merged.loc[index]
     for feature in row.index :
@@ -225,17 +147,10 @@ for index in df_merged.index :
             row[feature] = get_estimated_value(station_name, feature_name, near_stations, row)
 
 
-# In[25]:
 
 
 # 现在数据中没有缺失值了 :)
-pd.isnull(df_merged).any().any()
-
-
-# In[26]:
-
-
-df_merged.shape
+print(pd.isnull(df_merged).any().any())
 
 
 # #### 3.4 整小时的缺失的处理
@@ -244,8 +159,6 @@ df_merged.shape
 # - 如果一个缺失小时在一个长度小于等于5小时的缺失时段内，就进行补全
 # - 如果超过5小时，就舍弃，将全部值补成 NAN，**这也是整个表中唯一可能出现 NAN 的情况**
 
-# In[27]:
-
 
 # 将 missing hours 分成两类 : keep_hours and drop_hours
 keep_hours = []
@@ -253,9 +166,6 @@ drop_hours = []
 
 
 # 先对小于5小时的进行填充
-
-# In[28]:
-
 
 delta = datetime.timedelta(hours=1)
 
@@ -299,30 +209,22 @@ for hour in missing_hours_str :
         df_merged.loc[hour] = for_row + (for_step/all_steps) * delata_values        
 
 
-# In[29]:
+
 
 
 # keep 180 hours of 785 missing hours
 print(len(drop_hours), len(keep_hours), len(missing_hours_str))
 
 
-# In[30]:
-
-
 print(df_merged.shape)
 
 
-# In[31]:
-
 
 # 依然 没有 Nan，棒！
-pd.isnull(df_merged).any().any()
+print(pd.isnull(df_merged).any().any())
 
 
 # 再对超过5小时的填充 NAN
-
-# In[32]:
-
 
 nan_series = pd.Series({key:np.nan for key in df_merged.columns})
 
@@ -330,20 +232,11 @@ for hour in drop_hours:
     df_merged.loc[hour] = nan_series
 
 
-# In[33]:
-
-
 df_merged.sort_index(inplace=True)
 
 
-# In[34]:
-
-
 # 11458 和应有的数量一致 :)
-df_merged.shape
-
-
-# In[35]:
+print(df_merged.shape)
 
 
 df_merged.to_csv("test/bj_aq_data.csv")
@@ -351,18 +244,11 @@ df_merged.to_csv("test/bj_aq_data.csv")
 
 # ### 4. 数据归一化
 
-# In[57]:
-
-
 describe = df_merged.describe()
-describe.to_csv("data/bj_aq_describe.csv")
-
-
-# In[58]:
-
+describe.to_csv("test/bj_aq_describe.csv")
 
 df_norm = (df_merged - describe.loc['mean']) / describe.loc['std']
-df_norm.to_csv("data/bj_aq_norm_data.csv")
+df_norm.to_csv("test/bj_aq_norm_data.csv")
 
 
 # # ChangeLog
@@ -381,7 +267,6 @@ df_norm.to_csv("data/bj_aq_norm_data.csv")
 #     - 实现了对数据的正则化
 #     - 这在概念上是不是错误的？因为是在整个数据上对数据进行了统计，而正确的应该是仅在训练集上对数据进行统计
 
-# In[ ]:
 
 
 
