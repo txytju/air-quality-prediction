@@ -59,6 +59,8 @@ max_time = df_merged.index.max()
 min_time = datetime.datetime.strptime(min_time, '%Y-%m-%d %H:%M:%S')
 max_time = datetime.datetime.strptime(max_time, '%Y-%m-%d %H:%M:%S')
 delta_all = max_time - min_time
+
+hours_should = delta_all.total_seconds()/3600 + 1
 # print("在空气质量数据时间段内，总共应该有 %d 个小时节点。" %(delta_all.total_seconds()/3600 + 1))
 # print("实际的时间节点数是 %d" %(df_merged.shape[0]))
 
@@ -224,7 +226,7 @@ df_merged.sort_index(inplace=True)
 
 
 # 11458 和应有的数量一致 :)
-assert df_merged.shape == delta_all.total_seconds()/3600 + 1 , "填充完的长度和应有的长度不一致"
+assert df_merged.shape[0] == hours_should , "填充完的长度和应有的长度不一致"
 
 
 df_merged.to_csv("test/bj_aq_data.csv")
@@ -237,3 +239,5 @@ describe.to_csv("test/bj_aq_describe.csv")
 
 df_norm = (df_merged - describe.loc['mean']) / describe.loc['std']
 df_norm.to_csv("test/bj_aq_norm_data.csv")
+
+print("完成对空气质量数据的预处理！")
