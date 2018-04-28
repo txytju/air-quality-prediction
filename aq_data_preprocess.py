@@ -14,8 +14,8 @@ from utils.weather_data_util import get_station_locations, get_location_lists
 # ### 1. 数据载入
 bj_aq_data, stations, bj_aq_stations, bj_aq_stations_merged = load_bj_aq_data()
 
-print("最早的日期：", bj_aq_stations_merged.index.min())
-print("最晚的日期：", bj_aq_stations_merged.index.max())
+# print("最早的日期：", bj_aq_stations_merged.index.min())
+# print("最晚的日期：", bj_aq_stations_merged.index.max())
 
 
 # ### 2. 重复日期的值除去
@@ -28,8 +28,7 @@ print("最晚的日期：", bj_aq_stations_merged.index.max())
 df_merged = bj_aq_stations_merged
 df_merged["time"] = df_merged.index
 df_merged.set_index("order", inplace=True)
-print("重复值去除之前，共有数据数量", df_merged.shape[0])
-
+# print("重复值去除之前，共有数据数量", df_merged.shape[0])
 
 used_times = []
 for index in df_merged.index :
@@ -39,7 +38,7 @@ for index in df_merged.index :
     else : 
         df_merged.drop([index], inplace=True)
 
-print("重复值去除之后，共有数据数量", df_merged.shape[0])
+# print("重复值去除之后，共有数据数量", df_merged.shape[0])
 
 df_merged.set_index("time", inplace=True)
 
@@ -60,9 +59,9 @@ max_time = df_merged.index.max()
 min_time = datetime.datetime.strptime(min_time, '%Y-%m-%d %H:%M:%S')
 max_time = datetime.datetime.strptime(max_time, '%Y-%m-%d %H:%M:%S')
 delta_all = max_time - min_time
-print("在空气质量数据时间段内，总共应该有 %d 个小时节点。" %(delta_all.total_seconds()/3600 + 1))
-print("实际的时间节点数是 %d" %(df_merged.shape[0]))
-print("缺失时间节点数量是 %d" %(10898-10113))
+# print("在空气质量数据时间段内，总共应该有 %d 个小时节点。" %(delta_all.total_seconds()/3600 + 1))
+# print("实际的时间节点数是 %d" %(df_merged.shape[0]))
+
 
 
 # #### 3.1 整小时缺失
@@ -81,7 +80,7 @@ while time <=  max_time :
         missing_hours_str.append(datetime.date.strftime(time, '%Y-%m-%d %H:%M:%S'))
     time += delta
 
-print("整小时的缺失共计 : ", len(missing_hours))
+# print("整小时的缺失共计 : ", len(missing_hours))
 
 
 # #### 3.2 某个小时某个站点数据缺失
@@ -150,7 +149,7 @@ for index in df_merged.index :
 
 
 # 现在数据中没有缺失值了 :)
-print(pd.isnull(df_merged).any().any())
+assert (pd.isnull(df_merged).any().any()) == False, "数据中还有缺失值(局部处理后)"
 
 
 # #### 3.4 整小时的缺失的处理
@@ -210,22 +209,11 @@ for hour in missing_hours_str :
 
 
 
-
-
-# keep 180 hours of 785 missing hours
-print(len(drop_hours), len(keep_hours), len(missing_hours_str))
-
-
-print(df_merged.shape)
-
-
-
 # 依然 没有 Nan，棒！
-print(pd.isnull(df_merged).any().any())
+assert pd.isnull(df_merged).any().any() == False, "数据中还有缺失值(整体处理后)"
 
 
 # 再对超过5小时的填充 NAN
-
 nan_series = pd.Series({key:np.nan for key in df_merged.columns})
 
 for hour in drop_hours:
@@ -236,7 +224,7 @@ df_merged.sort_index(inplace=True)
 
 
 # 11458 和应有的数量一致 :)
-print(df_merged.shape)
+assert df_merged.shape == delta_all.total_seconds()/3600 + 1 , "填充完的长度和应有的长度不一致"
 
 
 df_merged.to_csv("test/bj_aq_data.csv")
@@ -249,25 +237,3 @@ describe.to_csv("test/bj_aq_describe.csv")
 
 df_norm = (df_merged - describe.loc['mean']) / describe.loc['std']
 df_norm.to_csv("test/bj_aq_norm_data.csv")
-
-
-# # ChangeLog
-# - 0424
-#     - 对原空气质量数据进行了处理，包括：
-#         - 删去重复日期
-#         - 缺失值分析
-#             - 整体缺失数据(指所有站点的所有特征在这一时刻均无数据)
-#                 - 缺失不超过5小时：使用前后线性插值的方式
-#                     - 暂时没有考虑 “基于天的周期性”
-#                 - 缺失超过5小时：放弃该时刻的值，使用 NAN 替代
-#             - 局部缺失数据(指某些站点的某些特征在这一刻没有数据)
-#                 - 解决方法：收集距离该站最近的且该特征有数值的特征，并填充该值
-#     - 下载新数据，并进行数据融合
-# - 0425
-#     - 实现了对数据的正则化
-#     - 这在概念上是不是错误的？因为是在整个数据上对数据进行了统计，而正确的应该是仅在训练集上对数据进行统计
-
-
-
-
-
