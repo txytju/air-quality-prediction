@@ -75,7 +75,7 @@ test_x, test_y = generate_dev_set(station_list=station_list,
                                   pre_days=pre_days)
 print(test_x.shape, test_y.shape)
 
-
+/*
 # Define training model
 rnn_model = build_graph(feed_previous=False, 
                         input_seq_len=input_seq_len, 
@@ -125,6 +125,8 @@ with tf.Session() as sess:
             print("Checkpoint saved at: ", save_path)
 
         losses.append(loss_t)
+*/
+
 
 output_features = []
 for station in station_list : 
@@ -160,7 +162,7 @@ for name in saved_iteractions :
 	    sess.run(init)
 	    
 	    print("Using checkpoint: ", name)
-	    saver = rnn_model['saver']().restore(sess,  os.path.join('./meo_seq2seq/one_variable_model_results/', name))
+	    saver = rnn_model['saver']().restore(sess,  os.path.join('./seq2seq/meo_one_variable_model_results/', name))
 	    
 	    feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction
 	    feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
