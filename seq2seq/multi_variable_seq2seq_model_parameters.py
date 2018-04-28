@@ -8,7 +8,7 @@ import os
 
 def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48, 
                 hidden_dim=512, input_dim=210, output_dim=105, num_stacked_layers=3, 
-                learning_rate=0.0001, lambda_l2_reg=0.003, GRADIENT_CLIPPING=2.5, loss_fuction="L2"):
+                learning_rate=0.0001, lambda_l2_reg=0.003, GRADIENT_CLIPPING=2.5, loss_function="L2"):
     '''
     loss_fuction : one of "L2", 
     '''
@@ -157,10 +157,10 @@ def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48,
 
         output_loss = 0
 
-        if loss_fuction == "L2" :
+        if loss_function == "L2" :
           for _y, _Y in zip(reshaped_outputs, target_seq):
               output_loss += tf.reduce_mean(tf.pow(_y - _Y, 2))
-        elif loss_fuction == "L1" :
+        elif loss_function == "L1" :
           for _y, _Y in zip(reshaped_outputs, target_seq):
               output_loss += tf.reduce_mean(tf.abs(_y - _Y))
 

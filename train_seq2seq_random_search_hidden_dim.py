@@ -115,7 +115,7 @@ for hidden_dim in hidden_dims :
                 print("loss after %d/%d iteractions : %.3f" %(i, total_iteractions, loss_t))
 
                 temp_saver = rnn_model['saver']()
-                name = '%d hidden_dim, multivariate_%d_iteractions' %(hidden_dim, i)
+                name = '%d_hidden_dim, multivariate_%d_iteractions' %(hidden_dim, i)
                 saved_iteractions.append(name)
                 save_path = temp_saver.save(sess, os.path.join('./seq2seq/hidden_dim/multi_variable_model_results/', name))
                 print("Checkpoint saved at: ", save_path)
