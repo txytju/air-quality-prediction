@@ -121,11 +121,13 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
         - 凌晨时候使用 -n~-1 day数据预测1,2 day数据
         - 中午使用-n~-1 day + 0day(0h~12h) 预测1,2 day数据
         - 晚上11点以后，使用(-n~0) day 预测1,2 day数据
-  - 使用多种回归的损失函数
-    - L2
-    - L1
+  - ~~使用多种回归的损失函数~~
+    - ~~L2~~
+    - ~~L1~~
+    - ~~Huber_loss~~
   - 伦敦数据下载整理
   - 提交预测数据
+  - pipeline
 
   #  Workflow
 
