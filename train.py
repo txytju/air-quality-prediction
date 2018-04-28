@@ -37,7 +37,11 @@ for pred_days in pred_days_list :
                                   pre_days=pre_days,
                                   gap=gap)
     for loss_function in loss_functions :
-        model_preds, model_name = train_and_dev(city='bj', pre_days=pred_days, gap=gap, loss_function=loss_function)
+        model_preds, model_name = train_and_dev(city='bj',
+                                                test_set=,
+                                                pre_days=pred_days, 
+                                                gap=gap, 
+                                                loss_function=loss_function)
 
 
 # 5. 模型融合
@@ -49,7 +53,10 @@ for pred_days in pred_days_list :
 
 # 7. 自动提交结果
 
-
+# 完成内容
+# 1. 数据的加载、预处理
+# 2. 训练集和验证集的划分
+# 3. 使用不同的预测天数，不同的损失函数预测多个模型，并保存模型的预测结果
 
 
 
@@ -58,3 +65,5 @@ for pred_days in pred_days_list :
 # 1. 每天定时跑，并且将时间和 gap 变量对应上
 # 2. 当前 model_preds 是在正则化数据上的，将之转换到原始数据分布 statistics
 # 3. UTC time
+# 4. 将 generate test set 的方法修正
+

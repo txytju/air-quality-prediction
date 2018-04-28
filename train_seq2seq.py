@@ -44,7 +44,7 @@ ld_X_meo_list = []
 
 
 
-def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
+def train_and_dev(city='bj', test_set=None, pre_days=5, gap=0, loss_function="L2") :
     '''
     city='bj' or 'ld' : 针对某个城市的数据进行训练
     pre_days : 使用 pre_days 天数的数据进行预测
@@ -83,13 +83,13 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
 
 
     # Generate test data for the model
-    test_x, test_y = generate_dev_set(city=city,
-                                      station_list=station_list,
-                                      X_aq_list=X_aq_list, 
-                                      y_aq_list=y_aq_list, 
-                                      X_meo_list=X_meo_list,
-                                      pre_days=pre_days,
-                                      gap=gap)
+    # test_x, test_y = generate_dev_set(city=city,
+    #                                   station_list=station_list,
+    #                                   X_aq_list=X_aq_list, 
+    #                                   y_aq_list=y_aq_list, 
+    #                                   X_meo_list=X_meo_list,
+    #                                   pre_days=pre_days,
+    #                                   gap=gap)
 
 
     # Define training model
@@ -206,7 +206,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
     # df_aver_smapes_on_iteractions = pd.Series(aver_smapes_on_iteractions)
     # df_aver_smapes_on_iteractions.to_csv("data/meo_and_aq_seq2seq_result.csv")
     # print("Trianing done! model saved at data/meo_and_aq_seq2seq_result.csv")
-    return model_preds, model_name # 将在这种情况下表现最好的模型 的预测结果 和 模型的位置信息返回
+    return aver_smapes_best, model_preds, model_name # 将在这种情况下表现最好的模型 的预测结果 和 模型的位置信息返回
 
 
 
