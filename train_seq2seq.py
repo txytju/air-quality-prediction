@@ -117,12 +117,6 @@ with tf.Session() as sess:
 
         losses.append(loss_t)
         
-    # temp_saver = rnn_model['saver']()
-    # save_path = temp_saver.save(sess, os.path.join('./seq2seq/new_multi_variable_model_results/', 'multivariate_ts_pollution_case'))
-        
-# print("Checkpoint saved at: ", save_path)
-
-
 
 
 output_features = []
