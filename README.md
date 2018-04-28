@@ -55,25 +55,28 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
   - ~~模型的评价~~
     - 在训练过程中，将不同时刻的模型状态保存，在完成全部训练后，对上述每一个状态的模型在验证集上进行评估
   - 超参数的选择
-    - 应该以那一时刻的指标来去评判？
+    - 应该以哪一时刻的指标来去评判？
       - 多次迭代的收敛到的指标？
       - 还是训练过程中的最好的指标？
     - 循环次数
       - 对原始模型训练1000次的结果表明，在 1e-3 的学习率下，模型在500次迭代以内就能达到在验证集上的最好效果(0.656)
       - 但是模型在100次迭代之后往往可以收敛到一个值，这个值高于最好效果
     - 要调整的超参数包括
-      - 是否使用 meo 
+      - ~~是否使用 meo~~
+        - ~~使用 meo 的效果要好于不使用~~
       - **learning_rate**
         - 1e-5 ~ 1e-3 random search
-      - use_day bool
-        - True 只使用整天的数据，False 使用所有时间点的数据
-        - True 数据数量少，可能会导致过拟合；False数据多，不容易过拟合，但是会失去“整天信息”
-        - 测试结果表明，使用整天的数据结果更好
+      - ~~use_day (bool) set to True~~
+        - ~~True 只使用整天的数据，False 使用所有时间点的数据~~
+        - ~~True 数据数量少，可能会导致过拟合；False数据多，不容易过拟合，但是会失去“整天信息”~~
+        - ~~测试结果表明，使用整天的数据结果更好~~
       - **pre_days**
         - 用来预测的天数
         - 1 ~ 10 random search
       - batch_size=128
-      - hidden_dim = 512
+      - hidden_dim
+        - 对于单站点模型的计算结果表明，hidden_dim=8 效果明显好于 hidden_dim =32
+        - 因此对于多站点模型来说，也要尝试使用更少的 hidden_dim
       - input_dim = 210
       - output_dim = 105
       - num_stacked_layers = 3
@@ -108,6 +111,13 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
     - 自动化
   - 在上述模型中找出最好的一个模型，调超参数
   - xgboost模型
+
+- 20180428 
+
+  - 使用全站模型调优
+  - 使用多种回归的损失函数，预测值取平均
+  - 伦敦数据下载整理
+  - 提交代码
 
   #  Workflow
 
