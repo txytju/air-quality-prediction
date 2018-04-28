@@ -76,7 +76,8 @@ rnn_model = build_graph(feed_previous=False,
                         num_stacked_layers=num_stacked_layers, 
                         learning_rate=learning_rate,
                         lambda_l2_reg=lambda_l2_reg,
-                        GRADIENT_CLIPPING=GRADIENT_CLIPPING)
+                        GRADIENT_CLIPPING=GRADIENT_CLIPPING,
+                        loss_function="L1")
 
 
 # training process
@@ -146,7 +147,8 @@ rnn_model = build_graph(feed_previous=True,
                         num_stacked_layers=num_stacked_layers, 
                         learning_rate=learning_rate,
                         lambda_l2_reg=lambda_l2_reg,
-                        GRADIENT_CLIPPING=GRADIENT_CLIPPING)
+                        GRADIENT_CLIPPING=GRADIENT_CLIPPING,
+                        loss_function="L1")
 
 aver_smapes_on_iteractions = {}
 
