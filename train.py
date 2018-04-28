@@ -57,3 +57,4 @@ for pred_days in pred_days_list :
 # TODO：
 # 1. 每天定时跑，并且将时间和 gap 变量对应上
 # 2. 当前 model_preds 是在正则化数据上的，将之转换到原始数据分布 statistics
+# 3. UTC time
