@@ -178,25 +178,25 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
 
     for name in saved_iteractions :
 
-    	init = tf.global_variables_initializer()
-    	with tf.Session() as sess:
+        init = tf.global_variables_initializer()
+        with tf.Session() as sess:
 
-    	    sess.run(init)
-    	    
-    	    print("Using checkpoint: ", name)
-    	    saver = rnn_model['saver']().restore(sess,  os.path.join('./result/multi_variable_model_results/', name))
-    	    
-    	    feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction
-    	    feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
-    	    final_preds = sess.run(rnn_model['reshaped_outputs'], feed_dict)
-    	    
-    	    final_preds = [np.expand_dims(pred, 1) for pred in final_preds]
-    	    final_preds = np.concatenate(final_preds, axis = 1)
+            sess.run(init)
+            
+            print("Using checkpoint: ", name)
+            saver = rnn_model['saver']().restore(sess,  os.path.join('./result/multi_variable_model_results/', name))
+            
+            feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction
+            feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
+            final_preds = sess.run(rnn_model['reshaped_outputs'], feed_dict)
+            
+            final_preds = [np.expand_dims(pred, 1) for pred in final_preds]
+            final_preds = np.concatenate(final_preds, axis = 1)
 
-    	aver_smapes, smapes_of_features = SMAPE_on_dataset_v1(test_y, final_preds, output_features, statistics, 1)
+        aver_smapes, smapes_of_features = SMAPE_on_dataset_v1(test_y, final_preds, output_features, statistics, 1)
 
-    	# aver_smapes_on_iteractions[name] = aver_smapes
-        if aver_smapes < aver_smapes_best : 
+        # aver_smapes_on_iteractions[name] = aver_smapes
+        if aver_smapes < aver_smapes_best :
             aver_smapes_best = aver_smapes
             model_preds = final_preds  # TODO final_preds 转化为经过 statistics 转化之后的
             model_name = name
