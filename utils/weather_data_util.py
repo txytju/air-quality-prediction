@@ -5,54 +5,87 @@ from matplotlib import pyplot as plt
 
 def load_bj_grid_meo_data(useful_stations):
     '''
+    csv_list : a list of strings, string of csv path
     useful_stations : dict of {aq_station : meo_station}
     '''
 
+    csv_list = ["./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv", 
+                "./KDD_CUP_2018/Beijing/grid_meo/new.csv"]
 
-    # 网格气象数据
-    bj_grid_meo_dataset_1 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv")
-    # 去掉位置信息
-    bj_grid_meo_dataset_1.drop("longitude", axis=1, inplace=True)
-    bj_grid_meo_dataset_1.drop("latitude", axis=1, inplace=True)
-
-    # API 下载数据
-    bj_grid_meo_dataset_2 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/new.csv")
-
-    bj_grid_meo_dataset = pd.concat([bj_grid_meo_dataset_1, bj_grid_meo_dataset_2], ignore_index=True)
-
-    # turn date from string type to datetime type
-    bj_grid_meo_dataset["time"] = pd.to_datetime(bj_grid_meo_dataset['utc_time'])
-    bj_grid_meo_dataset.set_index("time", inplace=True)
-    bj_grid_meo_dataset.drop("utc_time", axis=1, inplace=True)
-
-    # names of all stations
-    stations = set(bj_grid_meo_dataset['stationName'])
-
-    # a dict of station aq, Beijing
-    bj_meo_stations = {}
-
-    for aq_station, meo_station in useful_stations.items() :
-
-    	if meo_station in stations :
-	        bj_meo_station = bj_grid_meo_dataset[bj_grid_meo_dataset["stationName"]==meo_station].copy()
-	        bj_meo_station.drop("stationName", axis=1, inplace=True)
-
-	        # rename
-	        original_names = bj_meo_station.columns.values.tolist()
-	        names_dict = {original_name : aq_station+"_"+original_name for original_name in original_names}
-	        bj_meo_station_renamed = bj_meo_station.rename(index=str, columns=names_dict)
-	        
-
-	        bj_meo_stations[aq_station] = bj_meo_station_renamed    	
+ 	bj_grid_meo_dataset, stations, bj_meo_stations = load_grid_meo_data(csv_list, useful_stations)
 
 
     return bj_grid_meo_dataset, stations, bj_meo_stations
 
 
+def load_ld_grid_meo_data(useful_stations):
+    '''
+    csv_list : a list of strings, string of csv path
+    useful_stations : dict of {aq_station : meo_station}
+    '''
+
+    csv_list = []
+
+    ld_grid_meo_dataset, stations, ld_meo_stations = load_grid_meo_data(csv_list, useful_stations)
+
+
+    return ld_grid_meo_dataset, stations, ld_meo_stations
 
 
 
 
+
+
+def load_grid_meo_data(csv_list, useful_stations):
+    '''
+    csv_list : a list of strings, string of csv path
+    useful_stations : dict of {aq_station : meo_station}
+    '''
+
+    meo_datas = []
+
+    for csv in csv_list :
+        meo_data = pd.read_csv(csv)
+
+        # 去掉位置信息
+        if "longitude" in meo_data.columns :
+            meo_data.drop("longitude", axis=1, inplace=True)
+        if "latitude" in meo_data.columns :    
+            meo_data.drop("latitude", axis=1, inplace=True)
+        
+        meo_datas.append(meo_data)
+
+    meo_dataset = pd.concat(meo_datas, ignore_index=True)
+
+
+
+    # turn date from string type to datetime type
+    meo_dataset["time"] = pd.to_datetime(meo_dataset['utc_time'])
+    meo_dataset.set_index("time", inplace=True)
+    meo_dataset.drop("utc_time", axis=1, inplace=True)
+
+    # names of all stations
+    stations = set(meo_dataset['stationName'])
+
+    # a dict of station aq, Beijing
+    meo_stations = {}
+
+    for aq_station_name, meo_station_name in useful_stations.items() :
+
+        if meo_station_name in stations :
+            meo_station = meo_dataset[meo_dataset["stationName"]==meo_station_name].copy()
+            meo_station.drop("stationName", axis=1, inplace=True)
+
+            # rename
+            original_names = meo_station.columns.values.tolist()
+            names_dict = {original_name : aq_station_name+"_"+original_name for original_name in original_names}
+            meo_station_renamed = meo_station.rename(index=str, columns=names_dict)
+            
+
+            meo_stations[aq_station_name] = meo_station_renamed        
+
+
+    return meo_dataset, stations, meo_stations
 
 
 def get_station_locations(stations_df):
@@ -155,5 +188,50 @@ def get_related_meo_dfs(aq_station_nearest_meo_station, bj_meo_all, bj_grid_meo_
 
 
 
+# def load_bj_grid_meo_data(useful_stations):
+#     '''
+#     csv_list : a list of strings, string of csv path
+#     useful_stations : dict of {aq_station : meo_station}
+#     '''
 
+
+#     # 网格气象数据
+#     grid_meo_dataset_1 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv")
+#     # API 下载数据
+#     grid_meo_dataset_2 = pd.read_csv("./KDD_CUP_2018/Beijing/grid_meo/new.csv")
+
+#     # 去掉位置信息
+#     bj_grid_meo_dataset_1.drop("longitude", axis=1, inplace=True)
+#     bj_grid_meo_dataset_1.drop("latitude", axis=1, inplace=True)
+
+ 
+#     bj_grid_meo_dataset = pd.concat([bj_grid_meo_dataset_1, bj_grid_meo_dataset_2], ignore_index=True)
+
+#     # turn date from string type to datetime type
+#     bj_grid_meo_dataset["time"] = pd.to_datetime(bj_grid_meo_dataset['utc_time'])
+#     bj_grid_meo_dataset.set_index("time", inplace=True)
+#     bj_grid_meo_dataset.drop("utc_time", axis=1, inplace=True)
+
+#     # names of all stations
+#     stations = set(bj_grid_meo_dataset['stationName'])
+
+#     # a dict of station aq, Beijing
+#     bj_meo_stations = {}
+
+#     for aq_station, meo_station in useful_stations.items() :
+
+#         if meo_station in stations :
+#             bj_meo_station = bj_grid_meo_dataset[bj_grid_meo_dataset["stationName"]==meo_station].copy()
+#             bj_meo_station.drop("stationName", axis=1, inplace=True)
+
+#             # rename
+#             original_names = bj_meo_station.columns.values.tolist()
+#             names_dict = {original_name : aq_station+"_"+original_name for original_name in original_names}
+#             bj_meo_station_renamed = bj_meo_station.rename(index=str, columns=names_dict)
+            
+
+#             bj_meo_stations[aq_station] = bj_meo_station_renamed        
+
+
+#     return bj_grid_meo_dataset, stations, bj_meo_stations
 
