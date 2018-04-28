@@ -23,11 +23,12 @@ train_dev_set_split(city="bj")
 train_dev_set_split(city="ld")
 
 # 4. 训练模型
-pred_days = [3,5,7,10]
-gap = 0
+pred_days_list = [3,5,7,10]
 loss_functions = ["L2", "L1", "huber_loss"]
 
-for 
+for pred_days in pred_days_list : 
+    for loss_function in loss_functions :
+        model_preds, model_name = train_and_dev(city='bj', pre_days=pred_days, gap=gap, loss_function=loss_function)
 
 
 
