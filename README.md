@@ -76,9 +76,7 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
       - batch_size=128
       - hidden_dim
         - 对于单站点模型的计算结果表明，hidden_dim=8 效果明显好于 hidden_dim =32，因此对于多站点模型来说，也要尝试使用更少的 hidden_dim。
-        - all station model 512-> 256
-      - input_dim = 210
-      - output_dim = 105
+        - all station model 512-> 256 ，效果变差了
       - num_stacked_layers = 3
       - lambda_l2_reg=0.003
       - GRADIENT_CLIPPING=2.5
