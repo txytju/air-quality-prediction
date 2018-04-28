@@ -63,14 +63,15 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
       - 但是模型在100次迭代之后往往可以收敛到一个值，这个值高于最好效果
     - 要调整的超参数包括
       - 是否使用 meo 
-      - learning_rate=1e-3
-        - ​
+      - **learning_rate**
+        - 1e-5 ~ 1e-3 random search
       - use_day bool
         - True 只使用整天的数据，False 使用所有时间点的数据
         - True 数据数量少，可能会导致过拟合；False数据多，不容易过拟合，但是会失去“整天信息”
         - 测试结果表明，使用整天的数据结果更好
-      - pre_days
+      - **pre_days**
         - 用来预测的天数
+        - 1 ~ 10 random search
       - batch_size=128
       - hidden_dim = 512
       - input_dim = 210
@@ -92,6 +93,8 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
     - 模型包括
       - 每个站点仅预测自己的、一个特征(单任务学习) : 35(站点) * 3(特征) * 2(是否使用天气数据)
         - `train_one_station_one_feature_seq2seq.py`
+        - 单站点模型使用更小的学习率？
+          - 效果不好
         - 使用空气质量特征
         - 同时使用空气质量特征和天气特征
       - 每个站点仅预测自己的三个特征(同一个站点内部的多任务学习) : 35(站点) * 1(特征) * 2(是否使用天气数据)

@@ -75,57 +75,57 @@ test_x, test_y = generate_dev_set(station_list=station_list,
                                   pre_days=pre_days)
 print(test_x.shape, test_y.shape)
 
-/*
-# Define training model
-rnn_model = build_graph(feed_previous=False, 
-                        input_seq_len=input_seq_len, 
-                        output_seq_len=output_seq_len, 
-                        hidden_dim=hidden_dim, 
-                        input_dim=input_dim, 
-                        output_dim=output_dim, 
-                        num_stacked_layers=num_stacked_layers, 
-                        learning_rate=learning_rate,
-                        lambda_l2_reg=lambda_l2_reg,
-                        GRADIENT_CLIPPING=GRADIENT_CLIPPING)
+
+# # Define training model
+# rnn_model = build_graph(feed_previous=False, 
+#                         input_seq_len=input_seq_len, 
+#                         output_seq_len=output_seq_len, 
+#                         hidden_dim=hidden_dim, 
+#                         input_dim=input_dim, 
+#                         output_dim=output_dim, 
+#                         num_stacked_layers=num_stacked_layers, 
+#                         learning_rate=learning_rate,
+#                         lambda_l2_reg=lambda_l2_reg,
+#                         GRADIENT_CLIPPING=GRADIENT_CLIPPING)
 
 
-# training process
-train_losses = []
-val_losses = []
-saved_iteractions = []
+# # training process
+# train_losses = []
+# val_losses = []
+# saved_iteractions = []
 
-saver = tf.train.Saver()
-init = tf.global_variables_initializer()
-with tf.Session() as sess:
+# saver = tf.train.Saver()
+# init = tf.global_variables_initializer()
+# with tf.Session() as sess:
 
-    sess.run(init)
-    losses = []
-    print("Training losses: ")
-    for i in range(total_iteractions):
-        batch_input, batch_output = generate_training_set(station_list=station_list,
-                                                          X_aq_list=X_aq_list,
-                                                          y_aq_list=y_aq_list,
-                                                          X_meo_list=X_meo_list,
-                                                          use_day=use_day,
-                                                          pre_days=pre_days,
-                                                          batch_size=batch_size)
+#     sess.run(init)
+#     losses = []
+#     print("Training losses: ")
+#     for i in range(total_iteractions):
+#         batch_input, batch_output = generate_training_set(station_list=station_list,
+#                                                           X_aq_list=X_aq_list,
+#                                                           y_aq_list=y_aq_list,
+#                                                           X_meo_list=X_meo_list,
+#                                                           use_day=use_day,
+#                                                           pre_days=pre_days,
+#                                                           batch_size=batch_size)
 
         
-        feed_dict = {rnn_model['enc_inp'][t]: batch_input[:,t,:] for t in range(input_seq_len)}
-        feed_dict.update({rnn_model['target_seq'][t]: batch_output[:,t,:] for t in range(output_seq_len)})
-        _, loss_t = sess.run([rnn_model['train_op'], rnn_model['loss']], feed_dict) 
+#         feed_dict = {rnn_model['enc_inp'][t]: batch_input[:,t,:] for t in range(input_seq_len)}
+#         feed_dict.update({rnn_model['target_seq'][t]: batch_output[:,t,:] for t in range(output_seq_len)})
+#         _, loss_t = sess.run([rnn_model['train_op'], rnn_model['loss']], feed_dict) 
         
-        if i%10 == 0:
-            print("loss after %d/%d iteractions : %.3f" %(i, total_iteractions, loss_t))
+#         if i%10 == 0:
+#             print("loss after %d/%d iteractions : %.3f" %(i, total_iteractions, loss_t))
 
-            temp_saver = rnn_model['saver']()
-            name = 'multivariate_%d_iteractions' %(i)
-            saved_iteractions.append(name)
-            save_path = temp_saver.save(sess, os.path.join('./seq2seq/meo_one_variable_model_results/', name))
-            print("Checkpoint saved at: ", save_path)
+#             temp_saver = rnn_model['saver']()
+#             name = 'multivariate_%d_iteractions' %(i)
+#             saved_iteractions.append(name)
+#             save_path = temp_saver.save(sess, os.path.join('./seq2seq/meo_one_variable_model_results/', name))
+#             print("Checkpoint saved at: ", save_path)
 
-        losses.append(loss_t)
-*/
+#         losses.append(loss_t)
+
 
 
 output_features = []
