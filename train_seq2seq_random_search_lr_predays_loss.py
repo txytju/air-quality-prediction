@@ -88,7 +88,7 @@ for lr in learning_rates :
                                 learning_rate=learning_rate,
                                 lambda_l2_reg=lambda_l2_reg,
                                 GRADIENT_CLIPPING=GRADIENT_CLIPPING,
-                                loss_fuction=loss_function)
+                                loss_function=loss_function)
 
 
             # training process
