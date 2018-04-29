@@ -37,9 +37,9 @@ X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
 
 
 # 调整的参数
-learning_rates = np.random.uniform(-5,-3, size=3)
+learning_rates = [7e-4, 1e-3, 3e-3]
 # learning_rate = 10 ** learning_rates[i]
-pre_days_list = [3,5,6,7]
+pre_days_list = [5,6,7]
 loss_functions = ["L2", "L1", "huber_loss"]
 
 
@@ -63,7 +63,7 @@ flag = False
 
 
 for lr in learning_rates : 
-    learning_rate = 10**lr
+    learning_rate = lr
     for pre_days in pre_days_list : 
         input_seq_len = pre_days * 24
         for loss_function in loss_functions :
@@ -195,9 +195,9 @@ for lr in learning_rates :
 
 
 
-result.to_csv("data/seq2seq_random_search_lr_predays_loss_result.csv")
+result.to_csv("data/seq2seq_random_search_lr_predays_loss_result_2.csv")
 
-print("Trianing done! model saved at data/seq2seq_random_search_lr_predays_loss_result.csv")
+print("Trianing done! model saved at data/seq2seq_random_search_lr_predays_loss_result_2.csv")
 
 
 

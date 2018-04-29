@@ -163,7 +163,7 @@ def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48,
         elif loss_function == "L1" :
           for _y, _Y in zip(reshaped_outputs, target_seq):
               output_loss += tf.reduce_mean(tf.abs(_y - _Y))
-        elif loss_fuction == "huber_loss" :
+        elif loss_function == "huber_loss" :
           for _y, _Y in zip(reshaped_outputs, target_seq):
               output_loss += tf.losses.huber_loss(labels=_Y, predictions=_y)       
 
