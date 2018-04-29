@@ -37,7 +37,7 @@ X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
 
 
 # 调整的参数
-hidden_dims = [128, 192, 256, 320, 384, 448, 512]
+hidden_dims = [16,32,64]
 
 
 # 固定的参数
