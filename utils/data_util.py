@@ -10,43 +10,72 @@ def load_bj_aq_data():
 				   "./KDD_CUP_2018/Beijing/aq/beijing_201802_201803_aq.csv",
 				   "./KDD_CUP_2018/Beijing/aq/new.csv"]
 
-	bj_aq_dataset, stations, bj_aq_stations, bj_aq_stations_merged = load_city_aq_data(bj_csv_list)
+	bj_aq_datas = []
 
+	for csv in bj_csv_list :
+		bj_aq_data = pd.read_csv(csv)
+		bj_aq_datas.append(bj_aq_data)
+
+	bj_aq_df = pd.concat(bj_aq_datas, ignore_index=True)
+
+
+	bj_aq_dataset, stations, bj_aq_stations, bj_aq_stations_merged = load_city_aq_data(bj_aq_df)
 
 	return bj_aq_dataset, stations, bj_aq_stations, bj_aq_stations_merged
 
 
 def load_ld_aq_data():
 
-	ld_csv_list = []
+	# 前边的是需要预测的站点，后边的是其他辅助站点
+	# 预测站点有数据缺失的问题，需要使用辅助站点的数据补齐数据
+	ld_csv_list = ["./KDD_CUP_2018/London/aq/London_historical_aqi_forecast_stations_20180331.csv",
+	               "./KDD_CUP_2018/London/aq/London_historical_aqi_other_stations_20180331.csv"]
 
-	ld_aq_dataset, stations, ld_aq_stations, ld_aq_stations_merged = load_city_aq_data(ld_csv_list)
+	ld_aq_datas = []
 
+	for csv in ld_csv_list :
+		ld_aq_data = pd.read_csv(csv)
+
+		# 去掉伦敦多余的数字列
+		for column_name in ld_aq_data.columns :
+			if 'Unnamed:' in column_name : 
+				ld_aq_data.drop(column_name, axis=1, inplace=True)
+
+		# 统一表头格式：将伦敦的表头换成北京的表头格式
+		# 伦敦的表头自己也不统一
+		if 'station_id' in ld_aq_data.columns :
+			new_names = {'MeasurementDateGMT':'utc_time', 'station_id':'stationId'}
+			ld_aq_data.rename(index=str, columns=new_names, inplace=True)
+		elif 'Station_ID' in ld_aq_data.columns :  
+			new_names = {'MeasurementDateGMT':'utc_time', 'Station_ID':'stationId'}
+			ld_aq_data.rename(index=str, columns=new_names, inplace=True)
+
+		ld_aq_datas.append(ld_aq_data)
+
+	ld_aq_df = pd.concat(ld_aq_datas, ignore_index=True)
+
+	ld_aq_dataset, stations, ld_aq_stations, ld_aq_stations_merged = load_city_aq_data(ld_aq_df)
 
 	return ld_aq_dataset, stations, ld_aq_stations, ld_aq_stations_merged
 
 
-def load_city_aq_data(csv_list):
+def load_city_aq_data(aq_df):
 
 	'''
-	csv_list : a list of strings, string of csv path
+	aq_df : a dataframe after concat.
 	'''
-	aq_datas = []
-
-	for csv in csv_list :
-		aq_data = pd.read_csv(csv)
-		aq_datas.append(aq_data)
-
-	aq_dataset = pd.concat(aq_datas, ignore_index=True)
-
+	aq_dataset = aq_df
 
 	# turn date from string type to datetime type
 	aq_dataset["time"] = pd.to_datetime(aq_dataset['utc_time'])
 	aq_dataset.set_index("time", inplace=True)
 	aq_dataset.drop("utc_time", axis=1, inplace=True)
 
+	aq_dataset = aq_dataset[pd.isnull(aq_dataset.stationId) != True]
+
 	# names of all stations
 	stations = set(aq_dataset['stationId'])
+	# print(stations)
 
 	# a dict of station aq
 	aq_stations = {}
@@ -57,9 +86,9 @@ def load_city_aq_data(csv_list):
 		# rename
 		original_names = aq_station.columns.values.tolist()
 		names_dict = {original_name : station+"_"+original_name for original_name in original_names}
-		aq_station_renamed = aq_station.rename(index=str, columns=names_dict)
+		aq_station.rename(index=str, columns=names_dict, inplace=True)
               
-		aq_stations[station] = aq_station_renamed
+		aq_stations[station] = aq_station
 
 
 	# merge data of different stations into one df

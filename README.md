@@ -77,7 +77,8 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
       - ~~hidden_dim = 128~~
         - 对于单站点模型的计算结果表明，hidden_dim=8 效果明显好于 hidden_dim =32，因此对于多站点模型来说，也要尝试使用更少的 hidden_dim。
         - 128, 192, 256, 320, 384, 448, 512 效果都差不多
-        - 选3个：**128**, ~~192, 256~~
+        - 16, 32, 64 效果不理想
+        - 选1个：**128**, ~~192, 256~~
       - num_stacked_layers = 3
       - lambda_l2_reg=0.003
       - GRADIENT_CLIPPING=2.5
@@ -125,7 +126,13 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
     - ~~L1~~
     - ~~Huber_loss~~
   - 伦敦数据下载整理
+    - 伦敦提供了24个空气质量站点的数据，需要预测的是其中的13个
+    - 伦敦也提供了很多网格天气站点，使用距离空气质量站点最近的网格天气站点的数据
+    - 和北京使用同样的策略，使用13个站点的空气质量数据和天气数据
   - 提交预测数据
+  - 数据
+    - 实时获取的天气数据和空气质量数据的时效性如何
+      - 整小时时刻之后能否立即获得数据？获得数据之后还是否有足够的时间计算？
   - pipeline
 
   #  Workflow
