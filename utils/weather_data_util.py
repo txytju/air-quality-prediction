@@ -24,7 +24,7 @@ def load_ld_grid_meo_data(useful_stations):
     useful_stations : dict of {aq_station : meo_station}
     '''
 
-    csv_list = []
+    csv_list = ["./KDD_CUP_2018/London/grid_meo/London_historical_meo_grid.csv"]
 
     ld_grid_meo_dataset, stations, ld_meo_stations = load_grid_meo_data(csv_list, useful_stations)
 
