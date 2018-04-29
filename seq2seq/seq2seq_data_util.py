@@ -278,6 +278,7 @@ def generate_dev_set(city="bj", station_list=None, X_aq_list=None, y_aq_list=Non
     X_aq_list = ["PM2.5","PM10","O3","CO","SO2","NO2"]  
     y_aq_list = ["PM2.5","PM10","O3"]
     X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
+
     '''
     aq_dev = pd.read_csv("test/%s_aq_dev_data.csv" %(city))
     meo_dev = pd.read_csv("test/%s_meo_dev_data.csv" %(city))
@@ -321,15 +322,15 @@ def generate_dev_set(city="bj", station_list=None, X_aq_list=None, y_aq_list=Non
     X_df_list = []
     y_df_list = []
     
-    m = int(np.floor(X_df.shape[0] / 24 + 1 - (pre_days + 2)))
+    min_y_start_index = 7 * 24 # 7 是当前的最长的 pre_days
+    max_y_start_index = X_df.shape[0] - 2 * 24 
 
-    for i in range(m):
+    for y_start_index in range(min_y_start_index, max_y_start_index, 24):
 
-        X_start_index = 24 * i
-        X_end_index = 24 * (i + pre_days) - 1 - gap
+        X_start_index = y_start_index - pre_days * 24
+        X_end_index = y_start_index - 1 - gap
 
-        y_start_index = 24 * (i + pre_days)
-        y_end_index = 24 * (i + pre_days + 2) - 1
+        y_end_index = y_start_index + 47
 
 
         X = X_df.loc[X_start_index : X_end_index]
@@ -343,6 +344,30 @@ def generate_dev_set(city="bj", station_list=None, X_aq_list=None, y_aq_list=Non
 
         X_df_list.append(X)
         y_df_list.append(y)
+
+    # Old version of generate dev set
+    # m = int(np.floor(X_df.shape[0] / 24 + 1 - (pre_days + 2)))
+
+    # for i in range(m):
+
+    #     X_start_index = 24 * i
+    #     X_end_index = 24 * (i + pre_days) - 1 - gap
+
+    #     y_start_index = 24 * (i + pre_days)
+    #     y_end_index = 24 * (i + pre_days + 2) - 1
+
+
+    #     X = X_df.loc[X_start_index : X_end_index]
+    #     y = y_df.loc[y_start_index : y_end_index]
+
+    #     X = np.array(X)
+    #     y = np.array(y)
+
+    #     X = np.expand_dims(X, axis=0)
+    #     y = np.expand_dims(y, axis=0)
+
+    #     X_df_list.append(X)
+    #     y_df_list.append(y)
 
     X_dev_batch = np.concatenate(X_df_list, axis=0)
     y_dev_batch = np.concatenate(y_df_list, axis=0)
