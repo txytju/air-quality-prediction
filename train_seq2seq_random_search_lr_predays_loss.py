@@ -104,30 +104,30 @@ for lr in learning_rates :
                 losses = []
                 print("Training losses: ")
                 for i in range(total_iteractions):
-                batch_input, batch_output = generate_training_set(city="bj",
-                                                                  station_list=station_list,
-                                                                  X_aq_list=X_aq_list,
-                                                                  y_aq_list=y_aq_list,
-                                                                  X_meo_list=X_meo_list,
-                                                                  use_day=use_day,
-                                                                  pre_days=pre_days,
-                                                                  batch_size=batch_size)
+                    batch_input, batch_output = generate_training_set(city="bj",
+                                                                      station_list=station_list,
+                                                                      X_aq_list=X_aq_list,
+                                                                      y_aq_list=y_aq_list,
+                                                                      X_meo_list=X_meo_list,
+                                                                      use_day=use_day,
+                                                                      pre_days=pre_days,
+                                                                      batch_size=batch_size)
 
-                
-                feed_dict = {rnn_model['enc_inp'][t]: batch_input[:,t,:] for t in range(input_seq_len)}
-                feed_dict.update({rnn_model['target_seq'][t]: batch_output[:,t,:] for t in range(output_seq_len)})
-                _, loss_t = sess.run([rnn_model['train_op'], rnn_model['loss']], feed_dict) 
-                
-                if i%10 == 0:
-                    print("loss after %d/%d iteractions : %.3f" %(i, total_iteractions, loss_t))
+                    
+                    feed_dict = {rnn_model['enc_inp'][t]: batch_input[:,t,:] for t in range(input_seq_len)}
+                    feed_dict.update({rnn_model['target_seq'][t]: batch_output[:,t,:] for t in range(output_seq_len)})
+                    _, loss_t = sess.run([rnn_model['train_op'], rnn_model['loss']], feed_dict) 
+                    
+                    if i%10 == 0:
+                        print("loss after %d/%d iteractions : %.3f" %(i, total_iteractions, loss_t))
 
-                    temp_saver = rnn_model['saver']()
-                    name = '%s loss function and %.8f learning_rate and %d pre_days, multivariate_%d_iteractions' %(loss_function, learning_rate, pre_days, i)
-                    saved_iteractions.append(name)
-                    save_path = temp_saver.save(sess, os.path.join('./seq2seq/new_multi_variable_model_results/', name))
-                    print("Checkpoint saved at: ", save_path)
+                        temp_saver = rnn_model['saver']()
+                        name = '%s loss function and %.8f learning_rate and %d pre_days, multivariate_%d_iteractions' %(loss_function, learning_rate, pre_days, i)
+                        saved_iteractions.append(name)
+                        save_path = temp_saver.save(sess, os.path.join('./seq2seq/new_multi_variable_model_results/', name))
+                        print("Checkpoint saved at: ", save_path)
 
-                losses.append(loss_t)
+                    losses.append(loss_t)
 
 
             output_features = []
