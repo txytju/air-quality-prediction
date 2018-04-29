@@ -133,7 +133,7 @@ for lr in learning_rates :
             output_features = []
             for station in station_list : 
                 for aq_feature in y_aq_list :
-                output_features.append(station + "_" + aq_feature)
+                    output_features.append(station + "_" + aq_feature)
 
             # 特征要和训练时候的特征顺序保持一致
             output_features.sort()
@@ -161,22 +161,22 @@ for lr in learning_rates :
                 init = tf.global_variables_initializer()
                 with tf.Session() as sess:
 
-                sess.run(init)
-                
-                print("Using checkpoint: ", name)
-                saver = rnn_model['saver']().restore(sess,  os.path.join('./seq2seq/new_multi_variable_model_results/', name))
-                
-                feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction
-                feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
-                final_preds = sess.run(rnn_model['reshaped_outputs'], feed_dict)
-                
-                final_preds = [np.expand_dims(pred, 1) for pred in final_preds]
-                final_preds = np.concatenate(final_preds, axis = 1)
+                    sess.run(init)
+                    
+                    print("Using checkpoint: ", name)
+                    saver = rnn_model['saver']().restore(sess,  os.path.join('./seq2seq/new_multi_variable_model_results/', name))
+                    
+                    feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction
+                    feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
+                    final_preds = sess.run(rnn_model['reshaped_outputs'], feed_dict)
+                    
+                    final_preds = [np.expand_dims(pred, 1) for pred in final_preds]
+                    final_preds = np.concatenate(final_preds, axis = 1)
 
-                aver_smapes, smapes_of_features = SMAPE_on_dataset_v1(test_y, final_preds, output_features, statistics, 1)
+                    aver_smapes, smapes_of_features = SMAPE_on_dataset_v1(test_y, final_preds, output_features, statistics, 1)
 
-                iters = int(name.split("_")[-2])
-                aver_smapes_on_iteractions[iters] = [aver_smapes]
+                    iters = int(name.split("_")[-2])
+                    aver_smapes_on_iteractions[iters] = [aver_smapes]
 
 
             print(aver_smapes_on_iteractions)
