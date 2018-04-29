@@ -25,7 +25,7 @@ ld_aq_data, stations, ld_aq_stations, ld_aq_stations_merged = load_ld_aq_data()
 print("最早的日期：", ld_aq_stations_merged.index.min())
 print("最晚的日期：", ld_aq_stations_merged.index.max())
 
-
+df_merged = ld_aq_stations_merged
 
 # ### 3. 缺失值的分析
 # 3.1 某个小时某个站点数据缺失
