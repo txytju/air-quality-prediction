@@ -46,7 +46,30 @@ bj_near_stations = {'aotizhongxin_aq': 'beijing_grid_304',
  'yungang_aq': 'beijing_grid_239',
  'zhiwuyuan_aq': 'beijing_grid_262'}
 
-ld_near_stations = {}
+ld_near_stations = {'BL0': 'london_grid_409',
+ 'BX1': 'london_grid_472',
+ 'BX9': 'london_grid_472',
+ 'CD1': 'london_grid_388',
+ 'CD9': 'london_grid_409',
+ 'CR8': 'london_grid_408',
+ 'CT2': 'london_grid_409',
+ 'CT3': 'london_grid_409',
+ 'GB0': 'london_grid_451',
+ 'GN0': 'london_grid_451',
+ 'GN3': 'london_grid_451',
+ 'GR4': 'london_grid_451',
+ 'GR9': 'london_grid_430',
+ 'HR1': 'london_grid_368',
+ 'HV1': 'london_grid_472',
+ 'KC1': 'london_grid_388',
+ 'KF1': 'london_grid_388',
+ 'LH0': 'london_grid_346',
+ 'LW2': 'london_grid_430',
+ 'MY7': 'london_grid_388',
+ 'RB7': 'london_grid_452',
+ 'ST5': 'london_grid_408',
+ 'TD5': 'london_grid_366',
+ 'TH4': 'london_grid_430'}
 
 
 def meo_data_preprocess(city="bj"):
