@@ -133,7 +133,14 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
   - 数据
     - 实时获取的天气数据和空气质量数据的时效性如何
       - 整小时时刻之后能否立即获得数据？获得数据之后还是否有足够的时间计算？
+        - aq
+          - ld 延迟两个小时
+    - 更新至最新数据
+      - Bj 
+        - aq
+        - Meo
   - pipeline
+    - 伦敦空气质量的预处理流程需要检查
 
   #  Workflow
 

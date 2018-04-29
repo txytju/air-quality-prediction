@@ -14,7 +14,7 @@ gap = 0
 # 基于上述下载的数据，进行数据预处理，并将生成的中间数据保存在 csv 表格中
 
 aq_data_preprocess(city='bj')
-ld_aq_data_preprocess(city='ld')
+aq_data_preprocess(city='ld')
 meo_data_preprocess(city='bj')
 # meo_data_preprocess(city='ld')
 

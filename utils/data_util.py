@@ -2,21 +2,51 @@ import numpy as np
 import pandas as pd
 import datetime
 from matplotlib import pyplot as plt
+import os
 
 
 def load_bj_aq_data():
 
-	bj_csv_list = ["./KDD_CUP_2018/Beijing/aq/beijing_17_18_aq.csv",
-				   "./KDD_CUP_2018/Beijing/aq/beijing_201802_201803_aq.csv",
-				   "./KDD_CUP_2018/Beijing/aq/new.csv"]
+	path_to_bj_aq = "./KDD_CUP_2018/Beijing/aq/"
+
+	bj_csv_list  = os.listdir(path_to_bj_aq)
+	# print(bj_csv_list)
+
+	# bj_csv_list = ["./KDD_CUP_2018/Beijing/aq/beijing_17_18_aq.csv",
+	# 			   "./KDD_CUP_2018/Beijing/aq/beijing_201802_201803_aq.csv",
+	# 			   "./KDD_CUP_2018/Beijing/aq/new.csv"]
 
 	bj_aq_datas = []
 
 	for csv in bj_csv_list :
-		bj_aq_data = pd.read_csv(csv)
-		bj_aq_datas.append(bj_aq_data)
+		if csv != '.DS_Store' :
+			path_to_file = path_to_bj_aq + csv
+			# print(path_to_file)
+			bj_aq_data = pd.read_csv(path_to_file)
+			
+			# 改列的名字
+			name_pair = {}
+			for column in bj_aq_data.columns : 
+				if "_Concentration" in column :
+					new_column, _ = column.split("_")
+					name_pair[column] = new_column
+			if "station_id" in bj_aq_data.columns :
+				name_pair["station_id"] = "stationId"
+			if "time" in bj_aq_data.columns :
+				name_pair["time"] = "utc_time"
+
+
+			bj_aq_data.rename(index=str, columns=name_pair, inplace=True)
+
+			# print(bj_aq_data.columns)
+
+			if "id" in bj_aq_data.columns : 
+				bj_aq_data.drop("id", axis=1, inplace=True)
+
+			bj_aq_datas.append(bj_aq_data)
 
 	bj_aq_df = pd.concat(bj_aq_datas, ignore_index=True)
+	bj_aq_df.sort_index(inplace=True)
 
 
 	bj_aq_dataset, stations, bj_aq_stations, bj_aq_stations_merged = load_city_aq_data(bj_aq_df)
@@ -24,33 +54,75 @@ def load_bj_aq_data():
 	return bj_aq_dataset, stations, bj_aq_stations, bj_aq_stations_merged
 
 
+
+
 def load_ld_aq_data():
 
 	# 前边的是需要预测的站点，后边的是其他辅助站点
 	# 预测站点有数据缺失的问题，需要使用辅助站点的数据补齐数据
-	ld_csv_list = ["./KDD_CUP_2018/London/aq/London_historical_aqi_forecast_stations_20180331.csv",
-	               "./KDD_CUP_2018/London/aq/London_historical_aqi_other_stations_20180331.csv"]
+
+
+	path_to_ld_aq = "./KDD_CUP_2018/London/aq/"
+	ld_csv_list  = os.listdir(path_to_ld_aq)
+
+	# print(ld_csv_list)
+
+	# 读取 某个特定文件夹中的所有文件名
+	# ld_csv_list = ["./KDD_CUP_2018/London/aq/London_historical_aqi_forecast_stations_20180331.csv",
+	#                "./KDD_CUP_2018/London/aq/London_historical_aqi_other_stations_20180331.csv"]
 
 	ld_aq_datas = []
 
 	for csv in ld_csv_list :
-		ld_aq_data = pd.read_csv(csv)
+		if csv != '.DS_Store' :
+			path_to_file = path_to_ld_aq + csv
+			# print(path_to_file)
+			ld_aq_data = pd.read_csv(path_to_file)
 
-		# 去掉伦敦多余的数字列
-		for column_name in ld_aq_data.columns :
-			if 'Unnamed:' in column_name : 
-				ld_aq_data.drop(column_name, axis=1, inplace=True)
+			# 处理
+			# 去掉伦敦多余的数字列
+			for column_name in ld_aq_data.columns :
+				if 'Unnamed:' in column_name : 
+					ld_aq_data.drop(column_name, axis=1, inplace=True)
 
-		# 统一表头格式：将伦敦的表头换成北京的表头格式
-		# 伦敦的表头自己也不统一
-		if 'station_id' in ld_aq_data.columns :
-			new_names = {'MeasurementDateGMT':'utc_time', 'station_id':'stationId'}
-			ld_aq_data.rename(index=str, columns=new_names, inplace=True)
-		elif 'Station_ID' in ld_aq_data.columns :  
-			new_names = {'MeasurementDateGMT':'utc_time', 'Station_ID':'stationId'}
-			ld_aq_data.rename(index=str, columns=new_names, inplace=True)
+			# 统一表头格式：将伦敦的表头换成北京的表头格式
+			# 伦敦的表头自己也不统一
+			name_pair = {}
 
-		ld_aq_datas.append(ld_aq_data)
+			if 'station_id' in ld_aq_data.columns :
+				name_pair['MeasurementDateGMT'] = 'utc_time'
+				name_pair['station_id'] = 'stationId'
+				# name_pair = {'MeasurementDateGMT':'utc_time', 'station_id':'stationId'}
+			elif 'Station_ID' in ld_aq_data.columns :  
+				name_pair['MeasurementDateGMT'] = 'utc_time'
+				name_pair['Station_ID'] = 'stationId'
+
+			if "time" in ld_aq_data.columns :
+				name_pair["time"] = "utc_time"
+
+			flag = False
+			for column in ld_aq_data.columns : 
+				if "_Concentration" in column :
+					flag = True
+			if flag :
+				name_pair["PM25_Concentration"] = "PM2.5 (ug/m3)"
+				name_pair["PM10_Concentration"] = "PM10 (ug/m3)"
+				name_pair["NO2_Concentration"] = "NO2 (ug/m3)"
+				ld_aq_data.drop("CO_Concentration", axis=1, inplace=True)
+				ld_aq_data.drop("O3_Concentration", axis=1, inplace=True)
+				ld_aq_data.drop("SO2_Concentration", axis=1, inplace=True)
+
+			if "id" in ld_aq_data.columns : 
+				ld_aq_data.drop("id", axis=1, inplace=True)
+
+			ld_aq_data.rename(index=str, columns=name_pair, inplace=True)
+
+			# 去掉空值行
+			# ld_aq_data = ld_aq_data[pd.isnull(ld_aq_data["stationId"]) != True]
+
+			# print(ld_aq_data.columns)
+
+			ld_aq_datas.append(ld_aq_data)
 
 	ld_aq_df = pd.concat(ld_aq_datas, ignore_index=True)
 
@@ -87,9 +159,12 @@ def load_city_aq_data(aq_df):
 		original_names = aq_station.columns.values.tolist()
 		names_dict = {original_name : station+"_"+original_name for original_name in original_names}
 		aq_station.rename(index=str, columns=names_dict, inplace=True)
-              
+		aq_station.drop_duplicates(inplace=True)
 		aq_stations[station] = aq_station
+		# print(aq_station.shape)
 
+	# for station in stations :
+	# 	print(aq_stations[station].shape)
 
 	# merge data of different stations into one df
 	aq_stations_merged = pd.concat(list(aq_stations.values()), axis=1)

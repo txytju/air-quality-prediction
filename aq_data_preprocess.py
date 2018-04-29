@@ -64,7 +64,12 @@ def aq_data_preprocess(city="bj"):
 
 
     # 3.2 某个小时某个站点数据缺失
-    aq_station_locations = pd.read_excel("./KDD_CUP_2018/Beijing/location/Beijing_AirQuality_Stations_locations.xlsx", sheet_name=0)
+    if city == "bj" :
+        aq_station_locations = pd.read_excel("./KDD_CUP_2018/Beijing/location/Beijing_AirQuality_Stations_locations.xlsx", sheet_name=0)
+    elif city == "ld" :
+        aq_station_locations = pd.read_csv("./KDD_CUP_2018/London/location/London_AirQuality_Stations.csv")
+        aq_station_locations = aq_station_locations[["Unnamed: 0", "Latitude", "Longitude"]]
+        aq_station_locations.rename(index=str, columns={"Unnamed: 0":"stationName", "Latitude":"latitude", "Longitude":"longitude"}, inplace=True)
 
     # 对于一个空气质量站点，将其他站点按照距该站点距离的大小关系排列，并保存成列表
 
@@ -115,15 +120,32 @@ def aq_data_preprocess(city="bj"):
         for feature in row.index :
             # print(feature)
             if pd.isnull(row[feature]) :
-                elements = feature.split("_")                  # feature example： nansanhuan_aq_PM2.5
-                station_name = elements[0] + "_" + elements[1] # nansanhuan_aq
-                feature_name = elements[2]                     # PM2.5
+                elements = feature.split("_")                  
+                if city == "bj" :                                  # feature example： nansanhuan_aq_PM2.5
+                    station_name = elements[0] + "_" + elements[1] # nansanhuan_aq
+                    feature_name = elements[2]                     # PM2.5
+                elif city == "ld" :                                # feature example： KC1_NO2 (ug/m3)
+                    station_name = elements[0]                     # KC1
+                    feature_name = elements[1]                     # NO2 (ug/m3)
                 row[feature] = get_estimated_value(station_name, feature_name, near_stations, row)
         df_merged.loc[index] = row
 
     assert (pd.isnull(df_merged).any().any()) == False, "数据中还有缺失值(局部处理后)"
 
+    # London 并不是每个站点都有用
+    if city == "ld" :
+        
+        stations_to_predict = ['BL0','CD1','CD9','GN0','GN3','GR4','GR9','HV1','KF1','LW2','MY7','ST5','TH4'] # 13个
+        other_stations = ['BX1', 'BX9', 'CR8', 'CT2', 'CT3', 'GB0', 'HR1', 'KC1', 'LH0', 'RB7', 'TD5']        # 11个
+        features = ['NO2 (ug/m3)', 'PM10 (ug/m3)', 'PM2.5 (ug/m3)']
 
+        all_features = []
+        for station in stations_to_predict :
+            for feature in features:
+                station_feature = station + "_" + feature
+                all_features.append(station_feature)
+
+        df_merged = df_merged[all_features]
     # 3.3 整小时的缺失的处理
     keep_hours = []
     drop_hours = []
