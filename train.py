@@ -24,7 +24,7 @@ train_dev_set_split(city="bj")
 
 # 4. 训练模型
 
-# pred_days_list = [3,5,7,10]
+# pred_days_list = [3,5,6,7]
 # loss_functions = ["L2", "L1", "huber_loss"]
 
 # for pred_days in pred_days_list :
