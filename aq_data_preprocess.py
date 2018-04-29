@@ -106,12 +106,12 @@ def aq_data_preprocess(city="bj"):
             feature = station + "_" +feature_name
             if not pd.isnull(row[feature]):
                 return row[feature]
-            else :
-                return 0
+            
+        return 0
 
 
     for index in df_merged.index :
-        row = df_merged.loc[index]
+        row = df_merged.loc[index].copy()
         for feature in row.index :
             # print(feature)
             if pd.isnull(row[feature]) :
@@ -119,7 +119,7 @@ def aq_data_preprocess(city="bj"):
                 station_name = elements[0] + "_" + elements[1] # nansanhuan_aq
                 feature_name = elements[2]                     # PM2.5
                 row[feature] = get_estimated_value(station_name, feature_name, near_stations, row)
-
+        df_merged.loc[index] = row
 
     assert (pd.isnull(df_merged).any().any()) == False, "数据中还有缺失值(局部处理后)"
 
