@@ -44,7 +44,7 @@ ld_X_meo_list = ["temperature","pressure","humidity","wind_direction","wind_spee
 
 
 
-def train_and_dev(city='bj', test_set=None, pre_days=5, gap=0, loss_function="L2") :
+def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
     '''
     city='bj' or 'ld' : 针对某个城市的数据进行训练
     pre_days : 使用 pre_days 天数的数据进行预测

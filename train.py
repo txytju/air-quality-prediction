@@ -30,6 +30,9 @@ train_dev_set_split(city="ld")
 
 # 4. 训练模型
 model_preds_list = []
+model_names = []
+aver_smapes_bests = []
+
 
 pred_days_list = [5,6,7]
 loss_functions = ["L2", "L1", "huber_loss"]
@@ -37,10 +40,12 @@ loss_functions = ["L2", "L1", "huber_loss"]
 for pred_days in pred_days_list :
     for loss_function in loss_functions :
         aver_smapes_best, model_preds, model_name= train_and_dev(city='bj',
-                                                                 test_set=,
                                                                  pre_days=pred_days, 
                                                                  gap=gap, 
                                                                  loss_function=loss_function)
+    	model_preds_list.append(model_preds)
+    	model_names.append(model_name)
+    	aver_smapes_bests.append(aver_smapes_best)
 
 # 5. 模型融合
 
