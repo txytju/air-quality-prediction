@@ -1,7 +1,5 @@
 ## 主程序
 from aq_data_preprocess import aq_data_preprocess
-from ld_aq_data_preprocess import aq_data_preprocess as ld_aq_data_preprocess
-
 from weather_data_preprocess import meo_data_preprocess
 from train_dev_set_split import train_dev_set_split
 from train_seq2seq import train_and_dev
