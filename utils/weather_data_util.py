@@ -19,17 +19,31 @@ def load_bj_grid_meo_data(useful_stations):
     bj_meo_datas = []
 
     for csv in bj_csv_list :
-        if csv != '.DS_Store' :
+        if csv != '.DS_Store' and not csv.startswith("._"):
             path_to_file = path_to_bj_meo + csv
             print(path_to_file)
             bj_meo_data = pd.read_csv(path_to_file)
+            print(bj_meo_data.columns)
 
-            # 去掉位置信息
+            # 去掉多余信息
             if "longitude" in bj_meo_data.columns :
                 bj_meo_data.drop("longitude", axis=1, inplace=True)
             if "latitude" in bj_meo_data.columns :    
                 bj_meo_data.drop("latitude", axis=1, inplace=True)
-        
+            if "id" in bj_meo_data.columns :
+                bj_meo_data.drop("id", axis=1, inplace=True)
+            if "weather" in bj_meo_data.columns :
+                bj_meo_data.drop("weather", axis=1, inplace=True)
+            
+            name_pairs = {}
+            if "station_id" in bj_meo_data.columns :
+                name_pairs["station_id"] = "stationName"
+            if "time" in bj_meo_data.columns :
+                name_pairs["time"] = "utc_time"
+            if "wind_speed/kph" in bj_meo_data.columns :
+                name_pairs["wind_speed/kph"] = "wind_speed"
+            
+            bj_meo_data.rename(index=str, columns=name_pairs, inplace=True)
             bj_meo_datas.append(bj_meo_data)
 
     meo_dataset = pd.concat(bj_meo_datas, ignore_index=True)
@@ -45,10 +59,57 @@ def load_ld_grid_meo_data(useful_stations):
     useful_stations : dict of {aq_station : meo_station}
     '''
 
-    csv_list = ["./KDD_CUP_2018/London/grid_meo/London_historical_meo_grid.csv"]
+    # csv_list = ["./KDD_CUP_2018/London/grid_meo/London_historical_meo_grid.csv"]
 
-    ld_grid_meo_dataset, stations, ld_meo_stations = load_grid_meo_data(csv_list, useful_stations)
+    path_to_ld_meo = "./KDD_CUP_2018/London/grid_meo/"
+    bj_csv_list  = os.listdir(path_to_ld_meo)
 
+    bj_meo_datas = []
+
+    for csv in bj_csv_list :
+        if csv != '.DS_Store' and not csv.startswith("._"):
+            path_to_file = path_to_bj_meo + csv
+            print(path_to_file)
+            bj_meo_data = pd.read_csv(path_to_file)
+            print(bj_meo_data.columns)
+
+            # 去掉多余信息
+            if "longitude" in bj_meo_data.columns :
+                bj_meo_data.drop("longitude", axis=1, inplace=True)
+            if "latitude" in bj_meo_data.columns :    
+                bj_meo_data.drop("latitude", axis=1, inplace=True)
+            if "id" in bj_meo_data.columns :
+                bj_meo_data.drop("id", axis=1, inplace=True)
+            if "weather" in bj_meo_data.columns :
+                bj_meo_data.drop("weather", axis=1, inplace=True)
+            
+            name_pairs = {}
+            if "station_id" in bj_meo_data.columns :
+                name_pairs["station_id"] = "stationName"
+            if "time" in bj_meo_data.columns :
+                name_pairs["time"] = "utc_time"
+            if "wind_speed/kph" in bj_meo_data.columns :
+                name_pairs["wind_speed/kph"] = "wind_speed"
+            
+            bj_meo_data.rename(index=str, columns=name_pairs, inplace=True)
+            bj_meo_datas.append(bj_meo_data)
+
+
+
+
+
+
+
+    meo_dataset = pd.concat(bj_meo_datas, ignore_index=True)
+
+
+
+
+
+
+
+
+    ld_grid_meo_dataset, stations, ld_meo_stations = load_grid_meo_data(meo_dataset, useful_stations)
 
     return ld_grid_meo_dataset, stations, ld_meo_stations
 
