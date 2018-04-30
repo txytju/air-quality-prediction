@@ -18,8 +18,13 @@ def aq_data_preprocess(city="bj"):
     # 1. 数据载入
     if city == "bj" :
         aq_data, stations, aq_stations, aq_stations_merged = load_bj_aq_data()
+
     elif city == "ld" :
         aq_data, stations, aq_stations, aq_stations_merged = load_ld_aq_data()
+
+    # print(len(stations))
+    # print(aq_stations_merged.shape)
+
 
     # 2. 重复日期的值除去
     df_merged = aq_stations_merged
@@ -211,7 +216,7 @@ def aq_data_preprocess(city="bj"):
     # 3.4 数据存储
 
     df_merged.to_csv("test/%s_aq_data.csv" %(city))
-
+    print(df_merged.shape)
 
     # ### 4. 数据归一化
 

@@ -30,25 +30,28 @@ def load_bj_aq_data():
 				if "_Concentration" in column :
 					new_column, _ = column.split("_")
 					name_pair[column] = new_column
+					if "25" in column :
+						name_pair[column] = "PM2.5"	
 			if "station_id" in bj_aq_data.columns :
 				name_pair["station_id"] = "stationId"
 			if "time" in bj_aq_data.columns :
 				name_pair["time"] = "utc_time"
 
-
 			bj_aq_data.rename(index=str, columns=name_pair, inplace=True)
-
-			# print(bj_aq_data.columns)
 
 			if "id" in bj_aq_data.columns : 
 				bj_aq_data.drop("id", axis=1, inplace=True)
+                        
+			# print(bj_aq_data.columns)
 
 			bj_aq_datas.append(bj_aq_data)
 
 	bj_aq_df = pd.concat(bj_aq_datas, ignore_index=True)
+	# print(bj_aq_df.columns)
+	# print(bj_aq_df.shape)
 	bj_aq_df.sort_index(inplace=True)
 	bj_aq_df.drop_duplicates(subset=None, keep='first', inplace=True)
-
+	# print(bj_aq_df.shape)
 
 
 	bj_aq_dataset, stations, bj_aq_stations, bj_aq_stations_merged = load_city_aq_data(bj_aq_df)

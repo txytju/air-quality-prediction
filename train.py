@@ -5,6 +5,7 @@ from train_dev_set_split import train_dev_set_split
 from train_seq2seq import train_and_dev
 
 # gap 时间需自动确定
+# gap 作为脚本的参数
 gap = 0
 
 # 1. 自动下载数据下载并保存
@@ -13,13 +14,13 @@ gap = 0
 # 2. 数据预处理
 # 基于上述下载的数据，进行数据预处理，并将生成的中间数据保存在 csv 表格中
 
-aq_data_preprocess(city='bj')
+# aq_data_preprocess(city='bj')
 print("Finished Beijing aq data preprocess.")
-aq_data_preprocess(city='ld')
+# aq_data_preprocess(city='ld')
 print("Finished London aq data preprocess.")
-meo_data_preprocess(city='bj')
+# meo_data_preprocess(city='bj')
 print("Finished Beijing meo data preprocess.")
-meo_data_preprocess(city='ld')
+# meo_data_preprocess(city='ld')
 print("Finished London meo data preprocess.")
 
 # 3. 训练集验证集划分
@@ -32,15 +33,17 @@ model_names = []
 aver_smapes_bests = []
 
 
-pred_days_list = [5,6,7]
+pre_days_list = [5,6,7]
 loss_functions = ["L2", "L1", "huber_loss"]
 
-for pred_days in pred_days_list :
+for pre_days in pre_days_list :
     for loss_function in loss_functions :
+        print("使用%d天，使用%s损失函数" %(pre_days, loss_function))
         aver_smapes_best, model_preds, model_name= train_and_dev(city='bj',
-                                                                 pre_days=pred_days, 
+                                                                 pre_days=pre_days, 
                                                                  gap=gap, 
                                                                  loss_function=loss_function)
+        print("使用%d天，使用%s损失函数，best_sampe = %d" %(pre_days, loss_function, aver_smape_best))
         model_preds_list.append(model_preds)
         model_names.append(model_name)
         aver_smapes_bests.append(aver_smapes_best)
@@ -55,7 +58,6 @@ for pred_days in pred_days_list :
 # 7. 自动提交结果
 
 # 完成内容
-# 1. 数据的加载、预处理
 # 2. 训练集和验证集的划分
 # 3. 使用不同的预测天数，不同的损失函数预测多个模型，并保存模型的预测结果
 
@@ -64,5 +66,5 @@ for pred_days in pred_days_list :
 
 # TODO：
 # 1. 每天定时跑，并且将时间和 gap 变量对应上
-# 3. UTC time
+
 

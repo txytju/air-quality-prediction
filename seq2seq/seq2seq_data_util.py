@@ -178,6 +178,7 @@ def generate_training_set(city="bj", station_list=None, X_aq_list=None, y_aq_lis
 
     aq_train = pd.read_csv("test/%s_aq_train_data.csv" %(city))
     meo_train = pd.read_csv("test/%s_meo_train_data.csv" %(city))
+    # print("shape of aq and meo training data are : ", aq_train.shape, meo_train.shape)
     
     train_df = pd.concat([aq_train, meo_train], axis=1)
     
@@ -303,6 +304,7 @@ def generate_dev_set(city="bj", station_list=None, X_aq_list=None, y_aq_list=Non
             X_feature_filters += [i]
             
     X_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
+    # print(len(X_feature_filters))
     X_df = dev_df[X_feature_filters]
     # print(X_df.columns)
     

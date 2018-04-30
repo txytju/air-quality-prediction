@@ -92,8 +92,9 @@ def load_ld_grid_meo_data(useful_stations):
                 name_pairs["time"] = "utc_time"
             if "wind_speed/kph" in ld_meo_data.columns :
                 name_pairs["wind_speed/kph"] = "wind_speed"
-            
+             
             ld_meo_data.rename(index=str, columns=name_pairs, inplace=True)
+            # print(ld_meo_data.columns)
             ld_meo_datas.append(ld_meo_data)
 
     meo_dataset = pd.concat(ld_meo_datas, ignore_index=True)
@@ -128,12 +129,15 @@ def load_grid_meo_data(meo_df, useful_stations):
         if meo_station_name in stations :
             meo_station = meo_dataset[meo_dataset["stationName"]==meo_station_name].copy()
             meo_station.drop("stationName", axis=1, inplace=True)
+            if "None" in meo_station.columns :
+                meo_station.drop("None", axis=1, inplace=True)
 
             # rename
             original_names = meo_station.columns.values.tolist()
             names_dict = {original_name : aq_station_name+"_"+original_name for original_name in original_names}
             meo_station_renamed = meo_station.rename(index=str, columns=names_dict)
             
+            print("名字", meo_station.columns)
 
             meo_stations[aq_station_name] = meo_station_renamed        
 

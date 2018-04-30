@@ -1,10 +1,5 @@
 # coding: utf-8
 
-# - 时间跨度
-#     - 历史数据中包含`('2017-01-01 00:00:00', '2018-03-27 05:00:00')`的天气数据
-#     - API 下载数据中包含 `'2017-04-01 00:00:00'` 以后的数据
-#     - 拟使用四月的数据作为 dev set，历史数据作为训练集
-
 import numpy as np
 import datetime
 import pandas as pd
@@ -141,7 +136,7 @@ def meo_data_preprocess(city="bj"):
 
     for station in meo_stations.keys() :
         df = meo_stations[station].copy()
-        print(station, df.shape)
+        # print(station, df.shape)
 
 
 
@@ -216,7 +211,7 @@ def meo_data_preprocess(city="bj"):
 
     meo_stations_merged = pd.concat(list(meo_stations.values()), axis=1)
     meo_stations_merged.sort_index(inplace=True)
-
+    print("将要保存的天气数据的尺寸是　",meo_stations_merged.shape)
 
     meo_stations_merged.to_csv("test/%s_meo_data.csv" %(city))
 

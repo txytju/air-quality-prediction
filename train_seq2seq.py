@@ -31,13 +31,13 @@ bj_station_list = ['dongsi_aq','tiantan_aq','guanyuan_aq','wanshouxigong_aq','ao
             'xizhimenbei_aq','nansanhuan_aq','dongsihuan_aq']            
 bj_X_aq_list = ["PM2.5","PM10","O3","CO","SO2","NO2"]  
 bj_y_aq_list = ["PM2.5","PM10","O3"]
-bj_X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
+bj_X_meo_list = ["temperature","pressure","humidity","direction","speed"]
 
 
 ld_station_list = ['BL0','CD1','CD9','GN0','GN3','GR4','GR9','HV1','KF1','LW2','MY7','ST5','TH4']            
 ld_X_aq_list = ['NO2 (ug/m3)', 'PM10 (ug/m3)', 'PM2.5 (ug/m3)']  
 ld_y_aq_list = ['PM10 (ug/m3)', 'PM2.5 (ug/m3)'] 
-ld_X_meo_list = ["temperature","pressure","humidity","wind_direction","wind_speed"]
+ld_X_meo_list = ["temperature","pressure","humidity","direction","speed"]  # "wind_direction","wind_speed"
 
 
 
@@ -54,22 +54,6 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
         24 : 不使用当天数据进行的训练
     loss_function : 使用不同的损失函数
     '''
-
-    use_day=True
-    learning_rate=1e-3
-    batch_size=128
-    input_seq_len = pre_days * 24 - gap
-    output_seq_len = 48
-    hidden_dim = 256
-    input_dim = 385
-    output_dim = 105
-    num_stacked_layers = 3
-
-    lambda_l2_reg=0.003
-    GRADIENT_CLIPPING=2.5
-    total_iteractions = 200
-    KEEP_RATE = 0.5
-
     if city=="bj":
         station_list = bj_station_list
         X_aq_list = bj_X_aq_list
@@ -79,8 +63,23 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
         station_list = ld_station_list
         X_aq_list = ld_X_aq_list
         y_aq_list = ld_y_aq_list
-        X_meo_list = ld_X_meo_list        
+        X_meo_list = ld_X_meo_list     
 
+    use_day=True
+    learning_rate=1e-3
+    batch_size=128
+    input_seq_len = pre_days * 24 - gap
+    output_seq_len = 48
+    hidden_dim = 256
+    input_dim = len(station_list) * (len(X_aq_list) + len(X_meo_list))
+    output_dim = len(station_list) * len(y_aq_list)
+    # print(input_dim, output_dim)
+    num_stacked_layers = 3
+
+    lambda_l2_reg=0.003
+    GRADIENT_CLIPPING=2.5
+    total_iteractions = 200
+    KEEP_RATE = 0.5
 
     # Generate test data for the model
     test_x, test_y = generate_dev_set(city=city,
@@ -91,6 +90,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
                                       pre_days=pre_days,
                                       gap=gap)
 
+    # print(test_x.shape, test_y.shape)
 
     # Define training model
     rnn_model = build_graph(feed_previous=False, 
@@ -129,7 +129,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
                                                               batch_size=batch_size,
                                                               gap=gap)
 
-            
+            # print(batch_input.shape, batch_output.shape)
             feed_dict = {rnn_model['enc_inp'][t]: batch_input[:,t,:] for t in range(input_seq_len)}
             feed_dict.update({rnn_model['target_seq'][t]: batch_output[:,t,:] for t in range(output_seq_len)})
             _, loss_t = sess.run([rnn_model['train_op'], rnn_model['loss']], feed_dict) 
@@ -141,7 +141,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
                 name = '%d pre_days, %d gap, %s loss_function, multivariate_%d_iteractions' %(pre_days, gap, loss_function, i)
                 saved_iteractions.append(name)
                 save_path = temp_saver.save(sess, os.path.join('./result/0430/', name))
-                print("Checkpoint saved at: ", save_path)
+                # print("Checkpoint saved at: ", save_path)
 
             losses.append(loss_t)
             
