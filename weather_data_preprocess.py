@@ -134,7 +134,7 @@ def meo_data_preprocess(city="bj"):
         real_length = df.shape[0]
         # print("在空气质量数据时间段内，总共应该有 %d 个小时节点。" %(all_length))
         # print("实际的时间节点数是 ", real_length)
-        print("%s 缺失时间节点数量是 %d" %(station, all_length-real_length))
+        # print("%s 缺失时间节点数量是 %d" %(station, all_length-real_length))
 
 
     # #### 3.3 整体缺失补充
@@ -199,7 +199,7 @@ def meo_data_preprocess(city="bj"):
             time += delta
         meo_stations[station] = df
         
-        print("%s : length of data is %d" %(station, df.shape[0]))
+        # print("%s : length of data is %d" %(station, df.shape[0]))
 
 
     # #### 3.4 风向缺失值处理

@@ -1,5 +1,7 @@
 ## 主程序
 from aq_data_preprocess import aq_data_preprocess
+from ld_aq_data_preprocess import aq_data_preprocess as ld_aq_data_preprocess
+
 from weather_data_preprocess import meo_data_preprocess
 from train_dev_set_split import train_dev_set_split
 from train_seq2seq import train_and_dev
@@ -14,9 +16,13 @@ gap = 0
 # 基于上述下载的数据，进行数据预处理，并将生成的中间数据保存在 csv 表格中
 
 aq_data_preprocess(city='bj')
+print("Finished Beijing aq data preprocess.")
 ld_aq_data_preprocess(city='ld')
+print("Finished London aq data preprocess.")
 meo_data_preprocess(city='bj')
-# meo_data_preprocess(city='ld')
+print("Finished Beijing meo data preprocess.")
+meo_data_preprocess(city='ld')
+print("Finished London meo data preprocess.")
 
 # 3. 训练集验证集划分
 train_dev_set_split(city="bj")

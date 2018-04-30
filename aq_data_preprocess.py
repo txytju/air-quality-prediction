@@ -199,4 +199,4 @@ def aq_data_preprocess(city="bj"):
     df_norm = (df_merged - describe.loc['mean']) / describe.loc['std']
     df_norm.to_csv("test/%s_aq_norm_data.csv" %(city))
 
-    print("完成对 %s 空气质量数据的预处理！" %(city))
+    # print("完成对 %s 空气质量数据的预处理！" %(city))
