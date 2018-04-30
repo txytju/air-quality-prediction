@@ -43,7 +43,7 @@ for pre_days in pre_days_list :
                                                                  pre_days=pre_days, 
                                                                  gap=gap, 
                                                                  loss_function=loss_function)
-        print("使用%d天，使用%s损失函数，best_sampe = %d" %(pre_days, loss_function, aver_smape_best))
+        print("使用%d天，使用%s损失函数，best_sampe = %.5f" %(pre_days, loss_function, aver_smapes_best))
         model_preds_list.append(model_preds)
         model_names.append(model_name)
         aver_smapes_bests.append(aver_smapes_best)
@@ -66,5 +66,6 @@ for pre_days in pre_days_list :
 
 # TODO：
 # 1. 每天定时跑，并且将时间和 gap 变量对应上
+# 2. gap 
 
 

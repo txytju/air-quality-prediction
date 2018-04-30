@@ -78,7 +78,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
 
     lambda_l2_reg=0.003
     GRADIENT_CLIPPING=2.5
-    total_iteractions = 200
+    total_iteractions = 20
     KEEP_RATE = 0.5
 
     # Generate test data for the model
@@ -134,7 +134,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
             feed_dict.update({rnn_model['target_seq'][t]: batch_output[:,t,:] for t in range(output_seq_len)})
             _, loss_t = sess.run([rnn_model['train_op'], rnn_model['loss']], feed_dict) 
             
-            if i%10 == 0:
+            if i%3 == 0:
                 print("loss after %d/%d iteractions : %.3f" %(i, total_iteractions, loss_t))
 
                 temp_saver = rnn_model['saver']()
@@ -183,7 +183,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
 
             sess.run(init)
             
-            print("Using checkpoint: ", name)
+            # print("Using checkpoint: ", name)
             saver = rnn_model['saver']().restore(sess,  os.path.join('./result/0430/', name))
             
             feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction

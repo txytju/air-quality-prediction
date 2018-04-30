@@ -135,11 +135,11 @@ def get_training_statistics():
     '''
     Get statics values of aq and meo data.
     '''
-    aq_describe = pd.read_csv("data/bj_aq_describe.csv")
-    aq_describe.set_index("label", inplace=True)
+    aq_describe = pd.read_csv("test/bj_aq_describe.csv")
+    aq_describe.set_index("Unnamed: 0", inplace=True)
     
-    meo_describe = pd.read_csv("data/bj_meo_describe.csv")
-    meo_describe.set_index("label", inplace=True)  
+    meo_describe = pd.read_csv("test/bj_meo_describe.csv")
+    meo_describe.set_index("Unnamed: 0", inplace=True)  
     
     statistics = pd.concat([aq_describe, meo_describe], axis=1)
     statistics = statistics.loc[["mean", "std"]]
