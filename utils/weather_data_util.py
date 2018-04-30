@@ -68,7 +68,7 @@ def load_ld_grid_meo_data(useful_stations):
 
     for csv in ld_csv_list :
         if csv != '.DS_Store' and not csv.startswith("._"):
-            path_to_file = path_to_bj_meo + csv
+            path_to_file = path_to_ld_meo + csv
             print(path_to_file)
             ld_meo_data = pd.read_csv(path_to_file)
             print(ld_meo_data.columns)
