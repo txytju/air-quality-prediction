@@ -206,22 +206,26 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
                                  station_list=station_list,
                                  X_aq_list=X_aq_list,
                                  X_meo_list=X_meo_list,
-                                 use_day=use_day,
                                  pre_days=pre_days,
                                  gap=gap)
+    print(X_predict.shape)
     # 加载最好的模型
-    saver = rnn_model['saver']().restore(sess,  os.path.join('./result/0430/', model_name))
+    init = tf.global_variables_initializer()
 
-    feed_dict = {rnn_model['enc_inp'][t]: X_predict[:, t, :] for t in range(input_seq_len)} # batch prediction
-    feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
-    final_test_preds = sess.run(rnn_model['reshaped_outputs'], feed_dict)
+    with tf.Session() as sess:
+        sess.run(init)
+
+        saver = rnn_model['saver']().restore(sess,  os.path.join('./result/0430/', model_name))
+
+        feed_dict = {rnn_model['enc_inp'][t]: X_predict[:, t, :] for t in range(input_seq_len)} # batch prediction
+        feed_dict.update({rnn_model['target_seq'][t]: np.zeros([X_predict.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
+        final_test_preds = sess.run(rnn_model['reshaped_outputs'], feed_dict)
     
-    final_test_preds = [np.expand_dims(pred, 1) for pred in final_test_preds]
-    final_test_preds = np.concatenate(final_test_preds, axis = 1)
-    model_preds_on_test = final_test_preds
+        final_test_preds = [np.expand_dims(pred, 1) for pred in final_test_preds]
+        final_test_preds = np.concatenate(final_test_preds, axis = 1)
+        _, _, model_preds_on_test = SMAPE_on_dataset_v1(final_test_preds, final_test_preds, output_features, statistics, 1) # 仅仅是为了计算预测值
 
     return aver_smapes_best, model_preds_on_dev, model_preds_on_test, model_name # 将在这种情况下表现最好的模型 的预测结果 和 模型的位置信息返回
-
 
 
 

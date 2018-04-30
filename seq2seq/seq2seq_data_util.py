@@ -291,9 +291,12 @@ def generate_X_test_set(city="bj",
     X_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
     X_df = dev_df[X_feature_filters]
    
-    # step 3 : 根据 pre_days 和　gap，确定　test　中Ｘ的值   
-    X_end_index = X_df.shape[0] - 1
-    X_start_index = X_end_index - pre_days * 24 + gap
+    # step 3 : 根据 pre_days 和　gap，确定　test　中Ｘ的值
+    delta = 48   
+    X_end_index = X_df.shape[0] - 1 - delta
+
+    X_start_index = X_end_index - pre_days * 24 + gap + 1
+
     X = X_df.loc[X_start_index : X_end_index]
     X = np.array(X)
     X = np.expand_dims(X, axis=0)

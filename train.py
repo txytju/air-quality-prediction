@@ -40,11 +40,12 @@ loss_functions = ["L2", "L1", "huber_loss"]
 for pre_days in pre_days_list :
     for loss_function in loss_functions :
         print("使用%d天，使用%s损失函数" %(pre_days, loss_function))
-        aver_smapes_best, model_pred_on_dev, model_pred_on_test, model_name= train_and_dev(city='bj',
+        aver_smapes_best, model_pred_on_dev, model_pred_on_test, model_name= train_and_dev(city='bj',   
                                                                                            pre_days=pre_days, 
                                                                                            gap=gap, 
                                                                                            loss_function=loss_function)
         print("使用%d天，使用%s损失函数，best_sampe = %.5f" %(pre_days, loss_function, aver_smapes_best))
+        print(model_pred_on_test)
         model_preds_on_dev.append(model_pred_on_dev)
         model_preds_on_test.append(model_pred_on_test)
         model_names.append(model_name)
@@ -71,5 +72,7 @@ for pre_days in pre_days_list :
 # 2. gap 
 # 3. 生成 X test 数据集
 # 4. 保证　dev　数据集上最后一天的截止时间是一致的
+# 5. dev 尾部数据中有缺失值．查看天气数据和ａｑ数据的连接方式？为什么会产生缺失值
+# 6. london 程序调通
 
 
