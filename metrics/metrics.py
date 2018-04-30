@@ -29,7 +29,7 @@ def symmetric_mean_absolute_percentage_error(actual, forecast, y_mean, y_std):
 
         r += abs(f-a) / ((abs(a)+abs(f))/2)
 
-    return r/length
+    return r/length, forecast
 
 
 def SMAPE_on_dataset(actual_data, forecast_data, feature_list, y_mean, y_std, forecast_duration=24):
@@ -83,6 +83,8 @@ def SMAPE_on_dataset_v1(actual_data, forecast_data, feature_list, statistics, fo
     '''
     assert actual_data.shape == forecast_data.shape, "The shape of actual data and perdiction data must match."
 
+    forecast_original = np.zeros(forecast_data.shape)
+
     number_of_features = actual_data.shape[2]
     smapes_list_of_features = {feature:[] for feature in feature_list}
 
@@ -95,12 +97,13 @@ def SMAPE_on_dataset_v1(actual_data, forecast_data, feature_list, statistics, fo
             f = forecast_data_item[:,j]
             y_mean = statistics.loc['mean'][feature]
             y_std = statistics.loc['std'][feature]
-            smape_a_feature_a_day = symmetric_mean_absolute_percentage_error(a, f, y_mean, y_std)
+            smape_a_feature_a_day, f_original_a_feature_a_day = symmetric_mean_absolute_percentage_error(a, f, y_mean, y_std)
             smapes_list_of_features[feature].append(smape_a_feature_a_day)
+            forecast_original[i,:,j] = f_original_a_feature_a_day
 
     smapes_of_features = {feature:np.mean(value) for feature, value in smapes_list_of_features.items()}
     aver_smapes = np.mean(list(smapes_of_features.values()))
 
-    return aver_smapes, smapes_of_features
+    return aver_smapes, smapes_of_features, forecast_original
 
 

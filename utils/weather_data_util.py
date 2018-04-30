@@ -47,6 +47,8 @@ def load_bj_grid_meo_data(useful_stations):
             bj_meo_datas.append(bj_meo_data)
 
     meo_dataset = pd.concat(bj_meo_datas, ignore_index=True)
+    meo_dataset.sort_index(inplace=True)
+    meo_dataset.drop_duplicates(subset=None, keep='first', inplace=True)
 
     bj_grid_meo_dataset, stations, bj_meo_stations = load_grid_meo_data(meo_dataset, useful_stations)
 
@@ -95,6 +97,8 @@ def load_ld_grid_meo_data(useful_stations):
             ld_meo_datas.append(ld_meo_data)
 
     meo_dataset = pd.concat(ld_meo_datas, ignore_index=True)
+    meo_dataset.sort_index(inplace=True)
+    meo_dataset.drop_duplicates(subset=None, keep='first', inplace=True)
 
     ld_grid_meo_dataset, stations, ld_meo_stations = load_grid_meo_data(meo_dataset, useful_stations)
 
@@ -135,18 +139,6 @@ def load_grid_meo_data(meo_df, useful_stations):
 
 
     return meo_dataset, stations, meo_stations
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def get_station_locations(stations_df):

@@ -26,30 +26,21 @@ print("Finished London meo data preprocess.")
 
 # 3. 训练集验证集划分
 train_dev_set_split(city="bj")
-# train_dev_set_split(city="ld")
+train_dev_set_split(city="ld")
 
 # 4. 训练模型
+model_preds_list = []
 
-# pred_days_list = [3,5,6,7]
-# loss_functions = ["L2", "L1", "huber_loss"]
+pred_days_list = [5,6,7]
+loss_functions = ["L2", "L1", "huber_loss"]
 
-# for pred_days in pred_days_list :
-
-#     # pred_days 不同生成的 dev set 也不同
-#     test_x, test_y = generate_dev_set(city=city,
-#                                  station_list=station_list,
-#                                  X_aq_list=X_aq_list, 
-#                                  y_aq_list=y_aq_list, 
-#                                  X_meo_list=X_meo_list,
-#                                  pre_days=pre_days,
-#                                  gap=gap)
-#     for loss_function in loss_functions :
-#         model_preds, model_name = train_and_dev(city='bj',
-#                                                test_set=,
-#                                                pre_days=pred_days, 
-#                                                gap=gap, 
-#                                                loss_function=loss_function)
-#
+for pred_days in pred_days_list :
+    for loss_function in loss_functions :
+        aver_smapes_best, model_preds, model_name= train_and_dev(city='bj',
+                                                                 test_set=,
+                                                                 pre_days=pred_days, 
+                                                                 gap=gap, 
+                                                                 loss_function=loss_function)
 
 # 5. 模型融合
 
@@ -72,5 +63,4 @@ train_dev_set_split(city="bj")
 # 1. 每天定时跑，并且将时间和 gap 变量对应上
 # 2. 当前 model_preds 是在正则化数据上的，将之转换到原始数据分布 statistics
 # 3. UTC time
-# 4. 将 generate test set 的方法修正
 

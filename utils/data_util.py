@@ -47,6 +47,8 @@ def load_bj_aq_data():
 
 	bj_aq_df = pd.concat(bj_aq_datas, ignore_index=True)
 	bj_aq_df.sort_index(inplace=True)
+	bj_aq_df.drop_duplicates(subset=None, keep='first', inplace=True)
+
 
 
 	bj_aq_dataset, stations, bj_aq_stations, bj_aq_stations_merged = load_city_aq_data(bj_aq_df)
@@ -125,6 +127,8 @@ def load_ld_aq_data():
 			ld_aq_datas.append(ld_aq_data)
 
 	ld_aq_df = pd.concat(ld_aq_datas, ignore_index=True)
+	ld_aq_df.sort_index(inplace=True)
+	ld_aq_df.drop_duplicates(subset=None, keep='first', inplace=True)
 
 	ld_aq_dataset, stations, ld_aq_stations, ld_aq_stations_merged = load_city_aq_data(ld_aq_df)
 
