@@ -34,10 +34,10 @@ bj_y_aq_list = ["PM2.5","PM10","O3"]
 bj_X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
 
 
-ld_station_list = []            
-ld_X_aq_list = []  
-ld_y_aq_list = []
-ld_X_meo_list = []
+ld_station_list = ['BL0','CD1','CD9','GN0','GN3','GR4','GR9','HV1','KF1','LW2','MY7','ST5','TH4']            
+ld_X_aq_list = ['NO2 (ug/m3)', 'PM10 (ug/m3)', 'PM2.5 (ug/m3)']  
+ld_y_aq_list = ['PM10 (ug/m3)', 'PM2.5 (ug/m3)'] 
+ld_X_meo_list = ["temperature","pressure","humidity","wind_direction","wind_speed"]
 
 
 
@@ -83,13 +83,13 @@ def train_and_dev(city='bj', test_set=None, pre_days=5, gap=0, loss_function="L2
 
 
     # Generate test data for the model
-    # test_x, test_y = generate_dev_set(city=city,
-    #                                   station_list=station_list,
-    #                                   X_aq_list=X_aq_list, 
-    #                                   y_aq_list=y_aq_list, 
-    #                                   X_meo_list=X_meo_list,
-    #                                   pre_days=pre_days,
-    #                                   gap=gap)
+    test_x, test_y = generate_dev_set(city=city,
+                                      station_list=station_list,
+                                      X_aq_list=X_aq_list, 
+                                      y_aq_list=y_aq_list, 
+                                      X_meo_list=X_meo_list,
+                                      pre_days=pre_days,
+                                      gap=gap)
 
 
     # Define training model
@@ -193,12 +193,12 @@ def train_and_dev(city='bj', test_set=None, pre_days=5, gap=0, loss_function="L2
             final_preds = [np.expand_dims(pred, 1) for pred in final_preds]
             final_preds = np.concatenate(final_preds, axis = 1)
 
-        aver_smapes, smapes_of_features = SMAPE_on_dataset_v1(test_y, final_preds, output_features, statistics, 1)
+        aver_smapes, smapes_of_features, forecast_original = SMAPE_on_dataset_v1(test_y, final_preds, output_features, statistics, 1)
 
         # aver_smapes_on_iteractions[name] = aver_smapes
         if aver_smapes < aver_smapes_best :
             aver_smapes_best = aver_smapes
-            model_preds = final_preds  # TODO final_preds 转化为经过 statistics 转化之后的
+            model_preds = forecast_original  
             model_name = name
 
 
