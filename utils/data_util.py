@@ -19,7 +19,7 @@ def load_bj_aq_data():
 	bj_aq_datas = []
 
 	for csv in bj_csv_list :
-		if csv != '.DS_Store' :
+		if csv != '.DS_Store' and not csv.startswith("._"):
 			path_to_file = path_to_bj_aq + csv
 			# print(path_to_file)
 			bj_aq_data = pd.read_csv(path_to_file)
@@ -76,7 +76,7 @@ def load_ld_aq_data():
 	ld_aq_datas = []
 
 	for csv in ld_csv_list :
-		if csv != '.DS_Store' :
+		if csv != '.DS_Store' and not csv.startswith("._") :
 			path_to_file = path_to_ld_aq + csv
 			# print(path_to_file)
 			ld_aq_data = pd.read_csv(path_to_file)

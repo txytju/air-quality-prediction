@@ -106,7 +106,7 @@ def meo_data_preprocess(city="bj"):
         length_2 = df.shape[0]
         delta = length_1 - length_2
         # print("重复值去除之后，共有数据数量", df.shape[0])
-        print("%s 重复数量 : %d" %(station, delta))
+        # print("%s 重复数量 : %d" %(station, delta))
         
         df.set_index("time", inplace=True)
         meo_stations[station] = df

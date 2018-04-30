@@ -140,7 +140,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
                 temp_saver = rnn_model['saver']()
                 name = '%d pre_days, %d gap, %s loss_function, multivariate_%d_iteractions' %(pre_days, gap, loss_function, i)
                 saved_iteractions.append(name)
-                save_path = temp_saver.save(sess, os.path.join('./result/multi_variable_model_results/', name))
+                save_path = temp_saver.save(sess, os.path.join('./result/0430/', name))
                 print("Checkpoint saved at: ", save_path)
 
             losses.append(loss_t)
@@ -184,7 +184,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
             sess.run(init)
             
             print("Using checkpoint: ", name)
-            saver = rnn_model['saver']().restore(sess,  os.path.join('./result/multi_variable_model_results/', name))
+            saver = rnn_model['saver']().restore(sess,  os.path.join('./result/0430/', name))
             
             feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction
             feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
