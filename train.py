@@ -28,7 +28,8 @@ train_dev_set_split(city="bj")
 train_dev_set_split(city="ld")
 
 # 4. 训练模型
-model_preds_list = []
+model_preds_on_dev = []
+model_preds_on_test = []
 model_names = []
 aver_smapes_bests = []
 
@@ -39,12 +40,13 @@ loss_functions = ["L2", "L1", "huber_loss"]
 for pre_days in pre_days_list :
     for loss_function in loss_functions :
         print("使用%d天，使用%s损失函数" %(pre_days, loss_function))
-        aver_smapes_best, model_preds, model_name= train_and_dev(city='bj',
-                                                                 pre_days=pre_days, 
-                                                                 gap=gap, 
-                                                                 loss_function=loss_function)
+        aver_smapes_best, model_pred_on_dev, model_pred_on_test, model_name= train_and_dev(city='bj',
+                                                                 　　　　　　　　　　　　　　　　　　　　　　　　　　pre_days=pre_days, 
+                                                                 　　　　　　　　　　　　　　　　　　　　　　　　　　gap=gap, 
+                                                                 　　　　　　　　　　　　　　　　　　　　　　　　　　loss_function=loss_function)
         print("使用%d天，使用%s损失函数，best_sampe = %.5f" %(pre_days, loss_function, aver_smapes_best))
-        model_preds_list.append(model_preds)
+        model_preds_on_dev.append(model_pred_on_dev)
+        model_preds_on_test.append(model_pred_on_test)
         model_names.append(model_name)
         aver_smapes_bests.append(aver_smapes_best)
 
@@ -67,5 +69,7 @@ for pre_days in pre_days_list :
 # TODO：
 # 1. 每天定时跑，并且将时间和 gap 变量对应上
 # 2. gap 
+# 3. 生成 X test 数据集
+# 4. 保证　dev　数据集上最后一天的截止时间是一致的
 
 

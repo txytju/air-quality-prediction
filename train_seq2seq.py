@@ -9,7 +9,7 @@ import keras.backend.tensorflow_backend as KTF
 
 from utils.plot_util import plot_forecast_and_actual_example
 from metrics.metrics import SMAPE_on_dataset_v1
-from seq2seq.seq2seq_data_util import get_training_statistics, generate_training_set, generate_dev_set
+from seq2seq.seq2seq_data_util import get_training_statistics, generate_training_set, generate_dev_set, generate_X_test_set
 from seq2seq.multi_variable_seq2seq_model_parameters import build_graph
 
 
@@ -174,7 +174,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
 
     # aver_smapes_on_iteractions = {}
     aver_smapes_best = 10
-    model_preds = None
+    model_preds_on_dev = None
 
     for name in saved_iteractions :
 
@@ -198,15 +198,29 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
         # aver_smapes_on_iteractions[name] = aver_smapes
         if aver_smapes < aver_smapes_best :
             aver_smapes_best = aver_smapes
-            model_preds = forecast_original  
+            model_preds_on_dev = forecast_original  
             model_name = name
 
+    # 使用这个模型中表现最好的一次迭代的参数对　X_test 进行预测
+    X_predict = generate_X_test_set(city=city,
+                                 station_list=station_list,
+                                 X_aq_list=X_aq_list,
+                                 X_meo_list=X_meo_list,
+                                 use_day=use_day,
+                                 pre_days=pre_days,
+                                 gap=gap)
+    # 加载最好的模型
+    saver = rnn_model['saver']().restore(sess,  os.path.join('./result/0430/', model_name))
 
-    # print(aver_smapes_on_iteractions)
-    # df_aver_smapes_on_iteractions = pd.Series(aver_smapes_on_iteractions)
-    # df_aver_smapes_on_iteractions.to_csv("data/meo_and_aq_seq2seq_result.csv")
-    # print("Trianing done! model saved at data/meo_and_aq_seq2seq_result.csv")
-    return aver_smapes_best, model_preds, model_name # 将在这种情况下表现最好的模型 的预测结果 和 模型的位置信息返回
+    feed_dict = {rnn_model['enc_inp'][t]: X_predict[:, t, :] for t in range(input_seq_len)} # batch prediction
+    feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
+    final_test_preds = sess.run(rnn_model['reshaped_outputs'], feed_dict)
+    
+    final_test_preds = [np.expand_dims(pred, 1) for pred in final_test_preds]
+    final_test_preds = np.concatenate(final_test_preds, axis = 1)
+    model_preds_on_test = final_test_preds
+
+    return aver_smapes_best, model_preds_on_dev, model_preds_on_test, model_name # 将在这种情况下表现最好的模型 的预测结果 和 模型的位置信息返回
 
 
 

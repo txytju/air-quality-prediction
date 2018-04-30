@@ -258,6 +258,50 @@ def generate_training_set(city="bj", station_list=None, X_aq_list=None, y_aq_lis
     return X_train_batch, y_train_batch
 
 
+def generate_X_test_set(city="bj", 
+                        station_list=None, 
+                        X_aq_list=None, 
+                        X_meo_list=None, 
+                        pre_days=5, 
+                        gap=0) :
+
+
+    aq_dev = pd.read_csv("test/%s_aq_dev_data.csv" %(city))
+    meo_dev = pd.read_csv("test/%s_meo_dev_data.csv" %(city))
+    
+    dev_df = pd.concat([aq_dev, meo_dev], axis=1)
+
+    # step 1 : keep all features about the stations
+    station_filters = []
+    for station in station_list : 
+        station_filter = [index for index in dev_df.columns if station in index]
+        station_filters += station_filter
+    
+    # step 2 : filter of X features
+    X_feature_filters = []
+    if X_meo_list :
+        X_features = X_aq_list + X_meo_list
+    else :
+        X_features = X_aq_list
+        
+    for i in station_filters : 
+        if i.split("_")[-1] in X_features :
+            X_feature_filters += [i]
+            
+    X_feature_filters.sort()  # 排序，保证训练集和验证集中的特征的顺序一致
+    X_df = dev_df[X_feature_filters]
+   
+    # step 3 : 根据 pre_days 和　gap，确定　test　中Ｘ的值   
+    X_end_index = X_df.shape[0] - 1
+   　X_start_index = X_end_index - pre_days * 24　+ gap
+　　　　X = X_df.loc[X_start_index : X_end_index]
+   　X = np.array(X)
+　　　　X = np.expand_dims(X, axis=0)
+ 
+    return X
+
+
+
 
 
 def generate_dev_set(city="bj", station_list=None, X_aq_list=None, y_aq_list=None, X_meo_list=None, pre_days=5, gap=0):
