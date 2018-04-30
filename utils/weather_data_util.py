@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 import datetime
@@ -9,11 +10,31 @@ def load_bj_grid_meo_data(useful_stations):
     useful_stations : dict of {aq_station : meo_station}
     '''
 
-    csv_list = ["./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv", 
-                "./KDD_CUP_2018/Beijing/grid_meo/new.csv"]
+    # csv_list = ["./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv", 
+    #             "./KDD_CUP_2018/Beijing/grid_meo/new.csv"]
 
-    bj_grid_meo_dataset, stations, bj_meo_stations = load_grid_meo_data(csv_list, useful_stations)
+    path_to_bj_meo = "./KDD_CUP_2018/Beijing/grid_meo/"
+    bj_csv_list  = os.listdir(path_to_bj_meo)
 
+    bj_meo_datas = []
+
+    for csv in bj_csv_list :
+        if csv != '.DS_Store' :
+            path_to_file = path_to_bj_meo + csv
+            print(path_to_file)
+            bj_meo_data = pd.read_csv(path_to_file)
+
+            # 去掉位置信息
+            if "longitude" in bj_meo_data.columns :
+                bj_meo_data.drop("longitude", axis=1, inplace=True)
+            if "latitude" in bj_meo_data.columns :    
+                bj_meo_data.drop("latitude", axis=1, inplace=True)
+        
+            bj_meo_datas.append(bj_meo_data)
+
+    meo_dataset = pd.concat(bj_meo_datas, ignore_index=True)
+
+    bj_grid_meo_dataset, stations, bj_meo_stations = load_grid_meo_data(meo_dataset, useful_stations)
 
     return bj_grid_meo_dataset, stations, bj_meo_stations
 
@@ -32,28 +53,12 @@ def load_ld_grid_meo_data(useful_stations):
     return ld_grid_meo_dataset, stations, ld_meo_stations
 
 
-def load_grid_meo_data(csv_list, useful_stations):
+def load_grid_meo_data(meo_df, useful_stations):
     '''
-    csv_list : a list of strings, string of csv path
     useful_stations : dict of {aq_station : meo_station}
     '''
 
-    meo_datas = []
-
-    for csv in csv_list :
-        meo_data = pd.read_csv(csv)
-
-        # 去掉位置信息
-        if "longitude" in meo_data.columns :
-            meo_data.drop("longitude", axis=1, inplace=True)
-        if "latitude" in meo_data.columns :    
-            meo_data.drop("latitude", axis=1, inplace=True)
-        
-        meo_datas.append(meo_data)
-
-    meo_dataset = pd.concat(meo_datas, ignore_index=True)
-
-
+    meo_dataset = meo_df
 
     # turn date from string type to datetime type
     meo_dataset["time"] = pd.to_datetime(meo_dataset['utc_time'])

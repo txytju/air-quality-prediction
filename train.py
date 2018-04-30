@@ -17,7 +17,7 @@ gap = 0
 
 aq_data_preprocess(city='bj')
 print("Finished Beijing aq data preprocess.")
-ld_aq_data_preprocess(city='ld')
+aq_data_preprocess(city='ld')
 print("Finished London aq data preprocess.")
 meo_data_preprocess(city='bj')
 print("Finished Beijing meo data preprocess.")
