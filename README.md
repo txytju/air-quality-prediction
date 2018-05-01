@@ -132,6 +132,7 @@ The home page of this project is [here](https://www.notion.so/tianxingye/KDD-Cup
   - 提交预测数据
   - 数据
     - 实时获取的天气数据和空气质量数据的时效性如何
+      - 试验了一下，在相同时间节点上，不同城市以及不同指标的更新步调并不一致．例如6点时 bj_aq　更新到了5点，而 ld_aq　只更新到了４点，而　meo　数据都更新到了６点
       - 整小时时刻之后能否立即获得数据？获得数据之后还是否有足够的时间计算？
         - aq
           - ld 延迟两个小时

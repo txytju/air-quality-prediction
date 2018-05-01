@@ -17,13 +17,13 @@ gap = 24
 # 基于上述下载的数据，进行数据预处理，并将生成的中间数据保存在 csv 表格中
 
 # aq_data_preprocess(city='bj')
-print("Finished Beijing aq data preprocess.")
+# print("Finished Beijing aq data preprocess.")
 # aq_data_preprocess(city='ld')
-print("Finished London aq data preprocess.")
+# print("Finished London aq data preprocess.")
 # meo_data_preprocess(city='bj')
-print("Finished Beijing meo data preprocess.")
+# print("Finished Beijing meo data preprocess.")
 # meo_data_preprocess(city='ld')
-print("Finished London meo data preprocess.")
+# print("Finished London meo data preprocess.")
 
 # 3. 训练集验证集划分
 # train_dev_set_split(city="bj")
@@ -93,7 +93,7 @@ submission["PM2.5"] = submission["PM2.5"].astype('float64')
 submission["PM10"] = submission["PM10"].astype('float64')
 
 
-
+# 7. generate submission and save it to file
 for index in submission.index:
     # print(index)
     test_id = submission.test_id[index]
@@ -109,8 +109,6 @@ submission.set_index("test_id", inplace=True)
 submission[submission<0]=0
 submission.to_csv("my_submission.csv")
 
-
-# # 7. 自动提交结果
 # print("Submit")
 # submit()
 # import api_submit
