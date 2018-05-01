@@ -2,101 +2,101 @@ import numpy as np
 import pandas as pd
 
 # For single varuable seq2seq model 
-def generate_train_dev_set(ts, dev_set_proportion):
-    '''
-    args:
-        ts : pandas timeseries
-        dev_set_proportion : proportion of dev set in the data set.
-    '''
-    ts = ts.values
-    all_length = len(ts)
-    dev_length = int(dev_set_proportion * all_length)
-    dev = ts[-dev_length:]
-    train = ts[:-dev_length]
+# def generate_train_dev_set(ts, dev_set_proportion):
+#     '''
+#     args:
+#         ts : pandas timeseries
+#         dev_set_proportion : proportion of dev set in the data set.
+#     '''
+#     ts = ts.values
+#     all_length = len(ts)
+#     dev_length = int(dev_set_proportion * all_length)
+#     dev = ts[-dev_length:]
+#     train = ts[:-dev_length]
     
-    return train, dev
+#     return train, dev
 
-def generate_training_data_for_seq2seq(ts, batch_size=10, input_seq_len=120, output_seq_len=48):
-    '''
-    Random generate training data with batch_size.
-    args:
-        ts : training time series to be used.
-        batch_size : batch_size for the training data.
-        input_seq_len : length of input_seq to the encoder.
-        output_seq_len : length of output_seq of the decoder.
-    returns:
-        np.array(input_seq_x) shape : [batch_size, input_seq_len]
-        np.array(output_seq_y) shape : [batch_size, output_seq_len]
-    '''
-    # TS = np.array(ts)
-    TS = ts
+# def generate_training_data_for_seq2seq(ts, batch_size=10, input_seq_len=120, output_seq_len=48):
+#     '''
+#     Random generate training data with batch_size.
+#     args:
+#         ts : training time series to be used.
+#         batch_size : batch_size for the training data.
+#         input_seq_len : length of input_seq to the encoder.
+#         output_seq_len : length of output_seq of the decoder.
+#     returns:
+#         np.array(input_seq_x) shape : [batch_size, input_seq_len]
+#         np.array(output_seq_y) shape : [batch_size, output_seq_len]
+#     '''
+#     # TS = np.array(ts)
+#     TS = ts
 
-    total_start_points = len(TS) - input_seq_len - output_seq_len
-    start_x_idx = np.random.choice(range(total_start_points), batch_size)
+#     total_start_points = len(TS) - input_seq_len - output_seq_len
+#     start_x_idx = np.random.choice(range(total_start_points), batch_size)
     
-    input_seq = [TS[i:(i+input_seq_len)] for i in start_x_idx]
-    output_seq = [TS[(i+input_seq_len):(i+input_seq_len+output_seq_len)] for i in start_x_idx]
+#     input_seq = [TS[i:(i+input_seq_len)] for i in start_x_idx]
+#     output_seq = [TS[(i+input_seq_len):(i+input_seq_len+output_seq_len)] for i in start_x_idx]
 
-    return np.array(input_seq), np.array(output_seq)
+#     return np.array(input_seq), np.array(output_seq)
 
-def generate_dev_data_for_seq2seq(ts, input_seq_len=120, output_seq_len=48):
+# def generate_dev_data_for_seq2seq(ts, input_seq_len=120, output_seq_len=48):
     
-    TS = ts
-    dev_set = []
-    total_start_points = len(TS) - input_seq_len - output_seq_len
+#     TS = ts
+#     dev_set = []
+#     total_start_points = len(TS) - input_seq_len - output_seq_len
 
-    for i in range(total_start_points):
-        input_seq = TS[i:(i+input_seq_len)]
-        output_seq = TS[(i+input_seq_len):(i+input_seq_len+output_seq_len)]
-        dev_set.append((input_seq, output_seq))
+#     for i in range(total_start_points):
+#         input_seq = TS[i:(i+input_seq_len)]
+#         output_seq = TS[(i+input_seq_len):(i+input_seq_len+output_seq_len)]
+#         dev_set.append((input_seq, output_seq))
 
-    return dev_set
+#     return dev_set
 
 
-def generate_x_y_data(ts, past_seq_length, future_sequence_length, batch_size):
-    """
-    Generate single feature data for seq2seq. Random choose batch_size data.
+# def generate_x_y_data(ts, past_seq_length, future_sequence_length, batch_size):
+#     """
+#     Generate single feature data for seq2seq. Random choose batch_size data.
     
-    args:
-        ts is single feature time series. ts can be training data or validation data or test data.
-        past_seq_length is seq_length of past data.
-        future_sequence_length is sequence_length of future data.
-        batch_size.
+#     args:
+#         ts is single feature time series. ts can be training data or validation data or test data.
+#         past_seq_length is seq_length of past data.
+#         future_sequence_length is sequence_length of future data.
+#         batch_size.
 
-    returns: tuple (X, Y)
-        X is (past_seq_length, batch_size, input_dim)
-        Y is (future_sequence_length, batch_size, output_dim)
+#     returns: tuple (X, Y)
+#         X is (past_seq_length, batch_size, input_dim)
+#         Y is (future_sequence_length, batch_size, output_dim)
 
-    """
-    series = ts.values
+#     """
+#     series = ts.values
     
-    batch_x = []
-    batch_y = []
+#     batch_x = []
+#     batch_y = []
     
-    for _ in range(batch_size):
+#     for _ in range(batch_size):
         
-        total_series_num = len(series) - (past_seq_length + future_sequence_length)
-        random_index = int(np.random.choice(total_series_num, 1))
+#         total_series_num = len(series) - (past_seq_length + future_sequence_length)
+#         random_index = int(np.random.choice(total_series_num, 1))
         
-        x_ = series[random_index : random_index + past_seq_length]
-        y_ = series[random_index + past_seq_length : random_index + past_seq_length + future_sequence_length]
+#         x_ = series[random_index : random_index + past_seq_length]
+#         y_ = series[random_index + past_seq_length : random_index + past_seq_length + future_sequence_length]
 
 
-        batch_x.append(x_)
-        batch_y.append(y_)
+#         batch_x.append(x_)
+#         batch_y.append(y_)
 
-    batch_x = np.array(batch_x)
-    batch_y = np.array(batch_y)
+#     batch_x = np.array(batch_x)
+#     batch_y = np.array(batch_y)
     
-    batch_x = np.expand_dims(batch_x, axis=2)
-    batch_y = np.expand_dims(batch_y, axis=2)
-    # shape: (batch_size, seq_length, input/output_dim)
+#     batch_x = np.expand_dims(batch_x, axis=2)
+#     batch_y = np.expand_dims(batch_y, axis=2)
+#     # shape: (batch_size, seq_length, input/output_dim)
 
-    batch_x = np.array(batch_x).transpose((1, 0, 2))
-    batch_y = np.array(batch_y).transpose((1, 0, 2))
-    # shape: (seq_length, batch_size, input/output_dim)
+#     batch_x = np.array(batch_x).transpose((1, 0, 2))
+#     batch_y = np.array(batch_y).transpose((1, 0, 2))
+#     # shape: (seq_length, batch_size, input/output_dim)
 
-    return batch_x, batch_y
+#     return batch_x, batch_y
 
 
 
@@ -104,41 +104,41 @@ def generate_x_y_data(ts, past_seq_length, future_sequence_length, batch_size):
 
 # For multi variable seq2seq model
 
-def generate_train_samples(x, y, batch_size=32, input_seq_len=30, output_seq_len=5):
+# def generate_train_samples(x, y, batch_size=32, input_seq_len=30, output_seq_len=5):
 
-    total_start_points = len(x) - input_seq_len - output_seq_len
-    start_x_idx = np.random.choice(range(total_start_points), batch_size, replace = False)
+#     total_start_points = len(x) - input_seq_len - output_seq_len
+#     start_x_idx = np.random.choice(range(total_start_points), batch_size, replace = False)
     
-    input_batch_idxs = [list(range(i, i+input_seq_len)) for i in start_x_idx]
-    input_seq = np.take(x, input_batch_idxs, axis = 0)
+#     input_batch_idxs = [list(range(i, i+input_seq_len)) for i in start_x_idx]
+#     input_seq = np.take(x, input_batch_idxs, axis = 0)
     
-    output_batch_idxs = [list(range(i+input_seq_len, i+input_seq_len+output_seq_len)) for i in start_x_idx]
-    output_seq = np.take(y, output_batch_idxs, axis = 0)
+#     output_batch_idxs = [list(range(i+input_seq_len, i+input_seq_len+output_seq_len)) for i in start_x_idx]
+#     output_seq = np.take(y, output_batch_idxs, axis = 0)
     
-    return input_seq, output_seq # in shape: (batch_size, time_steps, feature_dim)
+#     return input_seq, output_seq # in shape: (batch_size, time_steps, feature_dim)
 
-def generate_test_samples(x, y, input_seq_len=30, output_seq_len=5):
+# def generate_test_samples(x, y, input_seq_len=30, output_seq_len=5):
     
-    total_samples = x.shape[0]
+#     total_samples = x.shape[0]
     
-    input_batch_idxs = [list(range(i, i+input_seq_len)) for i in range((total_samples-input_seq_len-output_seq_len))]
-    input_seq = np.take(x, input_batch_idxs, axis = 0)
+#     input_batch_idxs = [list(range(i, i+input_seq_len)) for i in range((total_samples-input_seq_len-output_seq_len))]
+#     input_seq = np.take(x, input_batch_idxs, axis = 0)
     
-    output_batch_idxs = [list(range(i+input_seq_len, i+input_seq_len+output_seq_len)) for i in range((total_samples-input_seq_len-output_seq_len))]
-    output_seq = np.take(y, output_batch_idxs, axis = 0)
+#     output_batch_idxs = [list(range(i+input_seq_len, i+input_seq_len+output_seq_len)) for i in range((total_samples-input_seq_len-output_seq_len))]
+#     output_seq = np.take(y, output_batch_idxs, axis = 0)
     
-    return input_seq, output_seq
+#     return input_seq, output_seq
 
 
 
-def get_training_statistics():
+def get_training_statistics(city):
     '''
     Get statics values of aq and meo data.
     '''
-    aq_describe = pd.read_csv("test/bj_aq_describe.csv")
+    aq_describe = pd.read_csv("test/%s_aq_describe.csv" %(city))
     aq_describe.set_index("Unnamed: 0", inplace=True)
     
-    meo_describe = pd.read_csv("test/bj_meo_describe.csv")
+    meo_describe = pd.read_csv("test/%s_meo_describe.csv" %(city))
     meo_describe.set_index("Unnamed: 0", inplace=True)  
     
     statistics = pd.concat([aq_describe, meo_describe], axis=1)
@@ -174,6 +174,12 @@ def generate_training_set(city="bj", station_list=None, X_aq_list=None, y_aq_lis
     X_aq_list = ["PM2.5","PM10","O3","CO","SO2","NO2"]  
     y_aq_list = ["PM2.5","PM10","O3"]
     X_meo_list = ["temperature","pressure","humidity","direction","speed/kph"]
+
+    ld_station_list = ['BL0','CD1','CD9','GN0','GN3','GR4','GR9','HV1','KF1','LW2','MY7','ST5','TH4']            
+    ld_X_aq_list = ['NO2', 'PM10', 'PM2.5']  
+    ld_y_aq_list = ['PM10', 'PM2.5'] 
+    ld_X_meo_list = ["temperature","pressure","humidity","direction","speed"]
+
     '''
 
     aq_train = pd.read_csv("test/%s_aq_train_data.csv" %(city))
@@ -292,7 +298,7 @@ def generate_X_test_set(city="bj",
     X_df = dev_df[X_feature_filters]
    
     # step 3 : 根据 pre_days 和　gap，确定　test　中Ｘ的值
-    delta = 48   
+    delta = 0  
     X_end_index = X_df.shape[0] - 1 - delta
 
     X_start_index = X_end_index - pre_days * 24 + gap + 1
@@ -393,30 +399,6 @@ def generate_dev_set(city="bj", station_list=None, X_aq_list=None, y_aq_list=Non
 
         X_df_list.append(X)
         y_df_list.append(y)
-
-    # Old version of generate dev set
-    # m = int(np.floor(X_df.shape[0] / 24 + 1 - (pre_days + 2)))
-
-    # for i in range(m):
-
-    #     X_start_index = 24 * i
-    #     X_end_index = 24 * (i + pre_days) - 1 - gap
-
-    #     y_start_index = 24 * (i + pre_days)
-    #     y_end_index = 24 * (i + pre_days + 2) - 1
-
-
-    #     X = X_df.loc[X_start_index : X_end_index]
-    #     y = y_df.loc[y_start_index : y_end_index]
-
-    #     X = np.array(X)
-    #     y = np.array(y)
-
-    #     X = np.expand_dims(X, axis=0)
-    #     y = np.expand_dims(y, axis=0)
-
-    #     X_df_list.append(X)
-    #     y_df_list.append(y)
 
     X_dev_batch = np.concatenate(X_df_list, axis=0)
     y_dev_batch = np.concatenate(y_df_list, axis=0)

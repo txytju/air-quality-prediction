@@ -142,7 +142,7 @@ def aq_data_preprocess(city="bj"):
         
         stations_to_predict = ['BL0','CD1','CD9','GN0','GN3','GR4','GR9','HV1','KF1','LW2','MY7','ST5','TH4'] # 13个
         other_stations = ['BX1', 'BX9', 'CR8', 'CT2', 'CT3', 'GB0', 'HR1', 'KC1', 'LH0', 'RB7', 'TD5']        # 11个
-        features = ['NO2 (ug/m3)', 'PM10 (ug/m3)', 'PM2.5 (ug/m3)']
+        features = ['NO2', 'PM10', 'PM2.5']
 
         all_features = []
         for station in stations_to_predict :

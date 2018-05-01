@@ -35,16 +35,12 @@ bj_X_meo_list = ["temperature","pressure","humidity","direction","speed"]
 
 
 ld_station_list = ['BL0','CD1','CD9','GN0','GN3','GR4','GR9','HV1','KF1','LW2','MY7','ST5','TH4']            
-ld_X_aq_list = ['NO2 (ug/m3)', 'PM10 (ug/m3)', 'PM2.5 (ug/m3)']  
-ld_y_aq_list = ['PM10 (ug/m3)', 'PM2.5 (ug/m3)'] 
+ld_X_aq_list = ['NO2', 'PM10', 'PM2.5']  
+ld_y_aq_list = ['PM10', 'PM2.5'] 
 ld_X_meo_list = ["temperature","pressure","humidity","direction","speed"]  # "wind_direction","wind_speed"
 
 
-
-
-
-
-def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
+def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2", total_iteractions=200) :
     '''
     city='bj' or 'ld' : 针对某个城市的数据进行训练
     pre_days : 使用 pre_days 天数的数据进行预测
@@ -78,11 +74,29 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
 
     lambda_l2_reg=0.003
     GRADIENT_CLIPPING=2.5
-    total_iteractions = 20
+    total_iteractions = total_iteractions
     KEEP_RATE = 0.5
 
+    # order of features
+    # input_features = []
+    # for station in station_list : 
+    #     for feature in X_aq_list + X_meo_list:
+    #         input_features.append(station + "_" + feature)
+    # input_features.sort()
+
+    output_features = []
+    for station in station_list : 
+        for aq_feature in y_aq_list :
+            output_features.append(station + "_" + aq_feature)
+    output_features.sort()
+
+    # 统计量值
+    statistics = get_training_statistics(city)
+
+
+
     # Generate test data for the model
-    test_x, test_y = generate_dev_set(city=city,
+    dev_x, dev_y = generate_dev_set(city=city,
                                       station_list=station_list,
                                       X_aq_list=X_aq_list, 
                                       y_aq_list=y_aq_list, 
@@ -90,7 +104,8 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
                                       pre_days=pre_days,
                                       gap=gap)
 
-    # print(test_x.shape, test_y.shape)
+    _, _, dev_y_original = SMAPE_on_dataset_v1(dev_y, dev_y, output_features, statistics, 1)  # 
+    # print(dev_x.shape, dev_y.shape)
 
     # Define training model
     rnn_model = build_graph(feed_previous=False, 
@@ -129,12 +144,13 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
                                                               batch_size=batch_size,
                                                               gap=gap)
 
+
             # print(batch_input.shape, batch_output.shape)
             feed_dict = {rnn_model['enc_inp'][t]: batch_input[:,t,:] for t in range(input_seq_len)}
             feed_dict.update({rnn_model['target_seq'][t]: batch_output[:,t,:] for t in range(output_seq_len)})
             _, loss_t = sess.run([rnn_model['train_op'], rnn_model['loss']], feed_dict) 
             
-            if i%3 == 0:
+            if i%5 == 0:
                 print("loss after %d/%d iteractions : %.3f" %(i, total_iteractions, loss_t))
 
                 temp_saver = rnn_model['saver']()
@@ -147,19 +163,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
             
 
 
-    output_features = []
-    for station in station_list : 
-        for aq_feature in y_aq_list :
-            output_features.append(station + "_" + aq_feature)
-
-    # 特征要和训练时候的特征顺序保持一致
-    output_features.sort()
-
-    # 统计量值
-    statistics = get_training_statistics()
-
-
-    # predicting using different model
+    # predicting using different model on dev set
     rnn_model = build_graph(feed_previous=True, 
                             input_seq_len=input_seq_len, 
                             output_seq_len=output_seq_len, 
@@ -186,14 +190,14 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
             # print("Using checkpoint: ", name)
             saver = rnn_model['saver']().restore(sess,  os.path.join('./result/0430/', name))
             
-            feed_dict = {rnn_model['enc_inp'][t]: test_x[:, t, :] for t in range(input_seq_len)} # batch prediction
-            feed_dict.update({rnn_model['target_seq'][t]: np.zeros([test_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
+            feed_dict = {rnn_model['enc_inp'][t]: dev_x[:, t, :] for t in range(input_seq_len)} # batch prediction
+            feed_dict.update({rnn_model['target_seq'][t]: np.zeros([dev_x.shape[0], output_dim], dtype=np.float32) for t in range(output_seq_len)})
             final_preds = sess.run(rnn_model['reshaped_outputs'], feed_dict)
             
             final_preds = [np.expand_dims(pred, 1) for pred in final_preds]
             final_preds = np.concatenate(final_preds, axis = 1)
 
-        aver_smapes, smapes_of_features, forecast_original = SMAPE_on_dataset_v1(test_y, final_preds, output_features, statistics, 1)
+        aver_smapes, smapes_of_features, forecast_original = SMAPE_on_dataset_v1(dev_y, final_preds, output_features, statistics, 1)
 
         # aver_smapes_on_iteractions[name] = aver_smapes
         if aver_smapes < aver_smapes_best :
@@ -208,7 +212,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
                                  X_meo_list=X_meo_list,
                                  pre_days=pre_days,
                                  gap=gap)
-    print(X_predict.shape)
+    # print(X_predict.shape)
     # 加载最好的模型
     init = tf.global_variables_initializer()
 
@@ -225,7 +229,7 @@ def train_and_dev(city='bj', pre_days=5, gap=0, loss_function="L2") :
         final_test_preds = np.concatenate(final_test_preds, axis = 1)
         _, _, model_preds_on_test = SMAPE_on_dataset_v1(final_test_preds, final_test_preds, output_features, statistics, 1) # 仅仅是为了计算预测值
 
-    return aver_smapes_best, model_preds_on_dev, model_preds_on_test, model_name # 将在这种情况下表现最好的模型 的预测结果 和 模型的位置信息返回
+    return aver_smapes_best, model_preds_on_dev, dev_y_original, model_preds_on_test, output_features  # 将在这种情况下表现最好的模型 的预测结果 和 模型的位置信息返回
 
 
 

@@ -49,7 +49,7 @@ def load_bj_aq_data():
 	bj_aq_df = pd.concat(bj_aq_datas, ignore_index=True)
 	# print(bj_aq_df.columns)
 	# print(bj_aq_df.shape)
-	bj_aq_df.sort_index(inplace=True)
+	bj_aq_df.sort_index(inplace=True)   # sort the rows
 	bj_aq_df.drop_duplicates(subset=None, keep='first', inplace=True)
 	# print(bj_aq_df.shape)
 
@@ -95,11 +95,11 @@ def load_ld_aq_data():
 			name_pair = {}
 
 			if 'station_id' in ld_aq_data.columns :
-				name_pair['MeasurementDateGMT'] = 'utc_time'
+				# name_pair['MeasurementDateGMT'] = 'utc_time'
 				name_pair['station_id'] = 'stationId'
 				# name_pair = {'MeasurementDateGMT':'utc_time', 'station_id':'stationId'}
 			elif 'Station_ID' in ld_aq_data.columns :  
-				name_pair['MeasurementDateGMT'] = 'utc_time'
+				# name_pair['MeasurementDateGMT'] = 'utc_time'
 				name_pair['Station_ID'] = 'stationId'
 
 			if "time" in ld_aq_data.columns :
@@ -110,12 +110,18 @@ def load_ld_aq_data():
 				if "_Concentration" in column :
 					flag = True
 			if flag :
-				name_pair["PM25_Concentration"] = "PM2.5 (ug/m3)"
-				name_pair["PM10_Concentration"] = "PM10 (ug/m3)"
-				name_pair["NO2_Concentration"] = "NO2 (ug/m3)"
+				name_pair["PM25_Concentration"] = "PM2.5"
+				name_pair["PM10_Concentration"] = "PM10"
+				name_pair["NO2_Concentration"] = "NO2"
 				ld_aq_data.drop("CO_Concentration", axis=1, inplace=True)
 				ld_aq_data.drop("O3_Concentration", axis=1, inplace=True)
 				ld_aq_data.drop("SO2_Concentration", axis=1, inplace=True)
+
+			if "MeasurementDateGMT" in ld_aq_data.columns :
+				name_pair['MeasurementDateGMT'] = 'utc_time'
+				name_pair["PM2.5 (ug/m3)"] = "PM2.5"
+				name_pair["PM10 (ug/m3)"] = "PM10"
+				name_pair["NO2 (ug/m3)"] = "NO2"
 
 			if "id" in ld_aq_data.columns : 
 				ld_aq_data.drop("id", axis=1, inplace=True)
