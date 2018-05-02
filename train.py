@@ -39,7 +39,7 @@ total_iteractions = 200
 pre_days_list = [5,6,7]
 loss_functions = ["L2", "L1", "huber_loss"]
 
-for city in ['ld', 'bj'] :
+for city in ['bj', 'ld'] :
     results[city] = {}
     for pre_days in pre_days_list :
         for loss_function in loss_functions :

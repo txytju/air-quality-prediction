@@ -1,3 +1,4 @@
+submit_model_preds/
 result/
 test/
 seq2seq/hidden_dim/
