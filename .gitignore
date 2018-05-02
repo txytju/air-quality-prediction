@@ -1,3 +1,12 @@
+data/Beijing/grid_meo/Beijing_historical_meo_grid.csv
+data/Beijing/meo/
+data/Beijing/location/
+
+data/London/location/
+data/London/grid_meo/London_historical_meo_grid.csv
+
+
+
 submit_model_preds/
 result/
 test/
