@@ -88,7 +88,7 @@ def get_value(submit, target_station, target_hour, target_feature):
 
 
 # load sample
-submission = pd.read_csv("submission.csv")
+submission = pd.read_csv("submission/sample_submission.csv")
 submission["PM2.5"] = submission["PM2.5"].astype('float64')
 submission["PM10"] = submission["PM10"].astype('float64')
 

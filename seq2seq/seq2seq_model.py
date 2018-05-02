@@ -1,35 +1,18 @@
-import tensorflow as tf
 from tensorflow.contrib import rnn
 from tensorflow.python.ops import variable_scope
 from tensorflow.python.framework import dtypes
+import tensorflow as tf
 import copy
+import os
 
-## Parameters
-learning_rate = 0.01
-lambda_l2_reg = 0.003  
 
-# 注意这里的参数要和 ipynb 里的保持一致
-## Network Parameters
-# length of input signals
-input_seq_len = 120
-# length of output signals
-output_seq_len = 48 
-# size of LSTM Cell
-hidden_dim = 64 
-# num of input signals
-input_dim = 1
-# num of output signals
-output_dim = 1
-# num of stacked lstm layers 
-num_stacked_layers = 2 
-# gradient clipping - to avoid gradient exploding
-GRADIENT_CLIPPING = 2.5 
-
-def build_graph(feed_previous = False):
+def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48, 
+                hidden_dim=512, input_dim=210, output_dim=105, num_stacked_layers=3, 
+                learning_rate=0.0001, lambda_l2_reg=0.003, GRADIENT_CLIPPING=2.5, loss_function="L2"):
     '''
-    When using dec_inps, set feed_previous to False
-    When not using dec_inps to do prediction, set feed_previous to True
+    loss_fuction : one of "L2", "L1", "huber_loss" 
     '''
+    
     tf.reset_default_graph()
     
     global_step = tf.Variable(
@@ -171,10 +154,18 @@ def build_graph(feed_previous = False):
         
     # Training loss and optimizer
     with tf.variable_scope('Loss'):
-        # L2 loss
+
         output_loss = 0
-        for _y, _Y in zip(reshaped_outputs, target_seq):
-            output_loss += tf.reduce_mean(tf.pow(_y - _Y, 2))
+
+        if loss_function == "L2" :
+          for _y, _Y in zip(reshaped_outputs, target_seq):
+              output_loss += tf.reduce_mean(tf.pow(_y - _Y, 2))
+        elif loss_function == "L1" :
+          for _y, _Y in zip(reshaped_outputs, target_seq):
+              output_loss += tf.reduce_mean(tf.abs(_y - _Y))
+        elif loss_function == "huber_loss" :
+          for _y, _Y in zip(reshaped_outputs, target_seq):
+              output_loss += tf.losses.huber_loss(labels=_Y, predictions=_y)       
 
         # L2 regularization for weights and biases
         reg_loss = 0
