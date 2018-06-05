@@ -1,6 +1,6 @@
 ## Introduction
 
-- [Kdd cup](https://biendata.com/competition/kdd_2018/) data mining competition, the main task is to predict air quality (aq) in Beijing and London in the next 48 hours. 
+- [Kdd cup](https://biendata.com/competition/kdd_2018/) data mining competition, the main task is to predict air quality(aq) in Beijing and London in the next 48 hours. 
 - Use seq2seq and xgboost models, ranking 31th in the final [leaderboard](https://biendata.com/competition/kdd_2018/ranking_list/).
 
 ## Data
@@ -9,9 +9,8 @@
   - [x] The [spatial distribution](https://github.com/txytju/air-quality-prediction/blob/master/exploration/bj_weather_data_exploration.ipynb)of the sites.
   - [x] [Correlation analysis](https://github.com/txytju/air-quality-prediction/blob/master/exploration/bj_aq_data_exploration.ipynb)data of different sites.
   - [x] [Clustering](https://github.com/txytju/air-quality-prediction/blob/master/exploration/clusting.ipynb) of different kinds of stations in Beijing.
-- [x] Data preprocess.
-- [x] Split the dataset.
-- [x] Oversampling.
+- [x] [Data preprocess](https://github.com/txytju/air-quality-prediction/blob/master/data_preprocess.py) then split the dataset into training, val and aggr dataset.
+- [x] [Oversampling](https://github.com/txytju/air-quality-prediction/blob/master/model/seq2seq/seq2seq_data_util.py)
 
 ## Models
 
