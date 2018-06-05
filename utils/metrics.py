@@ -1,6 +1,13 @@
 import numpy as np
 
-def symmetric_mean_absolute_percentage_error(actual, forecast, y_mean, y_std):
+def smape(actual, predicted):
+    a = np.abs(np.array(actual) - np.array(predicted))
+    b = np.array(actual) + np.array(predicted)
+
+    return 2 * np.mean(np.divide(a, b, out=np.zeros_like(a), where=b!=0, casting='unsafe'))
+
+
+def symmetric_mean_absolute_percentage_error(actual, forecast, y_mean=None, y_std=None):
     '''
     Compute the Symmetric mean absolute percentage error (SMAPE or sMAPE) on a single data of the dev set or test set.
     Details of SMAPE here : https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error
@@ -18,8 +25,11 @@ def symmetric_mean_absolute_percentage_error(actual, forecast, y_mean, y_std):
     assert len(actual) == len(forecast), "The shape of actual value and forecast value are not the same."
 
     length = len(actual)
-    actual = actual * y_std + y_mean
-    forecast = forecast * y_std + y_mean
+    
+    # if y_mean and y_std is passed in, use them to get original values
+    if y_mean :
+        actual = actual * y_std + y_mean
+        forecast = forecast * y_std + y_mean
 
     r = 0
 
@@ -28,9 +38,11 @@ def symmetric_mean_absolute_percentage_error(actual, forecast, y_mean, y_std):
         a = actual[i]
 
         r += abs(f-a) / ((abs(a)+abs(f))/2)
-
-    return r/length, forecast
-
+    
+    if y_mean :
+        return r/length, forecast
+    else :
+        return r/length
 
 def SMAPE_on_dataset(actual_data, forecast_data, feature_list, y_mean, y_std, forecast_duration=24):
     '''
@@ -67,7 +79,7 @@ def SMAPE_on_dataset(actual_data, forecast_data, feature_list, y_mean, y_std, fo
     
         
 # For new seq2seq model
-def SMAPE_on_dataset_v1(actual_data, forecast_data, feature_list, statistics, forecast_duration=1):
+def SMAPE_on_dataset_v1(actual_data, forecast_data, feature_list, statistics=None, forecast_duration=1):
     '''
     Compute SMAPE value on the dataset of actual and forecast.
     
@@ -95,15 +107,21 @@ def SMAPE_on_dataset_v1(actual_data, forecast_data, feature_list, statistics, fo
             feature = feature_list[j]
             a = actual_data_item[:,j]
             f = forecast_data_item[:,j]
-            y_mean = statistics.loc['mean'][feature]
-            y_std = statistics.loc['std'][feature]
-            smape_a_feature_a_day, f_original_a_feature_a_day = symmetric_mean_absolute_percentage_error(a, f, y_mean, y_std)
-            smapes_list_of_features[feature].append(smape_a_feature_a_day)
-            forecast_original[i,:,j] = f_original_a_feature_a_day
+            
+            if statistics is not None :
+                y_mean = statistics.loc['mean'][feature]
+                y_std = statistics.loc['std'][feature]
+                smape_a_feature_a_day, f_original_a_feature_a_day = symmetric_mean_absolute_percentage_error(a, f, y_mean, y_std)
+                smapes_list_of_features[feature].append(smape_a_feature_a_day)
+                forecast_original[i,:,j] = f_original_a_feature_a_day
+            else :
+                smape_a_feature_a_day = symmetric_mean_absolute_percentage_error(a, f)
+                smapes_list_of_features[feature].append(smape_a_feature_a_day)
 
     smapes_of_features = {feature:np.mean(value) for feature, value in smapes_list_of_features.items()}
     aver_smapes = np.mean(list(smapes_of_features.values()))
-
-    return aver_smapes, smapes_of_features, forecast_original
-
-
+    
+    if statistics is not None :
+        return aver_smapes, smapes_of_features, forecast_original
+    else :
+        return aver_smapes, smapes_of_features

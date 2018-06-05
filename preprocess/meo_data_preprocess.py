@@ -1,73 +1,16 @@
-# coding: utf-8
-
 import numpy as np
 import datetime
 import pandas as pd
-from utils.weather_data_util import load_bj_grid_meo_data, load_ld_grid_meo_data
-
-bj_near_stations = {'aotizhongxin_aq': 'beijing_grid_304',
- 'badaling_aq': 'beijing_grid_224',
- 'beibuxinqu_aq': 'beijing_grid_263',
- 'daxing_aq': 'beijing_grid_301',
- 'dingling_aq': 'beijing_grid_265',
- 'donggaocun_aq': 'beijing_grid_452',
- 'dongsi_aq': 'beijing_grid_303',
- 'dongsihuan_aq': 'beijing_grid_324',
- 'fangshan_aq': 'beijing_grid_238',
- 'fengtaihuayuan_aq': 'beijing_grid_282',
- 'guanyuan_aq': 'beijing_grid_282',
- 'gucheng_aq': 'beijing_grid_261',
- 'huairou_aq': 'beijing_grid_349',
- 'liulihe_aq': 'beijing_grid_216',
- 'mentougou_aq': 'beijing_grid_240',
- 'miyun_aq': 'beijing_grid_392',
- 'miyunshuiku_aq': 'beijing_grid_414',
- 'nansanhuan_aq': 'beijing_grid_303',
- 'nongzhanguan_aq': 'beijing_grid_324',
- 'pingchang_aq': 'beijing_grid_264',
- 'pinggu_aq': 'beijing_grid_452',
- 'qianmen_aq': 'beijing_grid_303',
- 'shunyi_aq': 'beijing_grid_368',
- 'tiantan_aq': 'beijing_grid_303',
- 'tongzhou_aq': 'beijing_grid_366',
- 'wanliu_aq': 'beijing_grid_283',
- 'wanshouxigong_aq': 'beijing_grid_303',
- 'xizhimenbei_aq': 'beijing_grid_283',
- 'yanqin_aq': 'beijing_grid_225',
- 'yizhuang_aq': 'beijing_grid_323',
- 'yongdingmennei_aq': 'beijing_grid_303',
- 'yongledian_aq': 'beijing_grid_385',
- 'yufa_aq': 'beijing_grid_278',
- 'yungang_aq': 'beijing_grid_239',
- 'zhiwuyuan_aq': 'beijing_grid_262'}
-
-ld_near_stations = {'BL0': 'london_grid_409',
- 'BX1': 'london_grid_472',
- 'BX9': 'london_grid_472',
- 'CD1': 'london_grid_388',
- 'CD9': 'london_grid_409',
- 'CR8': 'london_grid_408',
- 'CT2': 'london_grid_409',
- 'CT3': 'london_grid_409',
- 'GB0': 'london_grid_451',
- 'GN0': 'london_grid_451',
- 'GN3': 'london_grid_451',
- 'GR4': 'london_grid_451',
- 'GR9': 'london_grid_430',
- 'HR1': 'london_grid_368',
- 'HV1': 'london_grid_472',
- 'KC1': 'london_grid_388',
- 'KF1': 'london_grid_388',
- 'LH0': 'london_grid_346',
- 'LW2': 'london_grid_430',
- 'MY7': 'london_grid_388',
- 'RB7': 'london_grid_452',
- 'ST5': 'london_grid_408',
- 'TD5': 'london_grid_366',
- 'TH4': 'london_grid_430'}
+from utils.meo_data_util import load_bj_grid_meo_data, load_ld_grid_meo_data
+from utils.meo_data_util import load_bj_pred_grid_meo_data, load_ld_pred_grid_meo_data
+from utils.information import bj_near_stations, ld_near_stations
 
 
-def meo_data_preprocess(city="bj"):
+def meo_data_preprocess(city="bj"): 
+    '''
+    Args :
+
+    '''
 
     # 1. 数据载入
     if city == "bj" :
@@ -132,13 +75,10 @@ def meo_data_preprocess(city="bj"):
         # print("%s 缺失时间节点数量是 %d" %(station, all_length-real_length))
 
 
-    # #### 3.3 整体缺失补充
+    # 3.3 整体缺失补充
 
     for station in meo_stations.keys() :
         df = meo_stations[station].copy()
-        # print(station, df.shape)
-
-
 
     delta = datetime.timedelta(hours=1)
 
@@ -197,7 +137,7 @@ def meo_data_preprocess(city="bj"):
         # print("%s : length of data is %d" %(station, df.shape[0]))
 
 
-    # #### 3.4 风向缺失值处理
+    # 3.4 风向缺失值处理
 
 
     for station in meo_stations.keys():
@@ -206,26 +146,46 @@ def meo_data_preprocess(city="bj"):
         meo_stations[station] = df
 
 
-    # #### 3.5 拼成整表，并保存
-
-
+    # 3.5 拼成整表，并保存
     meo_stations_merged = pd.concat(list(meo_stations.values()), axis=1)
     meo_stations_merged.sort_index(inplace=True)
     print("将要保存的天气数据的尺寸是　",meo_stations_merged.shape)
 
-    meo_stations_merged.to_csv("test/%s_meo_data.csv" %(city))
+    # meo date go ahead by a day
+    meo_stations_merged["date"] = pd.to_datetime(meo_stations_merged.index)
+    meo_stations_merged['date'] -= pd.DateOffset(1)
+    meo_stations_merged.set_index("date", inplace=True)
 
-
+    meo_stations_merged.to_csv("preprocessed_data/before_split/%s_meo_data.csv" %(city))
     # 需要将 `bj_meo_data.csv`左上角位置的空格补上 "time" 
 
     # ### 4 数据归一化
-
-
     describe = meo_stations_merged.describe()
-    describe.to_csv("test/%s_meo_describe.csv" %(city))
+    describe.to_csv("preprocessed_data/before_split/%s_meo_describe.csv" %(city))
 
-
+    # norm_type : "norm" 
     df_norm = (meo_stations_merged - describe.loc['mean']) / describe.loc['std']
-    df_norm.to_csv("test/%s_meo_norm_data.csv" %(city))
+    df_norm.to_csv("preprocessed_data/before_split/%s_meo_norm_data.csv" %(city))
 
 
+def pred_meo_data_preprocess(city="bj"): 
+
+    # 1. 数据载入
+    if city == "bj" :
+        grid_meo_dataset, stations, meo_stations = load_bj_pred_grid_meo_data(bj_near_stations)
+    elif city == "ld" :
+        grid_meo_dataset, stations, meo_stations = load_ld_pred_grid_meo_data(ld_near_stations)
+
+
+    #3.5 拼成整表，并保存
+
+
+    meo_stations_merged = pd.concat(list(meo_stations.values()), axis=1)
+    meo_stations_merged.sort_index(inplace=True)
+
+    # ### 4 数据归一化
+    describe = pd.read_csv("preprocessed_data/before_split/%s_meo_describe.csv" %(city))
+    describe.set_index("Unnamed: 0", inplace=True)
+    # norm_type : "norm" 
+    df_norm = (meo_stations_merged - describe.loc['mean']) / describe.loc['std']
+    df_norm.to_csv("preprocessed_data/after_split/norm_data/%s_pred_meo_norm_data.csv" %(city))

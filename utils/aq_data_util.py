@@ -7,14 +7,8 @@ import os
 
 def load_bj_aq_data():
 
-	path_to_bj_aq = "./KDD_CUP_2018/Beijing/aq/"
-
+	path_to_bj_aq = "./data/Beijing/aq/"
 	bj_csv_list  = os.listdir(path_to_bj_aq)
-	# print(bj_csv_list)
-
-	# bj_csv_list = ["./KDD_CUP_2018/Beijing/aq/beijing_17_18_aq.csv",
-	# 			   "./KDD_CUP_2018/Beijing/aq/beijing_201802_201803_aq.csv",
-	# 			   "./KDD_CUP_2018/Beijing/aq/new.csv"]
 
 	bj_aq_datas = []
 
@@ -65,9 +59,8 @@ def load_ld_aq_data():
 
 	# 前边的是需要预测的站点，后边的是其他辅助站点
 	# 预测站点有数据缺失的问题，需要使用辅助站点的数据补齐数据
+	path_to_ld_aq = "./data/London/aq/"
 
-
-	path_to_ld_aq = "./KDD_CUP_2018/London/aq/"
 	ld_csv_list  = os.listdir(path_to_ld_aq)
 
 	# print(ld_csv_list)

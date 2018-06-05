@@ -6,9 +6,19 @@ import copy
 import os
 
 
-def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48, 
-                hidden_dim=512, input_dim=210, output_dim=105, num_stacked_layers=3, 
-                learning_rate=0.0001, lambda_l2_reg=0.003, GRADIENT_CLIPPING=2.5, loss_function="L2"):
+def build_graph(feed_previous=False, 
+                input_seq_len=120, 
+                output_seq_len=48, 
+                hidden_dim=512, 
+                input_dim=210, 
+                output_dim=105, 
+                num_stacked_layers=3, 
+                learning_rate=0.0001, 
+                lambda_l2_reg=0.003, 
+                GRADIENT_CLIPPING=2.5, 
+                loss_function="L2",
+                use_norm_data=True,
+                loss_weights=False):
     '''
     loss_fuction : one of "L2", "L1", "huber_loss" 
     '''
@@ -42,10 +52,18 @@ def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48,
         ]
 
         # Decoder: target outputs
-        target_seq = [
+        target_seq = [                                                                # list of (m, output_features)
             tf.placeholder(tf.float32, shape=(None, output_dim), name="y".format(t))
               for t in range(output_seq_len)
         ]
+
+        # Decoder: target outputs original data
+        # if don't use norm data, then don't need to transfor bach to original data
+        if use_norm_data and loss_weights:
+            target_seq_original = [                                                                # list of (m, output_features)
+                tf.placeholder(tf.float32, shape=(None, output_dim), name="y".format(t))
+                  for t in range(output_seq_len)
+            ]        
 
         # Give a "GO" token to the decoder. 
         # If dec_inp are fed into decoder as inputs, this is 'guided' training; otherwise only the 
@@ -157,15 +175,55 @@ def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48,
 
         output_loss = 0
 
-        if loss_function == "L2" :
-          for _y, _Y in zip(reshaped_outputs, target_seq):
-              output_loss += tf.reduce_mean(tf.pow(_y - _Y, 2))
-        elif loss_function == "L1" :
-          for _y, _Y in zip(reshaped_outputs, target_seq):
-              output_loss += tf.reduce_mean(tf.abs(_y - _Y))
-        elif loss_function == "huber_loss" :
-          for _y, _Y in zip(reshaped_outputs, target_seq):
-              output_loss += tf.losses.huber_loss(labels=_Y, predictions=_y)       
+        if use_norm_data and loss_weights:
+            if loss_function == "L2" :
+                for _y, _Y, _Y_original in zip(reshaped_outputs, target_seq, target_seq_original):
+                    output_loss += tf.reduce_mean(tf.pow(_y - _Y, 2))
+                    # output_loss += tf.reduce_mean((1/_Y_original) * tf.pow(_y - _Y, 2))
+            elif loss_function == "L1" :
+                for _y, _Y, _Y_original in zip(reshaped_outputs, target_seq, target_seq_original):
+                    weights = tf.clip_by_value((1/(_Y_original)), 0, 0.1)
+                    print("weights shape", weights.shape)
+                    print("_Y shape", _Y.shape)
+                    # output_loss += tf.reduce_mean(tf.abs(_y - _Y))
+                    output_loss += tf.reduce_mean(tf.multiply(weights, tf.abs(_y - _Y)))
+            elif loss_function == "huber_loss" :
+                for _y, _Y, _Y_original in zip(reshaped_outputs, target_seq, target_seq_original):
+                    output_loss += tf.losses.huber_loss(labels=_Y, predictions=_y, weights=(1/_Y))       
+                    # output_loss += tf.losses.huber_loss(labels=_Y, predictions=_y, weights=(1/_Y_original))
+          
+        elif use_norm_data and not loss_weights:
+            if loss_function == "L2" :
+                for _y, _Y in zip(reshaped_outputs, target_seq):
+                    output_loss += tf.reduce_mean(tf.pow(_y - _Y, 2))
+            elif loss_function == "L1" :
+                for _y, _Y in zip(reshaped_outputs, target_seq):
+                    output_loss += tf.reduce_mean(tf.abs(_y - _Y))
+            elif loss_function == "huber_loss" :
+                for _y, _Y in zip(reshaped_outputs, target_seq):
+                    output_loss += tf.losses.huber_loss(labels=_Y, predictions=_y)             
+
+        else :
+            if loss_function == "L2" :
+                for _y, _Y in zip(reshaped_outputs, target_seq):
+                    # output_loss += tf.reduce_mean(tf.pow(_y - _Y, 2))
+                    output_loss += tf.reduce_mean((1/_Y) * tf.pow(_y - _Y, 2))
+            
+            elif loss_function == "L1" :
+                for _y, _Y in zip(reshaped_outputs, target_seq):
+
+                    # _y = tf.cast(_y>0, _y.dtype) * _y
+                    # weights = tf.clip_by_value((1/(_y+_Y)), 0, 0.05)
+                    # weights = tf.clip_by_value((1/(_Y)), 0, 0.3)
+                    # weights = 1
+                    # output_loss += tf.reduce_mean(tf.multiply(weights, tf.abs(_y - _Y)))
+                    output_loss += tf.reduce_mean(tf.abs(_y - _Y))
+
+            elif loss_function == "huber_loss" :
+                for _y, _Y in zip(reshaped_outputs, target_seq):
+                    # output_loss += tf.losses.huber_loss(labels=_Y, predictions=_y, weights=(1/_Y))       
+                    output_loss += tf.losses.huber_loss(labels=_Y, predictions=_y)       
+
 
         # L2 regularization for weights and biases
         reg_loss = 0
@@ -176,6 +234,7 @@ def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48,
         loss = output_loss + lambda_l2_reg * reg_loss
 
     with tf.variable_scope('Optimizer'):
+        learning_rate = tf.train.exponential_decay(learning_rate=learning_rate, global_step=global_step, decay_steps=30, decay_rate=0.96, staircase=False)
         optimizer = tf.contrib.layers.optimize_loss(
                 loss=loss,
                 learning_rate=learning_rate,
@@ -185,11 +244,35 @@ def build_graph(feed_previous=False, input_seq_len=120, output_seq_len=48,
         
     saver = tf.train.Saver
     
-    return dict(
-        enc_inp = enc_inp, 
-        target_seq = target_seq, 
-        train_op = optimizer, 
-        loss=loss,
-        saver = saver, 
-        reshaped_outputs = reshaped_outputs,
-        )
+    if use_norm_data and loss_weights:
+        return dict(
+            enc_inp = enc_inp, 
+            target_seq = target_seq,
+            target_seq_original = target_seq_original,
+            weights = weights,
+            train_op = optimizer, 
+            loss=loss,
+            saver = saver, 
+            reshaped_outputs = reshaped_outputs,
+            )
+
+    elif use_norm_data and not loss_weights:
+      return dict(
+          enc_inp = enc_inp, 
+          target_seq = target_seq,
+          train_op = optimizer, 
+          loss=loss,
+          saver = saver, 
+          reshaped_outputs = reshaped_outputs,
+          )
+
+    else :
+        return dict(
+          enc_inp = enc_inp, 
+          target_seq = target_seq,
+          target_seq_original = None,
+          train_op = optimizer, 
+          loss=loss,
+          saver = saver, 
+          reshaped_outputs = reshaped_outputs,
+          )     

@@ -1,16 +1,8 @@
-# coding: utf-8
-
-# Using pandas to process data
-from collections import Counter
 import numpy as np
 import pandas as pd
 import datetime
-from matplotlib import pyplot as plt
-from scipy.stats import pearsonr
 
-from utils.data_util import load_bj_aq_data, load_ld_aq_data
-
-from utils.weather_data_util import get_station_locations, get_location_lists
+from utils.aq_data_util import load_bj_aq_data, load_ld_aq_data
 
 
 def aq_data_preprocess(city="bj"):
@@ -21,10 +13,6 @@ def aq_data_preprocess(city="bj"):
 
     elif city == "ld" :
         aq_data, stations, aq_stations, aq_stations_merged = load_ld_aq_data()
-
-    # print(len(stations))
-    # print(aq_stations_merged.shape)
-
 
     # 2. 重复日期的值除去
     df_merged = aq_stations_merged
@@ -41,7 +29,6 @@ def aq_data_preprocess(city="bj"):
 
     df_merged.set_index("time", inplace=True)
 
-
     # 3. 缺失值的分析
     min_time = df_merged.index.min()
     max_time = df_merged.index.max()
@@ -49,9 +36,7 @@ def aq_data_preprocess(city="bj"):
     min_time = datetime.datetime.strptime(min_time, '%Y-%m-%d %H:%M:%S')
     max_time = datetime.datetime.strptime(max_time, '%Y-%m-%d %H:%M:%S')
     delta_all = max_time - min_time
-
     hours_should = delta_all.total_seconds()/3600 + 1
-
 
     # 3.1 整小时缺失
 
@@ -67,12 +52,11 @@ def aq_data_preprocess(city="bj"):
             missing_hours_str.append(datetime.date.strftime(time, '%Y-%m-%d %H:%M:%S'))
         time += delta
 
-
     # 3.2 某个小时某个站点数据缺失
     if city == "bj" :
-        aq_station_locations = pd.read_excel("./KDD_CUP_2018/Beijing/location/Beijing_AirQuality_Stations_locations.xlsx", sheet_name=0)
+        aq_station_locations = pd.read_excel("./data/Beijing/location/Beijing_AirQuality_Stations_locations.xlsx", sheet_name=0)
     elif city == "ld" :
-        aq_station_locations = pd.read_csv("./KDD_CUP_2018/London/location/London_AirQuality_Stations.csv")
+        aq_station_locations = pd.read_csv("./data/London/location/London_AirQuality_Stations.csv")
         aq_station_locations = aq_station_locations[["Unnamed: 0", "Latitude", "Longitude"]]
         aq_station_locations.rename(index=str, columns={"Unnamed: 0":"stationName", "Latitude":"latitude", "Longitude":"longitude"}, inplace=True)
 
@@ -215,15 +199,16 @@ def aq_data_preprocess(city="bj"):
 
     # 3.4 数据存储
 
-    df_merged.to_csv("test/%s_aq_data.csv" %(city))
-    print(df_merged.shape)
+    df_merged.to_csv("preprocessed_data/before_split/%s_aq_data.csv" %(city))
+    # print(df_merged.shape)
 
-    # ### 4. 数据归一化
+    # 4. 数据归一化
 
     describe = df_merged.describe()
-    describe.to_csv("test/%s_aq_describe.csv" %(city))
-
+    describe.to_csv("preprocessed_data/before_split/%s_aq_describe.csv" %(city))
+    
+    # norm_type : "norm"
     df_norm = (df_merged - describe.loc['mean']) / describe.loc['std']
-    df_norm.to_csv("test/%s_aq_norm_data.csv" %(city))
-
-    # print("完成对 %s 空气质量数据的预处理！" %(city))
+    df_norm.to_csv("preprocessed_data/before_split/%s_aq_norm_data.csv" %(city))
+    
+    print("完成对 %s 空气质量数据的预处理！" %(city))

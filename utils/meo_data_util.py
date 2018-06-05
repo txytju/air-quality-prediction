@@ -4,16 +4,111 @@ import pandas as pd
 import datetime
 from matplotlib import pyplot as plt
 
+
+def load_bj_pred_grid_meo_data(useful_stations):
+    '''
+    csv_list : a list of strings, string of csv path
+    useful_stations : dict of {aq_station : meo_station}
+    '''
+    path_to_bj_meo = "./data/Beijing/pred_grid_meo/"
+    bj_csv_list  = os.listdir(path_to_bj_meo)
+
+    bj_meo_datas = []
+
+    for csv in bj_csv_list :
+        if csv != '.DS_Store' and not csv.startswith("._"):
+            path_to_file = path_to_bj_meo + csv
+            # print(path_to_file)
+            bj_meo_data = pd.read_csv(path_to_file)
+            # print(bj_meo_data.columns)
+
+            # 去掉多余信息
+            if "longitude" in bj_meo_data.columns :
+                bj_meo_data.drop("longitude", axis=1, inplace=True)
+            if "latitude" in bj_meo_data.columns :    
+                bj_meo_data.drop("latitude", axis=1, inplace=True)
+            if "id" in bj_meo_data.columns :
+                bj_meo_data.drop("id", axis=1, inplace=True)
+            if "weather" in bj_meo_data.columns :
+                bj_meo_data.drop("weather", axis=1, inplace=True)
+            
+            name_pairs = {}
+            if "station_id" in bj_meo_data.columns :
+                name_pairs["station_id"] = "stationName"
+            if "forecast_time" in bj_meo_data.columns :
+                name_pairs["forecast_time"] = "utc_time"
+            if "wind_speed/kph" in bj_meo_data.columns :
+                name_pairs["wind_speed/kph"] = "wind_speed"
+            
+            bj_meo_data.rename(index=str, columns=name_pairs, inplace=True)
+            bj_meo_datas.append(bj_meo_data)
+
+    meo_dataset = pd.concat(bj_meo_datas, ignore_index=True)
+    meo_dataset.sort_index(inplace=True)
+    meo_dataset.drop_duplicates(subset=None, keep='first', inplace=True)
+
+    bj_grid_meo_dataset, stations, bj_meo_stations = load_grid_meo_data(meo_dataset, useful_stations)
+
+    return bj_grid_meo_dataset, stations, bj_meo_stations
+
+
+
+def load_ld_pred_grid_meo_data(useful_stations):
+    '''
+    csv_list : a list of strings, string of csv path
+    useful_stations : dict of {aq_station : meo_station}
+    '''
+    path_to_ld_meo = "./data/London/pred_grid_meo/"
+    ld_csv_list  = os.listdir(path_to_ld_meo)
+
+    ld_meo_datas = []
+
+    for csv in ld_csv_list :
+        if csv != '.DS_Store' and not csv.startswith("._"):
+            path_to_file = path_to_ld_meo + csv
+            # print(path_to_file)
+            ld_meo_data = pd.read_csv(path_to_file)
+            # print(ld_meo_data.columns)
+
+            # 去掉多余信息
+            if "longitude" in ld_meo_data.columns :
+                ld_meo_data.drop("longitude", axis=1, inplace=True)
+            if "latitude" in ld_meo_data.columns :    
+                ld_meo_data.drop("latitude", axis=1, inplace=True)
+            if "id" in ld_meo_data.columns :
+                ld_meo_data.drop("id", axis=1, inplace=True)
+            if "weather" in ld_meo_data.columns :
+                ld_meo_data.drop("weather", axis=1, inplace=True)
+            
+            name_pairs = {}
+            if "station_id" in ld_meo_data.columns :
+                name_pairs["station_id"] = "stationName"
+            if "forecast_time" in ld_meo_data.columns :
+                name_pairs["forecast_time"] = "utc_time"
+            if "wind_speed/kph" in ld_meo_data.columns :
+                name_pairs["wind_speed/kph"] = "wind_speed"
+             
+            ld_meo_data.rename(index=str, columns=name_pairs, inplace=True)
+            # print(ld_meo_data.columns)
+            ld_meo_datas.append(ld_meo_data)
+
+    meo_dataset = pd.concat(ld_meo_datas, ignore_index=True)
+    meo_dataset.sort_index(inplace=True)
+    meo_dataset.drop_duplicates(subset=None, keep='first', inplace=True)
+
+    ld_grid_meo_dataset, stations, ld_meo_stations = load_grid_meo_data(meo_dataset, useful_stations)
+
+    return ld_grid_meo_dataset, stations, ld_meo_stations
+
+
+
+
 def load_bj_grid_meo_data(useful_stations):
     '''
     csv_list : a list of strings, string of csv path
     useful_stations : dict of {aq_station : meo_station}
     '''
-
-    # csv_list = ["./KDD_CUP_2018/Beijing/grid_meo/Beijing_historical_meo_grid.csv", 
-    #             "./KDD_CUP_2018/Beijing/grid_meo/new.csv"]
-
-    path_to_bj_meo = "./KDD_CUP_2018/Beijing/grid_meo/"
+    path_to_bj_meo = "./data/Beijing/grid_meo/"
     bj_csv_list  = os.listdir(path_to_bj_meo)
 
     bj_meo_datas = []
@@ -60,10 +155,7 @@ def load_ld_grid_meo_data(useful_stations):
     csv_list : a list of strings, string of csv path
     useful_stations : dict of {aq_station : meo_station}
     '''
-
-    # csv_list = ["./KDD_CUP_2018/London/grid_meo/London_historical_meo_grid.csv"]
-
-    path_to_ld_meo = "./KDD_CUP_2018/London/grid_meo/"
+    path_to_ld_meo = "./data/London/grid_meo/"
     ld_csv_list  = os.listdir(path_to_ld_meo)
 
     ld_meo_datas = []
@@ -105,7 +197,6 @@ def load_ld_grid_meo_data(useful_stations):
 
     return ld_grid_meo_dataset, stations, ld_meo_stations
 
-
 def load_grid_meo_data(meo_df, useful_stations):
     '''
     useful_stations : dict of {aq_station : meo_station}
@@ -137,7 +228,7 @@ def load_grid_meo_data(meo_df, useful_stations):
             names_dict = {original_name : aq_station_name+"_"+original_name for original_name in original_names}
             meo_station_renamed = meo_station.rename(index=str, columns=names_dict)
             
-            print("名字", meo_station.columns)
+            # print("名字", meo_station.columns)
 
             meo_stations[aq_station_name] = meo_station_renamed        
 

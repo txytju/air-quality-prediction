@@ -1,0 +1,709 @@
+# 0504
+# iters = 80
+city ld 使用 5 天，使用 L2 损失函数，best_sampe = 0.55351 
+city ld 使用 5 天，使用 L1 损失函数，best_sampe = 0.55943 
+city ld 使用 5 天，使用 huber_loss 损失函数，best_sampe = 0.55431 
+city ld 使用 6 天，使用 L2 损失函数，best_sampe = 0.54889 
+city ld 使用 6 天，使用 L1 损失函数，best_sampe = 0.58447 
+city ld 使用 6 天，使用 huber_loss 损失函数，best_sampe = 0.56371 
+city ld 使用 7 天，使用 L2 损失函数，best_sampe = 0.57561 
+city ld 使用 7 天，使用 L1 损失函数，best_sampe = 0.58607 
+city ld 使用 7 天，使用 huber_loss 损失函数，best_sampe = 0.58523 
+
+# iters = 200
+city ld 使用 5 天，使用 L2 损失函数，best_sampe = 0.56327 
+city ld 使用 5 天，使用 L1 损失函数，best_sampe = 0.56938 
+city ld 使用 5 天，使用 huber_loss 损失函数，best_sampe = 0.55371 
+city ld 使用 6 天，使用 L2 损失函数，best_sampe = 0.56427 
+city ld 使用 6 天，使用 L1 损失函数，best_sampe = 0.56619 
+city ld 使用 6 天，使用 huber_loss 损失函数，best_sampe = 0.57215 
+city ld 使用 7 天，使用 L2 损失函数，best_sampe = 0.57177 
+city ld 使用 7 天，使用 L1 损失函数，best_sampe = 0.58612 
+city ld 使用 7 天，使用 huber_loss 损失函数，best_sampe = 0.57876 
+
+# 0505
+# day model : 0.56
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.56856
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.56445
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.55686
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.57799
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.55860
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.57212
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.56965
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.56624
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.57013
+
+# hour model : 0.57
+Use hour model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.56174
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.57374
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.55105
+Use hour model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.57412
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.59252
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.57246
+Use hour model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.55675
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.59013
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.56451
+
+# 0506
+# day model : 0.55
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.54937
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.55384
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.55210
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.54680
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.55391
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.55376
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.55661
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.55682
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.55078
+
+# hour model : 0.55
+Use hour model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.54899
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.57605
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.57851
+Use hour model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.55822
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.58278
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.56355
+Use hour model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.53320
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.56198
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.53929
+
+# range predicting model 0.63
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.61710
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.62906
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.61189
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.64171
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.63920
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.62240
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.64636
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.64192
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.62040
+
+# 0507
+# day model : 0.55
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.54092
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.55948
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.54525
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.54425
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.56246
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.55318
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.52650
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.55657
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.57938
+
+# hour model : 0.57
+Use hour model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.55524
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.56981
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.56370
+Use hour model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.54264
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.57467
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.56572
+Use hour model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.55133
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.59442
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.56091
+
+# new model
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.55796
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.53701
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.54231
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.56945
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.56642
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.54613
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.58162
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.70724
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.55200
+
+
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.68606
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.63806
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.65847
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.68142
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.65022
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.62552
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.66649
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.64288
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.65213
+
+
+# 0508
+# day model : 0.55
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.54341
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.56150
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.54928
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.54701
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.54972
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.54973
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.53498
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.56704
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.58188
+
+# hour model : 0.57
+Use hour model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.54856
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.58146
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.56602
+Use hour model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.55023
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.59443
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.55869
+Use hour model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.56315
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.57964
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.56337
+
+
+# 0509 
+# seperate day model
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.62555
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.59698
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.60836
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.59173
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.60966
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.62042
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.59316
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.60074
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.59716
+
+# day model 0.56
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.54073
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.55156
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.54910
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.55236
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.56332
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.57493
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.54797
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.58272
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.55029
+
+# hour model 0.57
+Use hour model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.56783
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.60399
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.55315
+Use hour model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.54566
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.56074
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.56053
+Use hour model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.56229
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.57604
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.57376
+
+
+# 0510
+# original val dataset
+# day model 0.55
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.54791
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.56997
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.55684
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.55455
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.57411
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.55982
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.57628
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.56703
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.58904
+
+# hour model 0.57
+Use hour model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.55370
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.61500
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.57513
+Use hour model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.56548
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.57863
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.57602
+Use hour model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.55732
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.59253
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.56305
+
+# 0510 
+# changed val dataset
+# day model : 0.51
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.51460
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.50141
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.51828
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.51809
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.51715
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.50936
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.52769
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.50696
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.50804
+
+# hour model 0.51
+Use hour model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.52460
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.51166
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.51622
+Use hour model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.51082
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.52706
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.53213
+Use hour model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.53525
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.51123
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.50576
+
+# 0511
+# day model : 0.51
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.50635
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.49904
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.49811
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.50276
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.50890
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.51078
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.52596
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.53240
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.49657
+
+# hour model 0.51
+Use hour model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.52382
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.49914
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.52113
+Use hour model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.51308
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.50980
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.52144
+Use hour model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.50547
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.49342
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.51000
+
+
+
+# 0512
+# day_model
+Use day model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.49631
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.50005
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.50295
+Use day model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.50787
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.50458
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.50427
+Use day model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.50838
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.52072
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.53304
+# hour_model
+Use hour model, city ld 使用 5 天, 使用 L2 损失函数, best_sampe = 0.51640
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.51748
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.52981
+Use hour model, city ld 使用 6 天, 使用 L2 损失函数, best_sampe = 0.53094
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.53109
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.51664
+Use hour model, city ld 使用 7 天, 使用 L2 损失函数, best_sampe = 0.51762
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.51940
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.51935
+
+# 0513
+# day_model
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.48463
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.49936
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.49563
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.49824
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.50455
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.48608
+# hour_model
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.50965
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.49833
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.51201
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.49432
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.50426
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.49912
+# gap = 0
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.45222
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.46386
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.44564
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.46467
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.43700
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.44420
+
+# 0514
+# day
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.48850
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.48913
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.48757
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.47304
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.48358
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.49608
+# hour
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.49004
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.47997
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.46702
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.48941
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.49395
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.49713
+# gap = 0 
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.44174
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.43041
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.42279
+
+# 0515
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.49080
+Use day model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.48693
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.48175
+Use day model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.48529
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.48869
+Use day model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.49088
+
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.47055
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.48065
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.49159
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.46957
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.49141
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.48154
+
+# 
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.44515
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.42998
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.44209
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.44013
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.44091
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.43415
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.44561
+Use hour model, city ld 使用 5 天, 使用 huber 损失函数, best_sampe = 0.64254
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.43252
+Use hour model, city ld 使用 6 天, 使用 huber 损失函数, best_sampe = 0.58146
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.43326
+Use hour model, city ld 使用 7 天, 使用 huber 损失函数, best_sampe = 0.58739
+
+
+# gap = 0 
+# predicting 1 day at a step
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.41684
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.42012
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.41717
+
+
+# gap = 0 
+# predicting 2 days
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.43009
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.43899
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.44424
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.44280
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.42970
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.44712
+
+
+
+# 0516 
+# gap = 1, day_model
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.49188
+Use day model, city ld 使用 5 天, 使用 huber 损失函数, best_sampe = 0.51899
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.48686
+Use day model, city ld 使用 6 天, 使用 huber 损失函数, best_sampe = 0.53068
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.48050
+Use day model, city ld 使用 7 天, 使用 huber 损失函数, best_sampe = 0.53474
+
+# gap = 1, hour_model
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.48889
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.46569
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.48836
+
+# gap=0 2_days_model
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.41185
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.39289
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.39332
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.40305
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.40916
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.39279
+
+# gap=0 1_day_model
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.38027
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.39796
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.40352
+
+
+# 0517
+# hour model 
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.42309
+Use hour model, city ld 使用 5 天, 使用 huber 损失函数, best_sampe = 0.52484
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.45598
+Use hour model, city ld 使用 6 天, 使用 huber 损失函数, best_sampe = 0.60406
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.47031
+Use hour model, city ld 使用 7 天, 使用 huber 损失函数, best_sampe = 0.55584
+
+# gap=0,days=2
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.43227
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.38058
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.41037
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.39013
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.42171
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.38544
+
+# gap=0, days=1
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.38875
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.38749
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.37783
+
+# test gap=0 day model
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.40871
+Use day model, city ld 使用 5 天, 使用 huber 损失函数, best_sampe = 0.46239
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.42287
+Use day model, city ld 使用 6 天, 使用 huber 损失函数, best_sampe = 0.48125
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.42894
+Use day model, city ld 使用 7 天, 使用 huber 损失函数, best_sampe = 0.48841
+
+
+
+
+
+# 0518
+# gap=0 day model
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.41687
+Use day model, city ld 使用 5 天, 使用 huber 损失函数, best_sampe = 0.45258
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.43164
+Use day model, city ld 使用 6 天, 使用 huber 损失函数, best_sampe = 0.46459
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.41165
+Use day model, city ld 使用 7 天, 使用 huber 损失函数, best_sampe = 0.48667
+
+# gap=0 hour_model 2_day_model
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.39037
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.40157
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.38758
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.39092
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.59379
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.39646
+
+# gap=0 hour_model 1_day_model
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.38487
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.39970
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.38882
+
+
+# 0519
+
+# gap=0, day_model
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.42565
+Use day model, city ld 使用 5 天, 使用 huber 损失函数, best_sampe = 0.44385
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.41446
+Use day model, city ld 使用 6 天, 使用 huber 损失函数, best_sampe = 0.46016
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.41507
+Use day model, city ld 使用 7 天, 使用 huber 损失函数, best_sampe = 0.46639
+
+# gap=0. hour_model, 1_day
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.39963
+
+# gap=0, hour_model, 2_day
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.40514
+Use hour model, city ld 使用 5 天, 使用 huber_loss 损失函数, best_sampe = 0.39257
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.39923
+Use hour model, city ld 使用 6 天, 使用 huber_loss 损失函数, best_sampe = 0.40190
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.40665
+Use hour model, city ld 使用 7 天, 使用 huber_loss 损失函数, best_sampe = 0.38282
+
+
+
+# 0520
+
+# gap=0, day_model
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.40933
+Use day model, city ld 使用 5 天, 使用 huber 损失函数, best_sampe = 0.43975
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.41600
+Use day model, city ld 使用 6 天, 使用 huber 损失函数, best_sampe = 0.47378
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.41544
+Use day model, city ld 使用 7 天, 使用 huber 损失函数, best_sampe = 0.45539
+
+
+# gap=0, hour_model, 2_day
+# Use hour model, city ld 使用 5 天, 使用 huber 损失函数, best_sampe = 0.51909
+# Use hour model, city ld 使用 6 天, 使用 huber 损失函数, best_sampe = 0.45777
+# Use hour model, city ld 使用 7 天, 使用 huber 损失函数, best_sampe = 0.51685
+
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.35225
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.35766
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.35556
+
+# gap=0. hour_model, 1_day
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.35323
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.37209
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.38073
+
+# 0521
+# gap=0, day_model
+Use day model, city ld 使用 5 天, 使用 huber 损失函数, best_sampe = 0.40544
+Use day model, city ld 使用 6 天, 使用 huber 损失函数, best_sampe = 0.39338
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.38601
+Use day model, city ld 使用 7 天, 使用 huber 损失函数, best_sampe = 0.41690
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.38969
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.39513
+
+# gap=0, hour_model, 2_day
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.35107
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.35579
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.36814
+# gap=0, hour_model, 1_day
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.35974
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.35182
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.35684
+
+
+# 0522
+# gap=0, day_model
+Use day model, city ld 使用 5 天, 使用 huber 损失函数, best_sampe = 0.40526
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.37662
+Use day model, city ld 使用 6 天, 使用 huber 损失函数, best_sampe = 0.41286
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.38822
+Use day model, city ld 使用 7 天, 使用 huber 损失函数, best_sampe = 0.43164
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.39178
+
+# gap=0, hour_model, 2_day
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.35599
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.37632
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.35777
+
+# gap=0, hour_model, 1_day
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.36397
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.36181
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.37585
+
+# gap=0, hour_model, 1_day, use weather prediction # huber bad 
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.33752
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.32394
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.34510
+
+# gap=0, day_model, use weather prediction 
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.38553
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.36824
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.37762
+
+# gap=0, hour_model, 2_days, use weather prediction
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.34033
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.36124
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.33246
+
+
+# 0523
+
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.36669
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.38624
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.37736
+
+# 1_day
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.32452
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.34086
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.32347
+# 2_days
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.34245
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.35763
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.35201
+
+# 0524
+
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.36614
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.35514
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.36584
+# 2_days
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.32095
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.32390
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.34944
+# 1_day
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.33082
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.33724
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.33619
+
+
+# 0525
+
+# day model
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.35537
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.36002
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.37167
+
+# hour_model, 2_days
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.32387
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.34406
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.34366
+
+# hour_model 1_day
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.33320
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.34035
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.31839
+
+
+# 0526
+
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.37406
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.36955
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.38623
+
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.32723
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.34160
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.34438
+
+
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.36957
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.32992
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.30370
+
+
+# 0527
+
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.35328
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.39870
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.38577
+
+# 2_days hor_model 
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.35996
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.35461
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.36298
+
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.36082
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.34979
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.35549
+
+
+# 0528
+
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.37629
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.37498
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.37663
+
+# 2_days hor_model 
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.34897
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.35807
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.34979
+
+# 2_days hor_model, gap=1
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.39125
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.38089
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.39887
+
+
+# 1_days hor_model
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.36344
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.34050
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.34626
+
+
+
+# 0529
+
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.40236
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.37302
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.37960
+
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.34830
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.33745
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.34200
+
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.34951
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.33433
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.37335
+
+
+
+
+# 0530
+
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.36129
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.40024
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.39861
+
+
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.35274
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.34400
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.34563
+
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.36240
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.33040
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.34448
+
+
+
+# 0531
+
+Use day model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.38215
+Use day model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.39468
+Use day model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.40804
+
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.37165
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.36542
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.37129
+
+Use hour model, city ld 使用 5 天, 使用 L1 损失函数, best_sampe = 0.36922
+Use hour model, city ld 使用 7 天, 使用 L1 损失函数, best_sampe = 0.36469
+Use hour model, city ld 使用 6 天, 使用 L1 损失函数, best_sampe = 0.36523

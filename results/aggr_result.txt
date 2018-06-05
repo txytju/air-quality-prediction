@@ -1,0 +1,1814 @@
+# 0504 
+
+model_preds_day bj PM2.5
+smape after aggr on dev set is :
+0.6452241038655139
+smape after aggr on aggr set is :
+0.6842315637697002
+
+model_preds_day bj PM10
+smape after aggr on dev set is :
+0.5459752671202185
+smape after aggr on aggr set is :
+0.6145273595702645
+
+model_preds_day bj O3
+smape after aggr on dev set is :
+0.48799752893351195
+smape after aggr on aggr set is :
+0.4846687820496337
+
+model_preds_day ld PM2.5
+smape after aggr on dev set is :
+0.6021693940966003
+smape after aggr on aggr set is :
+0.6588034032796842
+
+model_preds_day ld PM10
+smape after aggr on dev set is :
+0.4756080738528156
+smape after aggr on aggr set is :
+0.5118649794962679
+
+
+# 0505
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.649237
+smape after aggr on aggr set is : 0.651181
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.545409
+smape after aggr on aggr set is : 0.552251
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.478421
+smape after aggr on aggr set is : 0.479158
+
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.642927
+smape after aggr on aggr set is : 0.629313
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.546956
+smape after aggr on aggr set is : 0.546737
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.513197
+smape after aggr on aggr set is : 0.512853
+
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.612963
+smape after aggr on aggr set is : 0.609009
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.481739
+smape after aggr on aggr set is : 0.480079
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.600828
+smape after aggr on aggr set is : 0.599590
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.491187
+smape after aggr on aggr set is : 0.491072
+
+
+# 0506
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.640263
+smape after aggr on aggr set is : 0.635813
+day_model, bj, PM10
+smape after aggr on dev set is : 0.536144
+smape after aggr on aggr set is : 0.543913
+day_model, bj, O3
+smape after aggr on dev set is : 0.474825
+smape after aggr on aggr set is : 0.480598
+
+(0.635813 + 0.543913 + 0.480598)/3 = 0.55344
+
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.608524
+smape after aggr on aggr set is : 0.605251
+day_model, ld, PM10
+smape after aggr on dev set is : 0.474716
+smape after aggr on aggr set is : 0.475642
+
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.661867
+smape after aggr on aggr set is : 0.644278
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.557995
+smape after aggr on aggr set is : 0.556902
+hour_model, bj, O3
+smape after aggr on dev set is : 0.525437
+smape after aggr on aggr set is : 0.536206
+
+(0.644278 + 0.556902 + 0.536206)/3 = 0.579
+
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.586415
+smape after aggr on aggr set is : 0.593512
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.473557
+smape after aggr on aggr set is : 0.482638
+
+
+
+
+
+
+# 0507
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.645109
+smape after aggr on aggr set is : 0.635612
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.533530
+smape after aggr on aggr set is : 0.538002
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.479662
+smape after aggr on aggr set is : 0.485876
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.581142
+smape after aggr on aggr set is : 0.585775
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.470280
+smape after aggr on aggr set is : 0.478189
+
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.676248
+smape after aggr on aggr set is : 0.651325
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.570032
+smape after aggr on aggr set is : 0.576282
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.507763
+smape after aggr on aggr set is : 0.515264
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.593600
+smape after aggr on aggr set is : 0.602294
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.487438
+smape after aggr on aggr set is : 0.497713
+
+# new model
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.700213
+smape after aggr on aggr set is : 0.695739
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.620463
+smape after aggr on aggr set is : 0.627752
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.497726
+smape after aggr on aggr set is : 0.503862
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.693405
+smape after aggr on aggr set is : 0.703587
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.575254
+smape after aggr on aggr set is : 0.590322
+
+
+# 0508
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.635744
+smape after aggr on aggr set is : 0.629330
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.542903
+smape after aggr on aggr set is : 0.544751
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.478976
+smape after aggr on aggr set is : 0.481141
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.581019
+smape after aggr on aggr set is : 0.588593
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.464418
+smape after aggr on aggr set is : 0.473222
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.649218
+smape after aggr on aggr set is : 0.629561
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.555482
+smape after aggr on aggr set is : 0.554286
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.522070
+smape after aggr on aggr set is : 0.523929
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.596153
+smape after aggr on aggr set is : 0.601074
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.484261
+smape after aggr on aggr set is : 0.485223
+
+
+# 0509
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.632314
+smape after aggr on aggr set is : 0.625571
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.525949
+smape after aggr on aggr set is : 0.528119
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.483617
+smape after aggr on aggr set is : 0.486500
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.596607
+smape after aggr on aggr set is : 0.608805
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.473488
+smape after aggr on aggr set is : 0.483642
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.659621
+smape after aggr on aggr set is : 0.639211
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.558282
+smape after aggr on aggr set is : 0.555917
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.539539
+smape after aggr on aggr set is : 0.544469
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.594223
+smape after aggr on aggr set is : 0.600819
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.481344
+smape after aggr on aggr set is : 0.485887
+
+
+# 0510
+# original val set
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.622339
+smape after aggr on aggr set is : 0.613373
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.533447
+smape after aggr on aggr set is : 0.532625
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.484866
+smape after aggr on aggr set is : 0.488346
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.581510
+smape after aggr on aggr set is : 0.594956
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.465667
+smape after aggr on aggr set is : 0.474493
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.632549
+smape after aggr on aggr set is : 0.611449
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.541901
+smape after aggr on aggr set is : 0.539362
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.517480
+smape after aggr on aggr set is : 0.515891
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.576689
+smape after aggr on aggr set is : 0.585271
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.473077
+smape after aggr on aggr set is : 0.476227
+
+# new val set 
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.522460
+smape after aggr on aggr set is : 0.509845
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.460096
+smape after aggr on aggr set is : 0.436723
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.493711
+smape after aggr on aggr set is : 0.489079
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.550289
+smape after aggr on aggr set is : 0.589265
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.444443
+smape after aggr on aggr set is : 0.479125
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.559326
+smape after aggr on aggr set is : 0.527310
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.508094
+smape after aggr on aggr set is : 0.471469
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.495120
+smape after aggr on aggr set is : 0.497528
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.526112
+smape after aggr on aggr set is : 0.537847
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.447956
+smape after aggr on aggr set is : 0.463773
+
+
+# 0511
+
+# day_model, bj, PM2.5
+smape after aggr on dev set is : 0.531068
+smape after aggr on aggr set is : 0.538353
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.450921
+smape after aggr on aggr set is : 0.415872
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.488533
+smape after aggr on aggr set is : 0.486637
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.547973
+smape after aggr on aggr set is : 0.590210
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.451947
+smape after aggr on aggr set is : 0.468616
+
+
+# hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.548011
+smape after aggr on aggr set is : 0.548351
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.490416
+smape after aggr on aggr set is : 0.438004
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.488865
+smape after aggr on aggr set is : 0.486286
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.519910
+smape after aggr on aggr set is : 0.532162
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.443396
+smape after aggr on aggr set is : 0.449930
+
+# 0512
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.534545
+smape after aggr on aggr set is : 0.585263
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.466780
+smape after aggr on aggr set is : 0.427865
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.496083
+smape after aggr on aggr set is : 0.490863
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.618219
+smape after aggr on aggr set is : 0.588710
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.495288
+smape after aggr on aggr set is : 0.466599
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.600244
+smape after aggr on aggr set is : 0.557540
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.521917
+smape after aggr on aggr set is : 0.474354
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.533437
+smape after aggr on aggr set is : 0.495944
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.586088
+smape after aggr on aggr set is : 0.588083
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.481055
+smape after aggr on aggr set is : 0.440026
+
+
+# 0513
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.541468
+smape after aggr on aggr set is : 0.575506
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.451741
+smape after aggr on aggr set is : 0.416040
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.504812
+smape after aggr on aggr set is : 0.515166
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.563973
+smape after aggr on aggr set is : 0.591572
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.454740
+smape after aggr on aggr set is : 0.463399
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.614739
+smape after aggr on aggr set is : 0.533212
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.571270
+smape after aggr on aggr set is : 0.470164
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.522030
+smape after aggr on aggr set is : 0.535185
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.556835
+smape after aggr on aggr set is : 0.552022
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.446302
+smape after aggr on aggr set is : 0.430123
+
+
+# 0514
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.542147
+smape after aggr on aggr set is : 0.571630
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.446366
+smape after aggr on aggr set is : 0.412634
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.506786
+smape after aggr on aggr set is : 0.514446
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.549254
+smape after aggr on aggr set is : 0.589776
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.460524
+smape after aggr on aggr set is : 0.458714
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.581060
+smape after aggr on aggr set is : 0.556316
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.552091
+smape after aggr on aggr set is : 0.466263
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.584157
+smape after aggr on aggr set is : 0.536332
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.515388
+smape after aggr on aggr set is : 0.518743
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.437735
+smape after aggr on aggr set is : 0.417238
+
+
+# 0515
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.554061
+smape after aggr on aggr set is : 0.609336
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.557136
+smape after aggr on aggr set is : 0.599794
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.550267
+smape after aggr on aggr set is : 0.620105
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.561402
+smape after aggr on aggr set is : 0.574298
+
+day_model, bj, PM10
+smape after aggr on dev set is : 0.445312
+smape after aggr on aggr set is : 0.417222
+
+day_model, bj, O3
+smape after aggr on dev set is : 0.508718
+smape after aggr on aggr set is : 0.506139
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.539140
+smape after aggr on aggr set is : 0.559278
+
+day_model, ld, PM10
+smape after aggr on dev set is : 0.447327
+smape after aggr on aggr set is : 0.453835
+
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.606346
+smape after aggr on aggr set is : 0.606275
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.586856
+smape after aggr on aggr set is : 0.480189
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.555270
+smape after aggr on aggr set is : 0.579481
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.520294
+smape after aggr on aggr set is : 0.510291
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.437573
+smape after aggr on aggr set is : 0.398553
+
+# gap=0
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.506819
+smape after aggr on aggr set is : 0.513497
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.412693
+smape after aggr on aggr set is : 0.408922
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.532337
+smape after aggr on aggr set is : 0.518418
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.498434
+smape after aggr on aggr set is : 0.430802
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.431663
+smape after aggr on aggr set is : 0.362362
+
+
+
+
+
+
+# gap = 0 day one
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.515289
+smape after aggr on aggr set is : 0.468419
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.405282
+smape after aggr on aggr set is : 0.382922
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.467025
+smape after aggr on aggr set is : 0.467212
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.442788
+smape after aggr on aggr set is : nan
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.380416
+smape after aggr on aggr set is : nan
+
+
+# gap = 0 two days
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.497167
+smape after aggr on aggr set is : 0.558523
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.414491
+smape after aggr on aggr set is : 0.430143
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.511959
+smape after aggr on aggr set is : 0.503213
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.534670
+smape after aggr on aggr set is : 0.507296
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.443375
+smape after aggr on aggr set is : 0.444125
+
+
+
+
+
+# 0516
+
+# gap = 1
+# hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.800114
+smape after aggr on aggr set is : 0.639611
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.588697
+smape after aggr on aggr set is : 0.469461
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.564689
+smape after aggr on aggr set is : 0.594201
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.557523
+smape after aggr on aggr set is : 0.477536
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.446163
+smape after aggr on aggr set is : 0.385576
+
+# gap=0 2 days
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.443497
+smape after aggr on aggr set is : 0.479503
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.369475
+smape after aggr on aggr set is : 0.374155
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.526368
+smape after aggr on aggr set is : 0.560831
+
+# hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.423434
+smape after aggr on aggr set is : 0.448055
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.341538
+smape after aggr on aggr set is : 0.346732
+
+
+# gap=0 1_day
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.436860
+smape after aggr on aggr set is : 0.527484
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.373856
+smape after aggr on aggr set is : 0.383553
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.464382
+smape after aggr on aggr set is : 0.435552
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.430198
+smape after aggr on aggr set is : 0.452462
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.362596
+smape after aggr on aggr set is : 0.352765
+
+
+
+
+
+# 0517 
+
+# gap=1, hour_model
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.583794
+smape after aggr on aggr set is : 0.524185
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.474937
+smape after aggr on aggr set is : 0.381933
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.582378
+smape after aggr on aggr set is : 0.572303
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.496153
+smape after aggr on aggr set is : 0.475957
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.383019
+smape after aggr on aggr set is : 0.372840
+
+
+# gap=0, days=2
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.457533
+smape after aggr on aggr set is : 0.474994
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.388346
+smape after aggr on aggr set is : 0.373480
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.573016
+smape after aggr on aggr set is : 0.573137  # bad
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.457468
+smape after aggr on aggr set is : 0.432772
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.361278
+smape after aggr on aggr set is : 0.338140
+
+
+# gap=0, days=1
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.523653
+smape after aggr on aggr set is : 0.529025
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.396535
+smape after aggr on aggr set is : 0.388395
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.512700
+smape after aggr on aggr set is : 0.484946
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.429519
+smape after aggr on aggr set is : 0.456517
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.371212
+smape after aggr on aggr set is : 0.373967
+
+
+
+
+
+# 0518
+
+# gap=0 day_model
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.559283
+smape after aggr on aggr set is : 0.529227
+day_model, bj, PM10
+smape after aggr on dev set is : 0.408517
+smape after aggr on aggr set is : 0.391567
+day_model, bj, O3
+smape after aggr on dev set is : 0.491109
+smape after aggr on aggr set is : 0.497774
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.443781
+smape after aggr on aggr set is : 0.452975
+day_model, ld, PM10
+smape after aggr on dev set is : 0.336930
+smape after aggr on aggr set is : 0.335608
+
+
+
+# gap=0, hour_model 2_days_model
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.485686
+smape after aggr on aggr set is : 0.479002
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.399301
+smape after aggr on aggr set is : 0.376417
+hour_model, bj, O3
+smape after aggr on dev set is : 0.544651
+smape after aggr on aggr set is : 0.547896
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.438334
+smape after aggr on aggr set is : 0.433461
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.328229
+smape after aggr on aggr set is : 0.315696   
+
+
+# 0519 
+
+# gap=0, day_model
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.554110
+smape after aggr on aggr set is : 0.509894
+day_model, bj, PM10
+smape after aggr on dev set is : 0.409590
+smape after aggr on aggr set is : 0.395821
+day_model, bj, O3
+smape after aggr on dev set is : 0.494090
+smape after aggr on aggr set is : 0.494196
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.452420
+smape after aggr on aggr set is : 0.460543
+day_model, ld, PM10
+smape after aggr on dev set is : 0.336433
+smape after aggr on aggr set is : 0.345702
+
+# gap=0, hour_model, 2_days
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.513222
+smape after aggr on aggr set is : 0.542459
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.461308
+smape after aggr on aggr set is : 0.459172
+hour_model, bj, O3
+smape after aggr on dev set is : 0.522902
+smape after aggr on aggr set is : 0.552105
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.468295
+smape after aggr on aggr set is : 0.447188
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.365979
+smape after aggr on aggr set is : 0.336714
+
+
+# 0520
+
+# gap=0, day_model
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.557284
+smape after aggr on aggr set is : 0.518178
+	day_model, bj, PM10
+	smape after aggr on dev set is : 0.394667
+	smape after aggr on aggr set is : 0.403875
+	day_model, bj, O3
+	smape after aggr on dev set is : 0.495276
+	smape after aggr on aggr set is : 0.499702
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.447997
+smape after aggr on aggr set is : 0.443175
+day_model, ld, PM10
+smape after aggr on dev set is : 0.329518
+smape after aggr on aggr set is : 0.336250
+
+# gap=0, hour_model, 2_days
+
+	hour_model, bj, PM2.5
+	smape after aggr on dev set is : 0.458193
+	smape after aggr on aggr set is : 0.490584
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.387448
+smape after aggr on aggr set is : 0.445523
+hour_model, bj, O3
+smape after aggr on dev set is : 0.559350
+smape after aggr on aggr set is : 0.535236
+	hour_model, ld, PM2.5
+	smape after aggr on dev set is : 0.549252
+	smape after aggr on aggr set is : 0.409152
+	hour_model, ld, PM10
+	smape after aggr on dev set is : 0.373466
+	smape after aggr on aggr set is : 0.301427
+
+# gap=0, hour_model, 1_day
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.568939
+smape after aggr on aggr set is : 0.626100
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.406078
+smape after aggr on aggr set is : 0.516585
+hour_model, bj, O3
+smape after aggr on dev set is : 0.504967
+smape after aggr on aggr set is : 0.496885
+
+
+
+# 0521
+
+# gap=0, day_model
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.527518
+smape after aggr on aggr set is : 0.535252s
+day_model, bj, PM10
+smape after aggr on dev set is : 0.408678
+smape after aggr on aggr set is : 0.492693
+day_model, bj, O3
+smape after aggr on dev set is : 0.490857
+smape after aggr on aggr set is : 0.512390
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.391968
+smape after aggr on aggr set is : 0.414416
+day_model, ld, PM10
+smape after aggr on dev set is : 0.292100
+smape after aggr on aggr set is : 0.314925
+
+# gap=0, hour_model, 2_days
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.601996
+smape after aggr on aggr set is : 0.648868
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.476684
+smape after aggr on aggr set is : 0.635399
+hour_model, bj, O3
+smape after aggr on dev set is : 0.551517
+smape after aggr on aggr set is : 0.564242
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.445510
+smape after aggr on aggr set is : 0.403558
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.345527
+smape after aggr on aggr set is : 0.314271
+
+# gap=0, hour_model, 1_day
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.459534
+smape after aggr on aggr set is : 0.493780
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.408181
+smape after aggr on aggr set is : 0.453787
+hour_model, bj, O3
+smape after aggr on dev set is : 0.517226
+smape after aggr on aggr set is : 0.516202
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.429838
+smape after aggr on aggr set is : 0.399916
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.330683
+smape after aggr on aggr set is : 0.288059
+
+
+
+
+# 0522
+
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.505322
+smape after aggr on aggr set is : 0.520968
+day_model, bj, PM10
+smape after aggr on dev set is : 0.431254
+smape after aggr on aggr set is : 0.524932
+day_model, bj, O3
+smape after aggr on dev set is : 0.505518
+smape after aggr on aggr set is : 0.547017
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.418432
+smape after aggr on aggr set is : 0.421732
+day_model, ld, PM10
+smape after aggr on dev set is : 0.297465
+smape after aggr on aggr set is : 0.308329
+
+
+# gap=0, hour_model, 2_days
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.570158
+smape after aggr on aggr set is : 0.558242
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.450934
+smape after aggr on aggr set is : 0.552430
+hour_model, bj, O3
+smape after aggr on dev set is : 0.603696
+smape after aggr on aggr set is : 0.601151
+
+	hour_model, ld, PM2.5
+	smape after aggr on dev set is : 0.429552
+	smape after aggr on aggr set is : 0.385760
+	hour_model, ld, PM10
+	smape after aggr on dev set is : 0.337083
+	smape after aggr on aggr set is : 0.297218
+
+# gap=0, hour_model, 1_day
+	hour_model, bj, PM2.5
+	smape after aggr on dev set is : 0.421958
+	smape after aggr on aggr set is : 0.473295
+	hour_model, bj, PM10
+	smape after aggr on dev set is : 0.402868
+	smape after aggr on aggr set is : 0.496951
+	hour_model, bj, O3
+	smape after aggr on dev set is : 0.488568
+	smape after aggr on aggr set is : 0.487923
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.441100
+smape after aggr on aggr set is : 0.415893
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.343931
+smape after aggr on aggr set is : 0.313457
+
+
+# gap=0, hour_model, 1_day,  2_days_weather_forecast
+	hour_model, bj, PM2.5
+	smape after aggr on dev set is : 0.453934
+	smape after aggr on aggr set is : 0.502460
+	hour_model, bj, PM10
+	smape after aggr on dev set is : 0.380064
+	smape after aggr on aggr set is : 0.454094
+	hour_model, bj, O3
+	smape after aggr on dev set is : 0.460244 
+	smape after aggr on aggr set is : 0.460130
+
+	hour_model, ld, PM2.5
+	smape after aggr on dev set is : 0.359830
+	smape after aggr on aggr set is : 0.357082
+	hour_model, ld, PM10
+	smape after aggr on dev set is : 0.278151
+	smape after aggr on aggr set is : 0.281388
+
+# gap=0, hour_model, 2_days,  2_days_weather_forecast
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.529112
+smape after aggr on aggr set is : 0.495737
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.394724
+smape after aggr on aggr set is : 0.445905
+hour_model, bj, O3
+smape after aggr on dev set is : 0.516379
+smape after aggr on aggr set is : 0.508425
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.408090
+smape after aggr on aggr set is : 0.378911
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.320723
+smape after aggr on aggr set is : 0.285904
+
+
+
+
+# 0523
+
+# day_model 
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.490034
+smape after aggr on aggr set is : 0.496508
+day_model, bj, PM10
+smape after aggr on dev set is : 0.440775
+smape after aggr on aggr set is : 0.541938
+day_model, bj, O3
+smape after aggr on dev set is : 0.551878
+smape after aggr on aggr set is : 0.547029
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.431412
+smape after aggr on aggr set is : 0.392109
+day_model, ld, PM10
+smape after aggr on dev set is : 0.324768
+smape after aggr on aggr set is : 0.280486
+
+# hour_model 1
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.491433
+smape after aggr on aggr set is : 0.521216
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.503002
+smape after aggr on aggr set is : 0.582741
+hour_model, bj, O3
+smape after aggr on dev set is : 0.461215
+smape after aggr on aggr set is : 0.457015
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.365131
+smape after aggr on aggr set is : 0.351133
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.300038
+smape after aggr on aggr set is : 0.279167
+
+# hour_model 2
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.473132
+smape after aggr on aggr set is : 0.532100
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.455006
+smape after aggr on aggr set is : 0.589232
+hour_model, bj, O3
+smape after aggr on dev set is : 0.493337
+smape after aggr on aggr set is : 0.512202
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.423639
+smape after aggr on aggr set is : 0.325299
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.320888
+smape after aggr on aggr set is : 0.274106
+
+
+# 0524
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.510230
+smape after aggr on aggr set is : 0.518079
+day_model, bj, PM10
+smape after aggr on dev set is : 0.493810
+smape after aggr on aggr set is : 0.595290
+day_model, bj, O3
+smape after aggr on dev set is : 0.548330
+smape after aggr on aggr set is : 0.541181
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.401378
+smape after aggr on aggr set is : 0.407264
+day_model, ld, PM10
+smape after aggr on dev set is : 0.295764
+smape after aggr on aggr set is : 0.282245
+
+
+
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.444509
+smape after aggr on aggr set is : 0.453619
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.466305
+smape after aggr on aggr set is : 0.492928
+hour_model, bj, O3
+smape after aggr on dev set is : 0.503065
+smape after aggr on aggr set is : 0.480382
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.380540
+smape after aggr on aggr set is : 0.337255
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.304222
+smape after aggr on aggr set is : 0.276362
+
+
+
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.364036
+smape after aggr on aggr set is : 0.357372
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.275906
+smape after aggr on aggr set is : 0.276581
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.506617
+smape after aggr on aggr set is : 0.515640
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.505004
+smape after aggr on aggr set is : 0.539202
+hour_model, bj, O3
+smape after aggr on dev set is : 0.478078
+smape after aggr on aggr set is : 0.471689
+
+
+
+
+Beijing
+
+                 5_day_model         6_day_model       7_day_model
+pm25 
+model1 : [0.5186514249952683, 0.47837901013089323, 0.07255150103115537]
+model2 : [0.23449705341473126, 0.4263703987974014, 0.4067711521181114]
+
+pm10
+model1 : [0.27165360475103756, 0.4037849805916258, 0.37308800668586817]
+model2 : [0.1389101782883589, 0.2217051689349122, 0.5854925030591123]
+
+O3
+model1 : [0.1581359005192255, 0.16992101514899252, 0.6692973338006093]
+model2 : [0.41764474236092164, 0.2553657360560629, 0.3836087666736774]
+
+
+London
+pm25
+model1 : [0.10237682707967964, 0.4247566905206914, 0.4431225387444946]
+model2 : [0.05408579252807309, 0.8494764190581349, 0.27859076441193564]
+
+pm10
+model1 : [0.031124800236747165, 0.23748968663597514, 0.7509102295886108]
+model2 : [0.5902808776797746, 0.6498970707448954, 0.0492148411459456]
+
+
+# all_modls
+
+all, bj, PM2.5
+smape after aggr on dev set is : 0.450385
+smape after aggr on aggr set is : 0.463084
+all, bj, PM10
+smape after aggr on dev set is : 0.454587
+smape after aggr on aggr set is : 0.497188
+all, bj, O3
+smape after aggr on dev set is : 0.467213
+smape after aggr on aggr set is : 0.455968
+
+
+all, ld, PM2.5
+smape after aggr on dev set is : 0.345006
+smape after aggr on aggr set is : 0.330760
+all, ld, PM10
+smape after aggr on dev set is : 0.265654
+smape after aggr on aggr set is : 0.251420
+
+
+# ackley2 #############################
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.452819
+smape after aggr on aggr set is : 0.489035
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.492815
+smape after aggr on aggr set is : 0.508338
+hour_model, bj, O3
+smape after aggr on dev set is : 0.507124
+smape after aggr on aggr set is : 0.505660
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.370762
+smape after aggr on aggr set is : 0.338768
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.286115
+smape after aggr on aggr set is : 0.260079
+
+# ackley3 #############################
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.457852
+smape after aggr on aggr set is : 0.495777
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.492250
+smape after aggr on aggr set is : 0.658801
+hour_model, bj, O3
+smape after aggr on dev set is : 0.499319
+smape after aggr on aggr set is : 1.052258
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.382963
+smape after aggr on aggr set is : 0.490088
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.288822
+smape after aggr on aggr set is : 0.316904
+
+
+
+
+# 0525
+
+# day_model 
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.503185
+smape after aggr on aggr set is : 0.455096
+day_model, bj, PM10
+smape after aggr on dev set is : 0.486894
+smape after aggr on aggr set is : 0.545140
+day_model, bj, O3
+smape after aggr on dev set is : 0.548058
+smape after aggr on aggr set is : 0.541200
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.373283
+smape after aggr on aggr set is : 0.371745
+day_model, ld, PM10
+smape after aggr on dev set is : 0.297265
+smape after aggr on aggr set is : 0.270288
+
+
+
+# 2_days_hour_model 
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.479953
+smape after aggr on aggr set is : 0.489090
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.484390
+smape after aggr on aggr set is : 0.497509
+hour_model, bj, O3
+smape after aggr on dev set is : 0.496564
+smape after aggr on aggr set is : 0.484868
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.371436
+smape after aggr on aggr set is : 0.351484
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.283812
+smape after aggr on aggr set is : 0.284242
+
+
+
+# 1_day_hour_model
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.502491
+smape after aggr on aggr set is : 0.487951
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.476771
+smape after aggr on aggr set is : 0.486921
+hour_model, bj, O3
+smape after aggr on dev set is : 0.469171
+smape after aggr on aggr set is : 0.441977
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.354623
+smape after aggr on aggr set is : 0.357944
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.267445
+smape after aggr on aggr set is : 0.276301
+
+
+
+
+# all_models 
+all, bj, PM2.5
+smape after aggr on dev set is : 0.441172
+smape after aggr on aggr set is : 0.434584
+all, bj, PM10
+smape after aggr on dev set is : 0.445715
+smape after aggr on aggr set is : 0.472640
+all, bj, O3
+smape after aggr on dev set is : 0.454962
+smape after aggr on aggr set is : 0.439020
+
+all, ld, PM2.5
+smape after aggr on dev set is : 0.330013
+smape after aggr on aggr set is : 0.325167
+all, ld, PM10
+smape after aggr on dev set is : 0.256271
+smape after aggr on aggr set is : 0.253709
+
+
+
+
+
+# 0526
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.522998
+smape after aggr on aggr set is : 0.371443
+day_model, bj, PM10
+smape after aggr on dev set is : 0.485938
+smape after aggr on aggr set is : 0.528308
+day_model, bj, O3
+smape after aggr on dev set is : 0.549820
+smape after aggr on aggr set is : 0.567151
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.385115
+smape after aggr on aggr set is : 0.365908
+day_model, ld, PM10
+smape after aggr on dev set is : 0.298609
+smape after aggr on aggr set is : 0.275230
+
+# 2_days
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.457475
+smape after aggr on aggr set is : 0.475357
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.497887
+smape after aggr on aggr set is : 0.583755
+hour_model, bj, O3
+smape after aggr on dev set is : 0.513909
+smape after aggr on aggr set is : 0.500873
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.375437
+smape after aggr on aggr set is : 0.340006
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.311112
+smape after aggr on aggr set is : 0.278465
+
+# 1_day
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.472689
+smape after aggr on aggr set is : 0.495792
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.465865
+smape after aggr on aggr set is : 0.588537
+hour_model, bj, O3
+smape after aggr on dev set is : 0.438115
+smape after aggr on aggr set is : 0.432423
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.374748
+smape after aggr on aggr set is : 0.333265
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.286596
+smape after aggr on aggr set is : 0.248100
+
+
+# all_models
+all, bj, PM2.5
+smape after aggr on dev set is : 0.430715
+smape after aggr on aggr set is : 0.415059
+all, bj, PM10
+smape after aggr on dev set is : 0.433204
+smape after aggr on aggr set is : 0.517701
+all, bj, O3
+smape after aggr on dev set is : 0.445900
+smape after aggr on aggr set is : 0.450505
+
+all, ld, PM2.5
+smape after aggr on dev set is : 0.345625
+smape after aggr on aggr set is : 0.326046
+all, ld, PM10
+smape after aggr on dev set is : 0.265780
+smape after aggr on aggr set is : 0.241022
+
+
+
+# 0527
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.458447
+smape after aggr on aggr set is : 0.412008
+day_model, bj, PM10
+smape after aggr on dev set is : 0.453306
+smape after aggr on aggr set is : 0.530624
+day_model, bj, O3
+smape after aggr on dev set is : 0.549372
+smape after aggr on aggr set is : 0.557576
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.395778
+smape after aggr on aggr set is : 0.392596
+day_model, ld, PM10
+smape after aggr on dev set is : 0.316980
+smape after aggr on aggr set is : 0.302347
+
+
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.448814
+smape after aggr on aggr set is : 0.444243
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.462782
+smape after aggr on aggr set is : 0.569337
+hour_model, bj, O3
+smape after aggr on dev set is : 0.499608
+smape after aggr on aggr set is : 0.536116
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.379436
+smape after aggr on aggr set is : 0.371626
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.305057
+smape after aggr on aggr set is : 0.266307
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.462408
+smape after aggr on aggr set is : 0.486993
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.469872
+smape after aggr on aggr set is : 0.546306
+hour_model, bj, O3
+smape after aggr on dev set is : 0.447507
+smape after aggr on aggr set is : 0.452105
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.374018
+smape after aggr on aggr set is : 0.345477
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.291096
+smape after aggr on aggr set is : 0.262901
+
+all, bj, PM10
+smape after aggr on dev set is : 0.423247
+smape after aggr on aggr set is : 0.517681
+all, bj, PM2.5
+smape after aggr on dev set is : 0.415051
+smape after aggr on aggr set is : 0.405866
+all, bj, O3
+smape after aggr on dev set is : 0.438491
+smape after aggr on aggr set is : 0.459630
+
+all, ld, PM2.5
+smape after aggr on dev set is : 0.354633
+smape after aggr on aggr set is : 0.341097
+all, ld, PM10
+smape after aggr on dev set is : 0.283789
+smape after aggr on aggr set is : 0.257863
+
+
+
+
+
+# 0528
+
+
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.459376
+smape after aggr on aggr set is : 0.456691
+day_model, bj, PM10
+smape after aggr on dev set is : 0.465333
+smape after aggr on aggr set is : 0.566981
+day_model, bj, O3
+smape after aggr on dev set is : 0.534598
+smape after aggr on aggr set is : 0.547602
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.424659
+smape after aggr on aggr set is : 0.423934
+day_model, ld, PM10
+smape after aggr on dev set is : 0.315007
+smape after aggr on aggr set is : 0.301542
+
+
+
+
+# 2_days hor_model 
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.460697
+smape after aggr on aggr set is : 0.579820
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.467730
+smape after aggr on aggr set is : 0.562537
+hour_model, bj, O3
+smape after aggr on dev set is : 0.489240
+smape after aggr on aggr set is : 0.514224
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.392056
+smape after aggr on aggr set is : 0.348846
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.297003
+smape after aggr on aggr set is : 0.274046
+
+
+
+
+# gap=1, 2_days, hour_model
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.466400
+smape after aggr on aggr set is : 0.471131
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.495126
+smape after aggr on aggr set is : 0.587054
+hour_model, bj, O3
+smape after aggr on dev set is : 0.551331
+smape after aggr on aggr set is : 0.547992
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.444277
+smape after aggr on aggr set is : 0.438281
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.325168
+smape after aggr on aggr set is : 0.322410
+
+all, bj, PM2.5
+smape after aggr on dev set is : 0.440103
+smape after aggr on aggr set is : 0.442184
+all, bj, PM10
+smape after aggr on dev set is : 0.433884
+smape after aggr on aggr set is : 0.512854
+all, bj, O3
+smape after aggr on dev set is : 0.447493
+smape after aggr on aggr set is : 0.472751
+
+all, ld, PM2.5
+smape after aggr on dev set is : 0.358134
+smape after aggr on aggr set is : 0.348320
+all, ld, PM10
+smape after aggr on dev set is : 0.270320
+smape after aggr on aggr set is : 0.250544
+
+
+
+
+# 0529
+
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.509405
+smape after aggr on aggr set is : 0.439592
+day_model, bj, PM10
+smape after aggr on dev set is : 0.432021
+smape after aggr on aggr set is : 0.499331
+day_model, bj, O3
+smape after aggr on dev set is : 0.547808
+smape after aggr on aggr set is : 0.552536
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.455639
+smape after aggr on aggr set is : 0.449037
+day_model, ld, PM10
+smape after aggr on dev set is : 0.342449
+smape after aggr on aggr set is : 0.305430
+
+
+
+
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.420192
+smape after aggr on aggr set is : 0.334314
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.299437
+smape after aggr on aggr set is : 0.279268
+
+
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.363456
+smape after aggr on aggr set is : 0.335197
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.291161
+smape after aggr on aggr set is : 0.277382
+
+all, ld, PM2.5
+smape after aggr on dev set is : 0.340260
+smape after aggr on aggr set is : 0.317985
+all, ld, PM10
+smape after aggr on dev set is : 0.268557
+smape after aggr on aggr set is : 0.257065
+
+
+
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.503046
+smape after aggr on aggr set is : 0.482089
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.529135
+smape after aggr on aggr set is : 0.587066
+hour_model, bj, O3
+smape after aggr on dev set is : 0.557567
+smape after aggr on aggr set is : 0.557674
+
+
+
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.513842
+smape after aggr on aggr set is : 0.497918
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.541651
+smape after aggr on aggr set is : 0.597699
+hour_model, bj, O3
+smape after aggr on dev set is : 0.570488
+smape after aggr on aggr set is : 0.642937
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.514259
+smape after aggr on aggr set is : 0.499243
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.547136
+smape after aggr on aggr set is : 0.584615
+hour_model, bj, O3
+smape after aggr on dev set is : 0.573388
+smape after aggr on aggr set is : 0.650234
+
+
+
+# 0530
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.556015
+smape after aggr on aggr set is : 0.524990
+day_model, bj, PM10
+smape after aggr on dev set is : 0.500482
+smape after aggr on aggr set is : 0.568028
+day_model, bj, O3
+smape after aggr on dev set is : 0.544535
+smape after aggr on aggr set is : 0.545918
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.472396
+smape after aggr on aggr set is : 0.411619
+day_model, ld, PM10
+smape after aggr on dev set is : 0.348966
+smape after aggr on aggr set is : 0.316843
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.521580
+smape after aggr on aggr set is : 0.608528
+
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.515701
+smape after aggr on aggr set is : 0.628779
+
+hour_model, bj, O3
+smape after aggr on dev set is : 0.517281
+smape after aggr on aggr set is : 0.509296
+
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.360149
+smape after aggr on aggr set is : 0.350286
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.279059
+smape after aggr on aggr set is : 0.287411
+
+all, bj, PM2.5
+smape after aggr on dev set is : 0.508508
+smape after aggr on aggr set is : 0.570021
+
+all, bj, PM10
+smape after aggr on dev set is : 0.480075
+smape after aggr on aggr set is : 0.586526
+
+all, bj, O3
+smape after aggr on dev set is : 0.460805
+smape after aggr on aggr set is : 0.474565
+
+all, ld, PM2.5
+smape after aggr on dev set is : 0.345539
+smape after aggr on aggr set is : 0.348117
+
+all, ld, PM10
+smape after aggr on dev set is : 0.269117
+smape after aggr on aggr set is : 0.279888
+
+
+
+
+
+
+
+
+# 0531
+
+day_model, bj, PM2.5
+smape after aggr on dev set is : 0.527323
+smape after aggr on aggr set is : 0.543096
+day_model, bj, PM10
+smape after aggr on dev set is : 0.495875
+smape after aggr on aggr set is : 0.561276
+day_model, bj, O3
+smape after aggr on dev set is : 0.549395
+smape after aggr on aggr set is : 0.542613
+
+day_model, ld, PM2.5
+smape after aggr on dev set is : 0.493363
+smape after aggr on aggr set is : 0.422654
+day_model, ld, PM10
+smape after aggr on dev set is : 0.353201
+smape after aggr on aggr set is : 0.318446
+
+
+
+
+hour_model, bj, PM2.5
+smape after aggr on dev set is : 0.504215
+smape after aggr on aggr set is : 0.684650
+hour_model, bj, PM10
+smape after aggr on dev set is : 0.506507
+smape after aggr on aggr set is : 0.658642
+hour_model, bj, O3
+smape after aggr on dev set is : 0.474394
+smape after aggr on aggr set is : 0.478407
+
+hour_model, ld, PM10
+smape after aggr on dev set is : 0.323155
+smape after aggr on aggr set is : 0.332316
+hour_model, ld, PM2.5
+smape after aggr on dev set is : 0.415949
+smape after aggr on aggr set is : 0.389706
+
