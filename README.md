@@ -34,20 +34,20 @@
 
 1. Why oversampling?
 
-- [Symmetric mean absolute percentage error (SMAPE)](https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error) is used in this competation as evaluation metric. In SMAPE, relative error matters rather than absolut error, as shown in the function.
+   ​	<div style="text-align: center"> <img src="http://p3rz3gu1u.bkt.clouddn.com/2018-07-02-Screen%20Shot%202018-07-02%20at%205.20.26%20PM.png"/> </div>
 
-![](http://p3rz3gu1u.bkt.clouddn.com/2018-07-02-Screen%20Shot%202018-07-02%20at%205.20.26%20PM.png)
+   [Symmetric mean absolute percentage error (SMAPE)](https://en.wikipedia.org/wiki/Symmetric_mean_absolute_percentage_error) is used in this competation as evaluation metric. In SMAPE, relative error matters rather than absolut error, as shown in the function.
 
-- However, loss functions like L1 loss, L2 loss and huber loss are applied in different models and they all aim at decreasing absolute error rather than relative error. So if models are trained using original data and these 3 loss functions, trained models would be optimized to fit data points with huge number rather than data points with smaller numbers, which would lead to larger SAMPE when evaluating with validation set and test with test set.
+   However, loss functions like L1 loss, L2 loss and huber loss are applied in different models and they all aim at decreasing absolute error rather than relative error. So if models are trained using original data and these 3 loss functions, trained models would be optimized to fit data points with huge number rather than data points with smaller numbers, which would lead to larger SAMPE when evaluating with validation set and test with test set.
 
 2. Oversamping Strategies
 
-- Training data from 20170101-20180328 are used in the training data. Steps are as follows:
+   Training data from 20170101-20180328 are used in the training data. Oversampling steps are as follows:
 
-  1. PM2.5 mean of y is caculated for every (X,y) pair, and all data points in the training set are sorted in ascending order. 
-  2. Smallest **oversample_part** of all datapoints are picked and repeated for **repeats** times and are appended to the original training dataset. So (1+**repeats*oversample_part**) times the original amount of training data are finally used to generate training data batch (X,y), which may help to shift the optimization target from those loss functions to SMAPE. 
+   1. PM2.5 mean of y is caculated for every (X,y) pair, and all data points in the training set are sorted in ascending order. 
+   2. Smallest **oversample_part** of all datapoints are picked and repeated for **repeats** times and are appended to the original training dataset. So (1+**repeats*oversample_part**) times the original amount of training data are finally used to generate training data batch (X,y), which may help to shift the optimization target from those loss functions to SMAPE. 
 
-  **Oversample_part** and **repeats** are hyperparameters which suitable values can be found by random search or grid search.
+   **Oversample_part** and **repeats** are hyperparameters which suitable values can be found by random search or grid search. Oversampling lead to a 0.02~0.04 improvement on SMAPE of validation set.
 
 ## 3. Models
 
