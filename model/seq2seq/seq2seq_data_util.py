@@ -128,7 +128,7 @@ def oversampling_training_list(X_df_list,
         pm25_mean_list.append(pm25_mean)
 
     # sort X_df_list and y_df_list according to pm25_mean_list
-    X_df_list = [X for _,X in zip(pm25_mean_list, X_df_list)]   # from small to big
+    X_df_list = [X for _,X in zip(pm25_mean_list, X_df_list)]   # from small to large
     y_df_list = [y for _,y in zip(pm25_mean_list, y_df_list)]
 
     # oversmapling
